@@ -382,6 +382,14 @@
         .payment {
             padding: 80px 0;
             background-color: #1e293b;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .payment.active {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .payment-container {
@@ -652,6 +660,401 @@
             font-size: 0.9rem;
         }
         
+        /* ===== ANIMASI & MODAL BARU ===== */
+        
+        /* Animasi Page Transition */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .page-transition.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .transition-content {
+            text-align: center;
+            color: var(--accent);
+        }
+        
+        .transition-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        .transition-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .transition-subtext {
+            font-size: 1rem;
+            color: var(--light);
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.6s ease forwards;
+        }
+        
+        .pulse-animation {
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Modal Upload Proof */
+        .upload-proof-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .upload-proof-content {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent);
+            position: relative;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .upload-proof-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .upload-proof-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .upload-proof-header h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .upload-proof-body {
+            margin-bottom: 30px;
+        }
+        
+        .proof-upload-area {
+            border: 3px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .proof-upload-area:hover, .proof-upload-area.active {
+            border-color: var(--accent);
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        .proof-upload-area i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .proof-file-name {
+            color: var(--light);
+            margin-top: 10px;
+            word-break: break-all;
+        }
+        
+        .proof-preview {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .proof-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .upload-proof-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .upload-proof-btn, .skip-proof-btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .upload-proof-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+        }
+        
+        .upload-proof-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .skip-proof-btn {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: var(--light);
+        }
+        
+        .skip-proof-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .close-proof-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .close-proof-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        /* Progress Steps */
+        .checkout-progress {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .checkout-progress:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .progress-step.active .step-circle {
+            background-color: var(--accent);
+            color: var(--dark);
+            border-color: var(--accent);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+        
+        .progress-step.completed .step-circle {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .progress-step.active .step-label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: flex-end;
+        }
+        
+        .cart-modal-content {
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: #1e293b;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 2px solid var(--accent);
+            animation: slideInRight 0.4s ease;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .cart-header h3 {
+            color: var(--accent);
+        }
+        
+        .cart-close-btn {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-details {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        .cart-item-total {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .cart-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .cart-checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .header-container {
@@ -693,6 +1096,19 @@
                 flex-direction: column;
                 gap: 15px;
             }
+            
+            .checkout-progress {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .progress-step {
+                min-width: 80px;
+            }
+            
+            .upload-proof-actions {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 576px) {
@@ -708,10 +1124,54 @@
             .payment-container {
                 grid-template-columns: 1fr;
             }
+            
+            .cart-modal-content {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-content">
+            <div class="transition-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="transition-text">Mengarahkan ke Pembayaran...</div>
+            <div class="transition-subtext">Harap tunggu sebentar</div>
+        </div>
+    </div>
+    
+    <!-- Upload Proof Modal -->
+    <div class="upload-proof-modal" id="uploadProofModal">
+        <div class="upload-proof-content">
+            <button class="close-proof-modal" onclick="closeUploadProofModal()">&times;</button>
+            <div class="upload-proof-header">
+                <div class="upload-proof-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <h3>Upload Bukti Transfer</h3>
+                <p>Unggah bukti pembayaran Anda untuk melanjutkan</p>
+            </div>
+            <div class="upload-proof-body">
+                <div class="proof-upload-area" id="proofUploadArea" onclick="triggerProofUpload()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Klik untuk upload bukti transfer</p>
+                    <p class="proof-file-name" id="proofFileName">Format: JPG, PNG (Maks. 5MB)</p>
+                </div>
+                <input type="file" id="proofInput" accept="image/*" style="display: none;" onchange="handleProofUpload(event)">
+                <div class="proof-preview" id="proofPreview">
+                    <img id="proofPreviewImage" src="" alt="Preview Bukti Transfer">
+                </div>
+            </div>
+            <div class="upload-proof-actions">
+                <button class="skip-proof-btn" onclick="skipProofUpload()">Nanti Saja</button>
+                <button class="upload-proof-btn" onclick="submitProofUpload()">Upload & Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -797,9 +1257,7 @@
                     </div>
                     <h3>Akun Facebook</h3>
                 </div>
-                <div class="products-grid" id="facebook-products">
-                    <!-- Products will be populated by JavaScript -->
-                </div>
+                <div class="products-grid" id="facebook-products"></div>
             </div>
             
             <!-- GSuite Accounts -->
@@ -810,9 +1268,7 @@
                     </div>
                     <h3>GSuite</h3>
                 </div>
-                <div class="products-grid" id="gsuite-products">
-                    <!-- Products will be populated by JavaScript -->
-                </div>
+                <div class="products-grid" id="gsuite-products"></div>
             </div>
             
             <!-- YouTube Products -->
@@ -823,9 +1279,7 @@
                     </div>
                     <h3>YouTube</h3>
                 </div>
-                <div class="products-grid" id="youtube-products">
-                    <!-- Products will be populated by JavaScript -->
-                </div>
+                <div class="products-grid" id="youtube-products"></div>
             </div>
             
             <!-- Tools Products -->
@@ -836,9 +1290,7 @@
                     </div>
                     <h3>Tools</h3>
                 </div>
-                <div class="products-grid" id="tools-products">
-                    <!-- Products will be populated by JavaScript -->
-                </div>
+                <div class="products-grid" id="tools-products"></div>
             </div>
             
             <!-- Gmail Products -->
@@ -849,9 +1301,7 @@
                     </div>
                     <h3>Gmail</h3>
                 </div>
-                <div class="products-grid" id="gmail-products">
-                    <!-- Products will be populated by JavaScript -->
-                </div>
+                <div class="products-grid" id="gmail-products"></div>
             </div>
         </div>
     </section>
@@ -862,6 +1312,27 @@
             <div class="section-title">
                 <h2>Pembayaran</h2>
             </div>
+            
+            <!-- Checkout Progress Steps -->
+            <div class="checkout-progress" id="checkoutProgress">
+                <div class="progress-step active" id="step1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Checkout</div>
+                </div>
+                <div class="progress-step" id="step2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Pembayaran</div>
+                </div>
+                <div class="progress-step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Upload Bukti</div>
+                </div>
+                <div class="progress-step" id="step4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Selesai</div>
+                </div>
+            </div>
+            
             <div class="payment-container">
                 <div class="payment-methods">
                     <h3>Metode Pembayaran</h3>
@@ -915,7 +1386,7 @@
                     </div>
                 </div>
                 
-                <div class="payment-form">
+                <div class="payment-form" id="paymentFormContainer">
                     <h3>Konfirmasi Pembayaran</h3>
                     <form id="paymentForm">
                         <div class="form-group">
@@ -1043,22 +1514,22 @@
         </div>
     </footer>
 
-    <!-- Cart Modal (Hidden by default) -->
-    <div id="cartModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); z-index:2000; justify-content:flex-end;">
-        <div style="width:100%; max-width:400px; height:100%; background-color:#1e293b; padding:20px; overflow-y:auto; border-left:2px solid var(--accent);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h3 style="color:var(--accent);">Keranjang Belanja</h3>
-                <button onclick="toggleCart()" style="background:none; border:none; color:var(--light); font-size:1.5rem; cursor:pointer;">&times;</button>
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h3>Keranjang Belanja</h3>
+                <button class="cart-close-btn" onclick="toggleCart()">&times;</button>
             </div>
-            <div id="cartItems" style="margin-bottom:20px;">
-                <!-- Cart items will be populated here -->
-            </div>
-            <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+            <div id="cartItems" style="margin-bottom:20px;"></div>
+            <div class="cart-footer">
+                <div class="cart-total">
                     <span>Total:</span>
                     <span id="cartTotal" style="font-weight:bold; color:var(--accent);">Rp 0</span>
                 </div>
-                <button onclick="checkoutCart()" style="width:100%; padding:15px; background:linear-gradient(135deg, var(--accent) 0%, #b8941f 100%); color:var(--dark); border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Lanjut ke Pembayaran</button>
+                <button onclick="checkoutCart()" class="cart-checkout-btn pulse-animation">
+                    <i class="fas fa-shopping-cart"></i> Lanjut ke Pembayaran
+                </button>
             </div>
         </div>
     </div>
@@ -1110,6 +1581,8 @@
             paymentMethod: "-",
             total: "Rp 0"
         };
+        let currentStep = 1;
+        let proofFile = null;
 
         // Initialize products on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -1132,6 +1605,20 @@
                 e.preventDefault();
                 processPayment();
             });
+            
+            // Aktifkan animasi payment section saat masuk viewport
+            const paymentSection = document.querySelector('.payment');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            if (paymentSection) {
+                observer.observe(paymentSection);
+            }
         });
 
         // Render products to the page
@@ -1193,7 +1680,7 @@
             const minOrderText = product.minOrder ? `<p style="color: #ffc107; font-size: 0.85rem; margin-top: 5px;"><i class="fas fa-exclamation-triangle"></i> Minimal pembelian: ${product.minOrder} akun</p>` : '';
             
             return `
-                <div class="product-card">
+                <div class="product-card fade-in-up">
                     <div class="product-info">
                         <div class="product-header">
                             <div class="product-name">${product.name}</div>
@@ -1316,12 +1803,12 @@
                 total += itemTotal;
                 
                 itemsHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.05);">
-                        <div style="flex:1;">
-                            <div style="font-weight:600; margin-bottom:5px;">${item.name}</div>
-                            <div style="font-size:0.9rem; color:#94a3b8;">${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</div>
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-details">${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</div>
                         </div>
-                        <div style="font-weight:600; color:var(--accent);">Rp ${itemTotal.toLocaleString('id-ID')}</div>
+                        <div class="cart-item-total">Rp ${itemTotal.toLocaleString('id-ID')}</div>
                     </div>
                 `;
             });
@@ -1341,6 +1828,16 @@
                 return;
             }
             
+            // Close cart modal
+            toggleCart();
+            
+            // Update progress step
+            updateProgressStep(1);
+            
+            // Show transition animation
+            const transition = document.getElementById('pageTransition');
+            transition.classList.add('active');
+            
             // For demo purposes, just take the first item
             const firstItem = cart[0];
             
@@ -1356,17 +1853,224 @@
             document.getElementById('invoiceUnitPrice').textContent = invoiceData.unitPrice;
             document.getElementById('invoiceTotal').textContent = invoiceData.total;
             
-            // Scroll to invoice section
-            document.getElementById('invoice').scrollIntoView({ behavior: 'smooth' });
+            // Animate to payment section after delay
+            setTimeout(() => {
+                transition.classList.remove('active');
+                
+                // Scroll to payment section with animation
+                document.getElementById('payment').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update progress step to 2
+                updateProgressStep(2);
+                
+                // Highlight payment section
+                const paymentSection = document.querySelector('.payment');
+                paymentSection.classList.add('active');
+                
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Lanjut ke Pembayaran',
+                    html: `Silakan selesaikan pembayaran dengan detail berikut:<br><br>
+                           <strong>Produk:</strong> ${invoiceData.product}<br>
+                           <strong>Jumlah:</strong> ${invoiceData.quantity}<br>
+                           <strong>Total:</strong> ${invoiceData.total}<br><br>
+                           Pilih metode pembayaran dan transfer sesuai nominal.`,
+                    confirmButtonColor: '#d4af37',
+                    confirmButtonText: 'Saya Mengerti'
+                }).then(() => {
+                    // Auto-open upload proof modal after 3 seconds
+                    setTimeout(() => {
+                        showUploadProofModal();
+                    }, 3000);
+                });
+                
+            }, 1500); // 1.5 second transition
+        }
+
+        function updateProgressStep(step) {
+            // Reset all steps
+            document.querySelectorAll('.progress-step').forEach(stepEl => {
+                stepEl.classList.remove('active', 'completed');
+            });
             
-            // Close cart modal
-            toggleCart();
+            // Mark previous steps as completed
+            for (let i = 1; i < step; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                if (stepEl) {
+                    stepEl.classList.add('completed');
+                }
+            }
             
+            // Mark current step as active
+            const currentStepEl = document.getElementById(`step${step}`);
+            if (currentStepEl) {
+                currentStepEl.classList.add('active');
+            }
+            
+            currentStep = step;
+        }
+
+        function showUploadProofModal() {
+            // Update progress step to 3
+            updateProgressStep(3);
+            
+            // Show modal
+            const modal = document.getElementById('uploadProofModal');
+            modal.style.display = 'flex';
+            
+            // Auto-focus on upload area
+            setTimeout(() => {
+                document.getElementById('proofUploadArea').classList.add('active');
+            }, 300);
+        }
+
+        function closeUploadProofModal() {
+            const modal = document.getElementById('uploadProofModal');
+            modal.style.display = 'none';
+            document.getElementById('proofUploadArea').classList.remove('active');
+        }
+
+        function triggerProofUpload() {
+            document.getElementById('proofInput').click();
+        }
+
+        function handleProofUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'File Terlalu Besar',
+                        text: 'Ukuran file maksimal 5MB.',
+                        confirmButtonColor: '#d4af37'
+                    });
+                    return;
+                }
+                
+                // Validate file type
+                if (!file.type.match('image.*')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Format Tidak Didukung',
+                        text: 'Hanya file gambar (JPG, PNG) yang diterima.',
+                        confirmButtonColor: '#d4af37'
+                    });
+                    return;
+                }
+                
+                proofFile = file;
+                
+                // Update UI
+                document.getElementById('proofFileName').textContent = file.name;
+                document.getElementById('proofUploadArea').classList.add('active');
+                
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('proofPreview');
+                    const previewImage = document.getElementById('proofPreviewImage');
+                    previewImage.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function submitProofUpload() {
+            if (!proofFile) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Belum Ada File',
+                    text: 'Silakan pilih file bukti transfer terlebih dahulu.',
+                    confirmButtonColor: '#d4af37'
+                });
+                return;
+            }
+            
+            // Show loading animation
+            const transition = document.getElementById('pageTransition');
+            transition.classList.add('active');
+            
+            // Simulate upload process
+            setTimeout(() => {
+                transition.classList.remove('active');
+                closeUploadProofModal();
+                
+                // Update progress step to 4
+                updateProgressStep(4);
+                
+                // Update invoice status
+                document.getElementById('invoiceStatus').textContent = "Pembayaran Diverifikasi";
+                document.getElementById('invoiceStatus').style.color = "#28a745";
+                
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Bukti Transfer Berhasil Diupload!',
+                    html: `Pembayaran Anda sedang diproses.<br><br>
+                           Invoice telah diperbarui dan produk akan dikirim dalam waktu 1x24 jam.<br>
+                           <strong>Terima kasih telah berbelanja di DigitalStore!</strong>`,
+                    confirmButtonColor: '#d4af37'
+                }).then(() => {
+                    // Scroll to invoice section
+                    document.getElementById('invoice').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Reset cart
+                    cart = [];
+                    updateCartCount();
+                });
+            }, 2000);
+        }
+
+        function skipProofUpload() {
             Swal.fire({
-                icon: 'success',
-                title: 'Checkout Berhasil',
-                text: 'Silakan lanjutkan dengan mengisi form pembayaran.',
-                confirmButtonColor: '#d4af37'
+                title: 'Yakin ingin melanjutkan?',
+                text: 'Anda dapat mengupload bukti transfer nanti melalui WhatsApp Admin.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#d4af37',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Lanjutkan',
+                cancelButtonText: 'Upload Sekarang'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    closeUploadProofModal();
+                    
+                    // Update progress step to 4
+                    updateProgressStep(4);
+                    
+                    // Update invoice status
+                    document.getElementById('invoiceStatus').textContent = "Menunggu Konfirmasi Manual";
+                    document.getElementById('invoiceStatus').style.color = "#ffc107";
+                    
+                    // Show instruction
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Instruksi Pembayaran',
+                        html: `Silakan konfirmasi pembayaran Anda dengan mengirim bukti transfer ke WhatsApp Admin:<br><br>
+                               <strong>0821 2382 9824</strong><br><br>
+                               Produk akan dikirim setelah pembayaran diverifikasi.`,
+                        confirmButtonColor: '#d4af37'
+                    }).then(() => {
+                        // Scroll to invoice section
+                        document.getElementById('invoice').scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Reset cart
+                        cart = [];
+                        updateCartCount();
+                    });
+                }
             });
         }
 
@@ -1401,26 +2105,48 @@
                 return;
             }
             
-            // Update invoice with customer data
-            invoiceData.name = name;
-            invoiceData.paymentMethod = paymentMethod;
+            // Show transition
+            const transition = document.getElementById('pageTransition');
+            transition.classList.add('active');
             
-            document.getElementById('invoiceName').textContent = invoiceData.name;
-            document.getElementById('invoicePaymentMethod').textContent = invoiceData.paymentMethod;
-            document.getElementById('invoiceStatus').textContent = "Pembayaran Diverifikasi";
-            document.getElementById('invoiceStatus').style.color = "#28a745";
-            
-            // Show success message
-            Swal.fire({
-                icon: 'success',
-                title: 'Pembayaran Berhasil',
-                html: `Pembayaran Anda telah berhasil dikonfirmasi.<br>Invoice telah diperbarui.`,
-                confirmButtonColor: '#d4af37'
-            });
-            
-            // Reset form
-            document.getElementById('paymentForm').reset();
-            document.getElementById('fileName').textContent = "Belum ada file dipilih";
+            setTimeout(() => {
+                // Update invoice with customer data
+                invoiceData.name = name;
+                invoiceData.paymentMethod = paymentMethod;
+                
+                document.getElementById('invoiceName').textContent = invoiceData.name;
+                document.getElementById('invoicePaymentMethod').textContent = invoiceData.paymentMethod;
+                document.getElementById('invoiceStatus').textContent = "Pembayaran Diverifikasi";
+                document.getElementById('invoiceStatus').style.color = "#28a745";
+                
+                // Update progress step to 4
+                updateProgressStep(4);
+                
+                transition.classList.remove('active');
+                
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Pembayaran Berhasil!',
+                    html: `Pembayaran Anda telah berhasil dikonfirmasi.<br>Invoice telah diperbarui.<br><br>
+                           Produk akan dikirim ke email: <strong>${email}</strong>`,
+                    confirmButtonColor: '#d4af37'
+                }).then(() => {
+                    // Reset form
+                    document.getElementById('paymentForm').reset();
+                    document.getElementById('fileName').textContent = "Belum ada file dipilih";
+                    
+                    // Scroll to invoice
+                    document.getElementById('invoice').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Reset cart
+                    cart = [];
+                    updateCartCount();
+                });
+            }, 1500);
         }
 
         function sendToWhatsApp() {
