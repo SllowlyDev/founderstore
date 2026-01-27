@@ -303,21 +303,38 @@
             font-size: 1.4rem;
         }
         
-        .qris-image {
+        .qris-container {
+            position: relative;
             max-width: 300px;
+            margin: 0 auto 25px;
+        }
+        
+        .qris-image {
             width: 100%;
             border-radius: 15px;
             border: 3px solid rgba(96, 32, 223, 0.3);
             padding: 15px;
             background: white;
-            margin: 0 auto 25px;
             box-shadow: 0 10px 30px rgba(96, 32, 223, 0.2);
+            aspect-ratio: 1/1;
+            object-fit: contain;
         }
         
-        .qris-image img {
-            width: 100%;
-            height: auto;
+        .qris-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 20px;
             border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .qris-container:hover .qris-overlay {
+            display: block;
+            animation: fadeIn 0.3s ease;
         }
         
         .qris-instruction {
@@ -482,6 +499,28 @@
             margin: 10px 0;
         }
         
+        /* QRIS Placeholder */
+        .qris-placeholder {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin: 0 auto 25px;
+            max-width: 300px;
+            border: 3px dashed #adb5bd;
+        }
+        
+        .qris-placeholder i {
+            font-size: 4rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .qris-placeholder p {
+            color: #495057;
+            font-weight: 600;
+        }
+        
         /* Footer */
         footer {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
@@ -524,7 +563,7 @@
                 font-size: 1.3rem;
             }
             
-            .qris-image {
+            .qris-container {
                 max-width: 250px;
             }
         }
@@ -545,6 +584,11 @@
             }
             
             .step-label {
+                font-size: 0.9rem;
+            }
+            
+            .payment-tab {
+                padding: 10px 15px;
                 font-size: 0.9rem;
             }
         }
@@ -632,15 +676,26 @@
                 <div class="payment-content active" id="qris-content">
                     <div class="qris-section">
                         <h3 class="qris-title">Scan QR Code untuk Pembayaran</h3>
-                        <div class="qris-image">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" 
+                        
+                        <div class="qris-container">
+                            <!-- QRIS Image - Gunakan file qris.png dari folder yang sama -->
+                            <img src="qris.png" 
                                  alt="QRIS DigitalStore" 
+                                 class="qris-image"
                                  id="qrisImage"
-                                 onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://digitalstore.id/pay/order-' + (document.getElementById('orderId').textContent || 'DS123456')">
+                                 onerror="handleQRISError(this)">
+                            
+                            <div class="qris-overlay" id="qrisOverlay">
+                                <h4 style="color: var(--accent); margin-bottom: 10px;">QRIS DigitalStore</h4>
+                                <p style="color: #cbd5e1; font-size: 0.9rem;">Scan dengan aplikasi e-wallet atau mobile banking Anda</p>
+                            </div>
                         </div>
+                        
                         <div class="payment-name">
-                            <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            <strong>Penerima:</strong> FASSA FIRMANSYAH<br>
+                            <strong>Total:</strong> <span id="qrisAmount">Rp 0</span>
                         </div>
+                        
                         <div class="action-buttons">
                             <button class="copy-btn" onclick="copyQRISData()">
                                 <i class="fas fa-copy"></i> Salin Data QRIS
@@ -649,6 +704,7 @@
                                 <i class="fas fa-download"></i> Download QR
                             </button>
                         </div>
+                        
                         <div class="qris-instruction">
                             <h4><i class="fas fa-info-circle"></i> Cara Pembayaran QRIS:</h4>
                             <ol>
@@ -658,6 +714,9 @@
                                 <li>Periksa nominal dan konfirmasi pembayaran</li>
                                 <li>Simpan bukti pembayaran untuk konfirmasi</li>
                             </ol>
+                            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 10px;">
+                                <i class="fas fa-exclamation-triangle"></i> Pastikan QR code terbaca dengan jelas. Jika gagal, coba download QR code.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -842,8 +901,8 @@
             // Start payment timer
             startPaymentTimer();
             
-            // Update QR code with order ID
-            updateQRCode();
+            // Setup QRIS image hover effect
+            setupQRISHover();
         });
         
         // Load order summary from localStorage
@@ -868,6 +927,7 @@
             const totalElement = document.getElementById('orderTotal');
             const orderIdElement = document.getElementById('orderId');
             const orderTimeElement = document.getElementById('orderTime');
+            const qrisAmountElement = document.getElementById('qrisAmount');
             
             let html = '';
             let total = 0;
@@ -917,6 +977,7 @@
             
             container.innerHTML = html;
             totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            qrisAmountElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
             orderIdElement.textContent = order.orderId || generateOrderId();
             
             // Set order time
@@ -951,6 +1012,45 @@
             });
         }
         
+        // Setup QRIS image hover effect
+        function setupQRISHover() {
+            const qrisContainer = document.querySelector('.qris-container');
+            const qrisOverlay = document.getElementById('qrisOverlay');
+            
+            qrisContainer.addEventListener('mouseenter', function() {
+                qrisOverlay.style.display = 'block';
+            });
+            
+            qrisContainer.addEventListener('mouseleave', function() {
+                qrisOverlay.style.display = 'none';
+            });
+        }
+        
+        // Handle QRIS image error
+        function handleQRISError(imgElement) {
+            console.log('QRIS image failed to load, showing placeholder');
+            
+            // Create placeholder
+            const container = imgElement.parentElement;
+            container.innerHTML = `
+                <div class="qris-placeholder">
+                    <i class="fas fa-qrcode"></i>
+                    <p>File qris.png tidak ditemukan</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: #6c757d;">
+                        Silakan upload file qris.png ke folder yang sama
+                    </p>
+                </div>
+            `;
+            
+            // Update overlay
+            const overlay = document.getElementById('qrisOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+            
+            showAlert('warning', 'QRIS Image Missing', 'File qris.png tidak ditemukan. Silakan pastikan file ada di folder yang sama dengan payment.html.');
+        }
+        
         // Copy payment number
         function copyPaymentNumber(button, elementId) {
             const number = button.getAttribute('data-number');
@@ -982,7 +1082,7 @@
         function copyQRISData() {
             const orderId = document.getElementById('orderId').textContent;
             const total = document.getElementById('orderTotal').textContent;
-            const qrisData = `DigitalStore Payment\nOrder ID: ${orderId}\nAmount: ${total}\nPayee: FASSA FIRMANSYAH`;
+            const qrisData = `DigitalStore Payment\nOrder ID: ${orderId}\nAmount: ${total}\nPayee: FASSA FIRMANSYAH\nPayment Method: QRIS`;
             
             navigator.clipboard.writeText(qrisData).then(() => {
                 const button = event.target.closest('.copy-btn');
@@ -995,37 +1095,31 @@
                 }, 2000);
                 
                 hasCopied = true;
-                showAlert('success', 'Data Tersalin', 'Data QRIS telah disalin.');
+                showAlert('success', 'Data Tersalin', 'Data QRIS telah disalin ke clipboard.');
             });
         }
         
         // Download QR code
         function downloadQRIS() {
             const qrisImage = document.getElementById('qrisImage');
+            
+            // Check if image exists
+            if (!qrisImage || qrisImage.src.includes('data:image')) {
+                showAlert('error', 'Download Gagal', 'File QRIS tidak tersedia untuk didownload.');
+                return;
+            }
+            
+            // Create download link
             const link = document.createElement('a');
             link.href = qrisImage.src;
             link.download = `QRIS-DigitalStore-${document.getElementById('orderId').textContent}.png`;
+            
+            // Trigger download
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             
-            showAlert('success', 'QR Code Downloaded', 'QR Code berhasil diunduh.');
-        }
-        
-        // Update QR code with order data
-        function updateQRCode() {
-            const orderId = document.getElementById('orderId').textContent;
-            const total = document.getElementById('orderTotal').textContent;
-            const amount = total.replace(/[^0-9]/g, '');
-            
-            // Create dynamic QR code URL
-            const qrData = `https://digitalstore.id/pay/${orderId}?amount=${amount}&method=QRIS`;
-            const qrisImage = document.getElementById('qrisImage');
-            
-            // If image fails to load, generate QR code
-            qrisImage.onerror = function() {
-                this.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}&bgcolor=0f172a&color=d4af37`;
-            };
+            showAlert('success', 'Download Berhasil', 'QRIS berhasil diunduh ke perangkat Anda.');
         }
         
         // Start payment timer
@@ -1057,34 +1151,37 @@
         
         // Redirect to confirmation page
         function redirectToConfirmation() {
-            if (!hasCopied) {
-                showAlert('warning', 'Konfirmasi Salin', 
-                    'Pastikan Anda telah menyalin nomor pembayaran sebelum melanjutkan. Apakah Anda yakin ingin melanjutkan?',
-                    true).then(result => {
-                    if (result.isConfirmed) {
-                        proceedToConfirmation();
-                    }
-                });
-            } else {
-                proceedToConfirmation();
-            }
-        }
-        
-        function proceedToConfirmation() {
-            // Save payment method
             const activeTab = document.querySelector('.payment-tab.active');
             const paymentMethod = activeTab ? activeTab.getAttribute('data-tab').toUpperCase() : 'QRIS';
             
+            // For QRIS, we don't require copying
+            if (paymentMethod !== 'QRIS' && !hasCopied) {
+                showAlert('warning', 'Konfirmasi Salin', 
+                    `Pastikan Anda telah menyalin nomor ${paymentMethod} sebelum melanjutkan. Apakah Anda yakin ingin melanjutkan?`,
+                    true).then(result => {
+                    if (result.isConfirmed) {
+                        proceedToConfirmation(paymentMethod);
+                    }
+                });
+            } else {
+                proceedToConfirmation(paymentMethod);
+            }
+        }
+        
+        function proceedToConfirmation(paymentMethod) {
+            // Save payment method
             const paymentData = {
                 method: paymentMethod,
                 timestamp: new Date().toISOString(),
-                timeLeft: timeLeft
+                timeLeft: timeLeft,
+                orderId: document.getElementById('orderId').textContent,
+                total: document.getElementById('orderTotal').textContent
             };
             
             localStorage.setItem('payment_method', JSON.stringify(paymentData));
             
             // Show transition
-            showAlert('info', 'Mengarahkan...', 'Anda akan diarahkan ke halaman konfirmasi.');
+            showAlert('info', 'Mengarahkan...', `Pembayaran ${paymentMethod} dipilih. Anda akan diarahkan ke halaman konfirmasi.`);
             
             setTimeout(() => {
                 window.location.href = 'confirmation.html';
