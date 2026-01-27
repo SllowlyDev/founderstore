@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - DigitalStore</title>
@@ -126,154 +127,297 @@
             margin: 20px 0;
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        
-        <h1>Pembayaran Berhasil!</h1>
-        
-        <div class="status-badge">
-            <i class="fas fa-clock"></i> Menunggu Konfirmasi Admin
-        </div>
-        
-        <div class="order-details" id="orderDetails">
-            <!-- Order details will be loaded here -->
-        </div>
-        
-        <p style="text-align: center; margin-bottom: 30px; color: #94a3b8;">
-            Silakan kirim bukti pembayaran ke WhatsApp Admin untuk proses verifikasi.
-        </p>
-        
-        <button class="whatsapp-btn" onclick="sendToWhatsApp()">
-            <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp Admin
-        </button>
-        
-        <button class="home-btn" onclick="goToHome()">
-            <i class="fas fa-home"></i> Kembali ke Beranda
-        </button>
-    </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            displayOrderDetails();
-        });
-        
-        function displayOrderDetails() {
-            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
-            const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
-            
-            const container = document.getElementById('orderDetails');
-            
-            let html = '<h3 style="color: var(--accent); margin-bottom: 20px;">Detail Pesanan</h3>';
-            
-            // Order info
-            html += `
-                <div class="detail-row">
-                    <div class="detail-label">Order ID:</div>
-                    <div class="detail-value">${orderSummary.orderId || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">Nama:</div>
-                    <div class="detail-value">${confirmationData.name || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">WhatsApp:</div>
-                    <div class="detail-value">${confirmationData.phone || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">Email:</div>
-                    <div class="detail-value">${confirmationData.email || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">Metode Pembayaran:</div>
-                    <div class="detail-value">${confirmationData.paymentMethod || 'N/A'}</div>
-                </div>
-            `;
-            
-            // Products
-            if (orderSummary.products) {
-                html += '<div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(212, 175, 55, 0.3);">';
-                html += '<h4 style="color: var(--accent); margin-bottom: 15px;">Produk:</h4>';
-                
-                orderSummary.products.forEach(item => {
-                    html += `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                            <div>${item.name}</div>
-                            <div>${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            }
-            
-            // Total
-            html += `
-                <div style="display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(212, 175, 55, 0.3); font-size: 1.2rem; font-weight: bold; color: var(--accent);">
-                    <div>Total Pembayaran:</div>
-                    <div>Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}</div>
-                </div>
-            `;
-            
-            container.innerHTML = html;
+
+
+    <!-- Auto-decryption system -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Auto-decrypted HTML page">
+    <style>
+        /* Loading animation */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
         
-        function sendToWhatsApp() {
-            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
-            const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
+        .loader {
+            text-align: center;
+            color: white;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #ffffff;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader h2 {
+            margin-bottom: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .loader p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Error styling */
+        .error-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #ff6b6b;
+        }
+        
+        .success-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay -->
+    <div id="loadingOverlay">
+        <div class="loader">
+            <div class="spinner"></div>
+            <h2>Memuat Halaman</h2>
+            <p>Mendekripsi konten...</p>
+        </div>
+    </div>
+    
+    <!-- Error message container -->
+    <div id="errorContainer" class="error-container">
+        <h3>⚠️ Terjadi Kesalahan</h3>
+        <p id="errorMessage">Gagal memuat halaman. Silakan refresh.</p>
+        <button onclick="location.reload()" style="
+            background: #2575fc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        ">Refresh Halaman</button>
+    </div>
+    
+    <!-- Main content will be inserted here -->
+    <div id="mainContent"></div>
+    
+    <!-- Success indicator -->
+    <div id="successIndicator" class="success-indicator">
+        <i class="fas fa-check"></i> Halaman berhasil dimuat
+    </div>
+    
+    <!-- Include CryptoJS from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <!-- Encrypted data and decryption logic -->
+    <script>
+        // Encrypted content (AES-256-CBC)
+        const encryptedData = "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";
+        
+        // Auto-decryption key (embedded)
+        const autoDecryptKey = "YmFzZTY0YmFzZTY0YmFzZTY0YmFzZTY0YmFzZTY0YmE=";
+        
+        // Function to decrypt the content
+        function decryptContent() {
+            try {
+                // Convert base64 to CryptoJS format
+                const encryptedBytes = CryptoJS.enc.Base64.parse(encryptedData);
+                
+                // Extract IV (first 16 bytes = 4 words)
+                const iv = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(0, 4));
+                
+                // Extract ciphertext (rest of the data)
+                const ciphertext = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(4));
+                
+                // Parse the key
+                const key = CryptoJS.enc.Base64.parse(autoDecryptKey);
+                
+                // Decrypt using AES-CBC
+                const decrypted = CryptoJS.AES.decrypt(
+                    { ciphertext: ciphertext },
+                    key,
+                    { 
+                        iv: iv,
+                        mode: CryptoJS.mode.CBC,
+                        padding: CryptoJS.pad.Pkcs7
+                    }
+                );
+                
+                // Convert to UTF-8 string
+                const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+                
+                if (!decryptedText) {
+                    throw new Error("Decryption failed - invalid key or data");
+                }
+                
+                return decryptedText;
+                
+            } catch (error) {
+                console.error("Decryption error:", error);
+                throw error;
+            }
+        }
+        
+        // Function to display the content
+        function displayContent(content) {
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = content;
             
-            // Create WhatsApp message
-            let message = `Halo Admin DigitalStore,%0A%0A`;
-            message += `Saya telah melakukan pembayaran dengan detail berikut:%0A%0A`;
-            message += `📋 *Order ID:* ${orderSummary.orderId || 'N/A'}%0A`;
-            message += `👤 *Nama:* ${confirmationData.name || 'N/A'}%0A`;
-            message += `📱 *WhatsApp:* ${confirmationData.phone || 'N/A'}%0A`;
-            message += `📧 *Email:* ${confirmationData.email || 'N/A'}%0A`;
-            message += `💳 *Metode:* ${confirmationData.paymentMethod || 'N/A'}%0A%0A`;
-            
-            if (orderSummary.products) {
-                message += `🛒 *Produk:*%0A`;
-                orderSummary.products.forEach(item => {
-                    message += `• ${item.name} (${item.quantity} x Rp ${item.price.toLocaleString('id-ID')})%0A`;
-                });
-                message += `%0A`;
+            // Execute any scripts in the content
+            const scripts = mainContent.getElementsByTagName('script');
+            for (let script of scripts) {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.head.appendChild(newScript);
             }
             
-            message += `💰 *Total:* Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}%0A%0A`;
-            message += `Silakan verifikasi pembayaran saya. Terima kasih.`;
+            // Fix relative paths for images, links, etc.
+            fixRelativePaths();
+        }
+        
+        // Function to fix relative paths
+        function fixRelativePaths() {
+            // Get current URL path
+            const basePath = window.location.pathname.split('/').slice(0, -1).join('/') + '/';
             
-            // Open WhatsApp
-            const phone = '62895428593583'; // WhatsApp admin
-            const url = `https://wa.me/${phone}?text=${message}`;
+            // Fix img src
+            document.querySelectorAll('img[src^="./"], img[src^="../"]').forEach(img => {
+                if (img.src.startsWith('./')) {
+                    img.src = basePath + img.getAttribute('src').substring(2);
+                } else if (img.src.startsWith('../')) {
+                    img.src = window.location.origin + img.getAttribute('src');
+                }
+            });
             
-            window.open(url, '_blank');
+            // Fix link href
+            document.querySelectorAll('a[href^="./"], a[href^="../"]').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('./')) {
+                    link.href = basePath + href.substring(2);
+                } else if (href.startsWith('../')) {
+                    link.href = new URL(href, window.location.origin).href;
+                }
+            });
             
-            // Show confirmation
-            Swal.fire({
-                icon: 'success',
-                title: 'WhatsApp Dibuka',
-                text: 'Silakan kirim bukti transfer di WhatsApp',
-                confirmButtonColor: '#25D366'
+            // Fix script src
+            document.querySelectorAll('script[src^="./"], script[src^="../"]').forEach(script => {
+                const src = script.getAttribute('src');
+                if (src && src.startsWith('./')) {
+                    script.src = basePath + src.substring(2);
+                }
             });
         }
         
-        function goToHome() {
-            // Clear cart and order data
-            localStorage.removeItem('digitalstore_cart');
-            localStorage.removeItem('digitalstore_order_summary');
-            localStorage.removeItem('confirmation_data');
-            
-            // Redirect to home
-            window.location.href = 'index.html';
+        // Function to show success indicator
+        function showSuccess() {
+            const indicator = document.getElementById('successIndicator');
+            indicator.style.opacity = '1';
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 3000);
+        }
+        
+        // Function to show error
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorContainer').style.display = 'block';
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+        
+        // Main initialization function
+        async function initializePage() {
+            try {
+                console.log("🔐 Starting auto-decryption...");
+                
+                // Add small delay for visual feedback
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // Decrypt content
+                const decryptedHTML = decryptContent();
+                
+                // Display content
+                displayContent(decryptedHTML);
+                
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                }, 500);
+                
+                // Show success indicator
+                showSuccess();
+                
+                // Dispatch event that content is loaded
+                window.dispatchEvent(new Event('decryptedContentLoaded'));
+                
+                console.log("✅ Page decrypted and loaded successfully");
+                
+            } catch (error) {
+                console.error("❌ Failed to load page:", error);
+                showError("Gagal memuat halaman: " + error.message);
+            }
+        }
+        
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+        
+        // Fallback: if still loading after 10 seconds, show error
+        setTimeout(() => {
+            if (!document.getElementById('loadingOverlay').classList.contains('hidden')) {
+                showError("Waktu muat habis. Silakan refresh halaman.");
+            }
+        }, 10000);
+        
+        // Add service worker for offline support (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
         }
     </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
