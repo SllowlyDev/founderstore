@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi - DigitalStore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        :root {
+            --primary: #0a1931;
+            --secondary: #185adb;
+            --accent: #d4af37;
+            --dark: #111827;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: var(--accent);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .confirmation-form {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .upload-area {
+            border: 3px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>Konfirmasi Pembayaran</h1>
+            <p>Silakan lengkapi data dan upload bukti transfer</p>
+        </header>
+        
+        <form class="confirmation-form" id="confirmationForm">
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" required placeholder="Masukkan nama lengkap">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Nomor WhatsApp</label>
+                <input type="tel" id="phone" required placeholder="081234567890">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="email@contoh.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="paymentMethod">Metode Pembayaran</label>
+                <select id="paymentMethod" required>
+                    <option value="">Pilih metode</option>
+                    <option value="DANA">DANA</option>
+                    <option value="GOPAY">GOPAY</option>
+                    <option value="SEABANK">SEABANK</option>
+                    <option value="BANK JAGO">BANK JAGO</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Upload Bukti Transfer</label>
+                <div class="upload-area" onclick="document.getElementById('proof').click()">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
+                    <p>Klik untuk upload bukti transfer</p>
+                    <p id="fileName" style="color: #94a3b8; margin-top: 10px;">Format: JPG, PNG, PDF (Maks. 5MB)</p>
+                </div>
+                <input type="file" id="proof" accept="image/*,.pdf" style="display: none;" onchange="showFileName(this)">
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Catatan (Opsional)</label>
+                <textarea id="notes" placeholder="Tambahkan catatan jika diperlukan..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Kirim Konfirmasi
+            </button>
+            
+            <button type="button" class="back-btn" onclick="window.location.href='payment.html'">
+                <i class="fas fa-arrow-left"></i> Kembali ke Pembayaran
+            </button>
+        </form>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('confirmationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const proof = document.getElementById('proof').files[0];
+            
+            if (!name || !phone || !email || !paymentMethod || !proof) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data Belum Lengkap',
+                    text: 'Harap lengkapi semua data dan upload bukti transfer.',
+                    confirmButtonColor: '#d4af37'
+                });
+                return;
+            }
+            
+            // Simpan data konfirmasi
+            const confirmationData = {
+                name,
+                phone,
+                email,
+                paymentMethod,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('confirmation_data', JSON.stringify(confirmationData));
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Konfirmasi Terkirim!',
+                text: 'Data pembayaran Anda telah dikirim.',
+                confirmButtonColor: '#d4af37'
+            }).then(() => {
+                // Redirect ke halaman admin
+                window.location.href = 'admin.html';
+            });
+        });
+        
+        function showFileName(input) {
+            const fileName = document.getElementById('fileName');
+            if (input.files.length > 0) {
+                fileName.textContent = input.files[0].name;
+                fileName.style.color = 'var(--accent)';
+            } else {
+                fileName.textContent = 'Format: JPG, PNG, PDF (Maks. 5MB)';
+                fileName.style.color = '#94a3b8';
+            }
+        }
+        
+        // Load saved data jika ada
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedData = localStorage.getItem('confirmation_data');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('name').value = data.name || '';
+                document.getElementById('phone').value = data.phone || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('paymentMethod').value = data.paymentMethod || '';
+            }
+        });
+    </script>
+</body>
+</html>
