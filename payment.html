@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - DigitalStore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Copy semua CSS dari file utama di atas */
+        /* Hanya perlu styling untuk halaman pembayaran */
+        /* Saya akan berikan CSS yang diperlukan saja */
+        :root {
+            --primary: #0a1931;
+            --secondary: #185adb;
+            --accent: #d4af37;
+            --dark: #111827;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        /* Tambahkan semua CSS dari file utama yang diperlukan */
+        /* Karena keterbatasan ruang, saya buat versi sederhana */
+        
+        .payment-container {
+            padding: 100px 0;
+        }
+        
+        .checkout-progress {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0 70px;
+            position: relative;
+        }
+        
+        .checkout-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--accent) 0%, 
+                var(--accent) 50%, 
+                rgba(212, 175, 55, 0.3) 50%, 
+                rgba(212, 175, 55, 0.3) 100%);
+            border-radius: 2px;
+            z-index: 1;
+        }
+        
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            border: 2px solid var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .step-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .payment-method {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .payment-method h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .payment-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--light);
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0d47a1 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 50px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .order-summary {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-crown" style="color: var(--accent); font-size: 2rem;"></i>
+                <h1>Digital<span>Store</span></h1>
+            </div>
+            <div style="color: var(--accent); font-weight: bold;">
+                Halaman Pembayaran
+            </div>
+        </div>
+    </header>
+    
+    <div class="container payment-container">
+        <h1 style="text-align: center; color: var(--accent); margin-bottom: 30px;">Pembayaran</h1>
+        
+        <div class="checkout-progress">
+            <div class="progress-step">
+                <div class="step-circle">1</div>
+                <div class="step-label">Pilih Produk</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">2</div>
+                <div class="step-label">Pembayaran</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-circle">3</div>
+                <div class="step-label">Konfirmasi</div>
+            </div>
+        </div>
+        
+        <div class="order-summary" id="orderSummary">
+            <!-- Order summary will be loaded here -->
+        </div>
+        
+        <h2 style="color: var(--accent); margin-bottom: 20px;">Metode Pembayaran</h2>
+        
+        <div class="payment-methods">
+            <div class="payment-method">
+                <h3><i class="fas fa-wallet"></i> DANA</h3>
+                <p>Transfer ke nomor DANA berikut:</p>
+                <div class="payment-number" id="danaNumber">0821 2382 9824</div>
+                <p>a.n FASSA FIRMANSYAH</p>
+                <button class="copy-btn" onclick="copyToClipboard('0821 2382 9824', 'danaNumber')">
+                    <i class="far fa-copy"></i> Salin Nomor
+                </button>
+            </div>
+            
+            <div class="payment-method">
+                <h3><i class="fas fa-money-bill-wave"></i> GOPAY</h3>
+                <p>Transfer ke nomor GOPAY berikut:</p>
+                <div class="payment-number" id="gopayNumber">0895 4112 34343</div>
+                <p>a.n FASSA FIRMANSYAH</p>
+                <button class="copy-btn" onclick="copyToClipboard('0895 4112 34343', 'gopayNumber')">
+                    <i class="far fa-copy"></i> Salin Nomor
+                </button>
+            </div>
+        </div>
+        
+        <button class="next-btn" onclick="redirectToConfirmation()">
+            <i class="fas fa-arrow-right"></i> Lanjut ke Konfirmasi
+        </button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load order summary from localStorage
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const cart = JSON.parse(localStorage.getItem('digitalstore_cart') || '[]');
+            
+            if (cart.length === 0) {
+                showAlert('error', 'Keranjang Kosong', 'Silakan kembali ke halaman produk untuk menambahkan item.');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                return;
+            }
+            
+            displayOrderSummary(orderSummary);
+        });
+        
+        function displayOrderSummary(order) {
+            const container = document.getElementById('orderSummary');
+            let html = '<h3 style="color: var(--accent); margin-bottom: 20px;">Ringkasan Pesanan</h3>';
+            
+            if (order.products) {
+                order.products.forEach(item => {
+                    html += `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <div>
+                                <strong>${item.name}</strong><br>
+                                <small>${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</small>
+                            </div>
+                            <div>Rp ${item.total.toLocaleString('id-ID')}</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += `
+                <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 1.2rem; font-weight: bold; color: var(--accent);">
+                    <div>Total:</div>
+                    <div>Rp ${order.total ? order.total.toLocaleString('id-ID') : '0'}</div>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.9rem; color: #94a3b8;">
+                    Order ID: ${order.orderId || 'N/A'}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function copyToClipboard(text, elementId) {
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target.closest('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                btn.style.background = 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)';
+                
+                // Highlight the number
+                const numberElement = document.getElementById(elementId);
+                numberElement.style.backgroundColor = 'rgba(40, 167, 69, 0.2)';
+                numberElement.style.borderColor = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    numberElement.style.backgroundColor = '';
+                    numberElement.style.borderColor = '';
+                }, 2000);
+                
+                showAlert('success', 'Berhasil Disalin', `Nomor ${text} telah disalin.`);
+            });
+        }
+        
+        function redirectToConfirmation() {
+            showAlert('info', 'Langkah Berikutnya', 'Setelah transfer, Anda akan diarahkan ke halaman konfirmasi.');
+            
+            // Simpan status bahwa nomor sudah disalin (untuk demo)
+            localStorage.setItem('payment_copied', 'true');
+            
+            setTimeout(() => {
+                window.location.href = 'confirmation.html';
+            }, 2000);
+        }
+        
+        function showAlert(icon, title, text) {
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: text,
+                confirmButtonColor: '#d4af37',
+                background: 'linear-gradient(145deg, #1e293b, #0f172a)',
+                color: '#e2e8f0'
+            });
+        }
+    </script>
+</body>
+</html>
