@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - DigitalStore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        :root {
+            --primary: #0a1931;
+            --secondary: #185adb;
+            --accent: #d4af37;
+            --dark: #111827;
+            --light: #f8f9fa;
+            --success: #25D366;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .success-icon {
+            text-align: center;
+            font-size: 5rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        h1 {
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .order-details {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .detail-label {
+            color: #94a3b8;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, var(--success) 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .home-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .status-badge {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1>Pembayaran Berhasil!</h1>
+        
+        <div class="status-badge">
+            <i class="fas fa-clock"></i> Menunggu Konfirmasi Admin
+        </div>
+        
+        <div class="order-details" id="orderDetails">
+            <!-- Order details will be loaded here -->
+        </div>
+        
+        <p style="text-align: center; margin-bottom: 30px; color: #94a3b8;">
+            Silakan kirim bukti pembayaran ke WhatsApp Admin untuk proses verifikasi.
+        </p>
+        
+        <button class="whatsapp-btn" onclick="sendToWhatsApp()">
+            <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp Admin
+        </button>
+        
+        <button class="home-btn" onclick="goToHome()">
+            <i class="fas fa-home"></i> Kembali ke Beranda
+        </button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            displayOrderDetails();
+        });
+        
+        function displayOrderDetails() {
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
+            
+            const container = document.getElementById('orderDetails');
+            
+            let html = '<h3 style="color: var(--accent); margin-bottom: 20px;">Detail Pesanan</h3>';
+            
+            // Order info
+            html += `
+                <div class="detail-row">
+                    <div class="detail-label">Order ID:</div>
+                    <div class="detail-value">${orderSummary.orderId || 'N/A'}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Nama:</div>
+                    <div class="detail-value">${confirmationData.name || 'N/A'}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">WhatsApp:</div>
+                    <div class="detail-value">${confirmationData.phone || 'N/A'}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Email:</div>
+                    <div class="detail-value">${confirmationData.email || 'N/A'}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Metode Pembayaran:</div>
+                    <div class="detail-value">${confirmationData.paymentMethod || 'N/A'}</div>
+                </div>
+            `;
+            
+            // Products
+            if (orderSummary.products) {
+                html += '<div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(212, 175, 55, 0.3);">';
+                html += '<h4 style="color: var(--accent); margin-bottom: 15px;">Produk:</h4>';
+                
+                orderSummary.products.forEach(item => {
+                    html += `
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <div>${item.name}</div>
+                            <div>${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+            
+            // Total
+            html += `
+                <div style="display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(212, 175, 55, 0.3); font-size: 1.2rem; font-weight: bold; color: var(--accent);">
+                    <div>Total Pembayaran:</div>
+                    <div>Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}</div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function sendToWhatsApp() {
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
+            
+            // Create WhatsApp message
+            let message = `Halo Admin DigitalStore,%0A%0A`;
+            message += `Saya telah melakukan pembayaran dengan detail berikut:%0A%0A`;
+            message += `📋 *Order ID:* ${orderSummary.orderId || 'N/A'}%0A`;
+            message += `👤 *Nama:* ${confirmationData.name || 'N/A'}%0A`;
+            message += `📱 *WhatsApp:* ${confirmationData.phone || 'N/A'}%0A`;
+            message += `📧 *Email:* ${confirmationData.email || 'N/A'}%0A`;
+            message += `💳 *Metode:* ${confirmationData.paymentMethod || 'N/A'}%0A%0A`;
+            
+            if (orderSummary.products) {
+                message += `🛒 *Produk:*%0A`;
+                orderSummary.products.forEach(item => {
+                    message += `• ${item.name} (${item.quantity} x Rp ${item.price.toLocaleString('id-ID')})%0A`;
+                });
+                message += `%0A`;
+            }
+            
+            message += `💰 *Total:* Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}%0A%0A`;
+            message += `Silakan verifikasi pembayaran saya. Terima kasih.`;
+            
+            // Open WhatsApp
+            const phone = '6282123829824'; // WhatsApp admin
+            const url = `https://wa.me/${phone}?text=${message}`;
+            
+            window.open(url, '_blank');
+            
+            // Show confirmation
+            Swal.fire({
+                icon: 'success',
+                title: 'WhatsApp Dibuka',
+                text: 'Silakan kirim bukti transfer di WhatsApp',
+                confirmButtonColor: '#25D366'
+            });
+        }
+        
+        function goToHome() {
+            // Clear cart and order data
+            localStorage.removeItem('digitalstore_cart');
+            localStorage.removeItem('digitalstore_order_summary');
+            localStorage.removeItem('confirmation_data');
+            
+            // Redirect to home
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
