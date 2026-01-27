@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Copy semua CSS dari file utama di atas */
-        /* Hanya perlu styling untuk halaman pembayaran */
-        /* Saya akan berikan CSS yang diperlukan saja */
         :root {
             --primary: #0a1931;
             --secondary: #185adb;
@@ -22,6 +19,12 @@
             --danger: #dc3545;
             --warning: #ffc107;
             --transition: cubic-bezier(0.4, 0, 0.2, 1);
+            --dana: #008FE5;
+            --gopay: #00A34D;
+            --ovo: #4C2A8B;
+            --seabank: #FF6B00;
+            --jago: #FFC107;
+            --qris: #6020DF;
         }
         
         * {
@@ -45,6 +48,7 @@
             padding: 0 20px;
         }
         
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
             padding: 20px 0;
@@ -70,13 +74,36 @@
             color: var(--accent);
         }
         
-        /* Tambahkan semua CSS dari file utama yang diperlukan */
-        /* Karena keterbatasan ruang, saya buat versi sederhana */
-        
-        .payment-container {
-            padding: 100px 0;
+        .logo span {
+            color: var(--light);
         }
         
+        /* Main Content */
+        .payment-container {
+            padding: 80px 0;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .page-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .page-title p {
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Progress Steps */
         .checkout-progress {
             display: flex;
             justify-content: space-between;
@@ -93,11 +120,25 @@
             height: 4px;
             background: linear-gradient(90deg, 
                 var(--accent) 0%, 
-                var(--accent) 50%, 
-                rgba(212, 175, 55, 0.3) 50%, 
+                var(--accent) 33%, 
+                rgba(212, 175, 55, 0.3) 33%, 
                 rgba(212, 175, 55, 0.3) 100%);
             border-radius: 2px;
             z-index: 1;
+        }
+        
+        .checkout-progress.step-2::before {
+            background: linear-gradient(90deg, 
+                var(--accent) 0%, 
+                var(--accent) 66%, 
+                rgba(212, 175, 55, 0.3) 66%, 
+                rgba(212, 175, 55, 0.3) 100%);
+        }
+        
+        .checkout-progress.step-3::before {
+            background: linear-gradient(90deg, 
+                var(--accent) 0%, 
+                var(--accent) 100%);
         }
         
         .progress-step {
@@ -128,69 +169,384 @@
             color: var(--accent);
         }
         
-        .payment-methods {
+        /* Layout */
+        .payment-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
         }
         
-        .payment-method {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        @media (max-width: 992px) {
+            .payment-layout {
+                grid-template-columns: 1fr;
+            }
         }
         
-        .payment-method h3 {
+        /* Order Summary */
+        .order-summary-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            height: fit-content;
+            position: sticky;
+            top: 30px;
+        }
+        
+        .order-summary-card h2 {
             color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 25px 0;
+            margin-top: 20px;
+            border-top: 3px solid rgba(212, 175, 55, 0.4);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .payment-methods h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .payment-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .payment-tab.active {
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+            border-color: var(--accent);
+        }
+        
+        .payment-tab:hover:not(.active) {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+        
+        .payment-content {
+            display: none;
+        }
+        
+        .payment-content.active {
+            display: block;
+            animation: fadeIn 0.5s var(--transition);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* QRIS Section */
+        .qris-section {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .qris-title {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .qris-image {
+            max-width: 300px;
+            width: 100%;
+            border-radius: 15px;
+            border: 3px solid rgba(96, 32, 223, 0.3);
+            padding: 15px;
+            background: white;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(96, 32, 223, 0.2);
+        }
+        
+        .qris-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .qris-instruction {
+            background: rgba(96, 32, 223, 0.1);
+            border: 1px solid rgba(96, 32, 223, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: left;
+        }
+        
+        .qris-instruction h4 {
+            color: #a855f7;
+            margin-bottom: 10px;
+        }
+        
+        .qris-instruction ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .qris-instruction li {
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+        
+        /* E-Wallet Sections */
+        .ewallet-section {
+            padding: 20px 0;
+        }
+        
+        .payment-detail {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .payment-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
         
-        .payment-number {
-            font-size: 1.3rem;
-            font-weight: bold;
+        .payment-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-right: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .icon-dana { background: linear-gradient(135deg, var(--dana) 0%, #0066A6 100%); }
+        .icon-gopay { background: linear-gradient(135deg, var(--gopay) 0%, #007A38 100%); }
+        .icon-ovo { background: linear-gradient(135deg, var(--ovo) 0%, #3A1C6B 100%); }
+        .icon-seabank { background: linear-gradient(135deg, var(--seabank) 0%, #CC5500 100%); }
+        .icon-jago { background: linear-gradient(135deg, var(--jago) 0%, #FF9800 100%); color: #333; }
+        
+        .payment-header h3 {
+            font-size: 1.6rem;
             color: var(--light);
+        }
+        
+        .payment-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
             margin: 15px 0;
             padding: 15px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+            letter-spacing: 1px;
+            transition: all 0.3s var(--transition);
+        }
+        
+        .payment-number.copied {
+            background: rgba(40, 167, 69, 0.2);
+            border-color: var(--success);
+            color: #4ade80;
+        }
+        
+        .payment-name {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
         }
         
         .copy-btn {
+            flex: 1;
             background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
             color: var(--dark);
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 15px;
-            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s var(--transition);
         }
         
-        .next-btn {
+        .copy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .copy-btn.copied {
+            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
+        }
+        
+        .next-step-btn {
             background: linear-gradient(135deg, var(--secondary) 0%, #0d47a1 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
+            padding: 18px 40px;
+            border-radius: 12px;
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 50px;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 50px auto 0;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s var(--transition);
         }
         
-        .order-summary {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            padding: 30px;
-            border-radius: 16px;
+        .next-step-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(24, 90, 219, 0.4);
+        }
+        
+        .timer-notice {
+            background: rgba(212, 175, 55, 0.1);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 10px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            padding: 40px 0 20px;
+            margin-top: 80px;
+            border-top: 2px solid var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #94a3b8;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .payment-layout {
+                gap: 30px;
+            }
+            
+            .order-summary-card,
+            .payment-methods {
+                padding: 25px;
+            }
+            
+            .page-title h1 {
+                font-size: 2.2rem;
+            }
+            
+            .payment-tabs {
+                justify-content: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .payment-number {
+                font-size: 1.3rem;
+            }
+            
+            .qris-image {
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .checkout-progress {
+                margin: 30px 0 50px;
+            }
+            
+            .step-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .step-label {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -201,16 +557,19 @@
                 <i class="fas fa-crown" style="color: var(--accent); font-size: 2rem;"></i>
                 <h1>Digital<span>Store</span></h1>
             </div>
-            <div style="color: var(--accent); font-weight: bold;">
-                Halaman Pembayaran
+            <div style="color: var(--accent); font-weight: bold; font-size: 1.1rem;">
+                <i class="fas fa-lock"></i> Pembayaran Aman
             </div>
         </div>
     </header>
     
     <div class="container payment-container">
-        <h1 style="text-align: center; color: var(--accent); margin-bottom: 30px;">Pembayaran</h1>
+        <div class="page-title">
+            <h1>Pembayaran</h1>
+            <p>Pilih metode pembayaran yang paling nyaman untuk Anda</p>
+        </div>
         
-        <div class="checkout-progress">
+        <div class="checkout-progress step-2">
             <div class="progress-step">
                 <div class="step-circle">1</div>
                 <div class="step-label">Pilih Produk</div>
@@ -225,43 +584,270 @@
             </div>
         </div>
         
-        <div class="order-summary" id="orderSummary">
-            <!-- Order summary will be loaded here -->
-        </div>
-        
-        <h2 style="color: var(--accent); margin-bottom: 20px;">Metode Pembayaran</h2>
-        
-        <div class="payment-methods">
-            <div class="payment-method">
-                <h3><i class="fas fa-wallet"></i> DANA</h3>
-                <p>Transfer ke nomor DANA berikut:</p>
-                <div class="payment-number" id="danaNumber">0821 2382 9824</div>
-                <p>a.n FASSA FIRMANSYAH</p>
-                <button class="copy-btn" onclick="copyToClipboard('0821 2382 9824', 'danaNumber')">
-                    <i class="far fa-copy"></i> Salin Nomor
-                </button>
+        <div class="payment-layout">
+            <!-- Order Summary -->
+            <div class="order-summary-card">
+                <h2><i class="fas fa-receipt"></i> Ringkasan Pesanan</h2>
+                <div id="orderItems"></div>
+                <div class="order-total">
+                    <span>Total:</span>
+                    <span id="orderTotal">Rp 0</span>
+                </div>
+                <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 10px;">
+                        <i class="fas fa-info-circle"></i> Order ID: <span id="orderId"></span>
+                    </div>
+                    <div style="color: #94a3b8; font-size: 0.95rem;">
+                        <i class="fas fa-clock"></i> Waktu: <span id="orderTime"></span>
+                    </div>
+                </div>
             </div>
             
-            <div class="payment-method">
-                <h3><i class="fas fa-money-bill-wave"></i> GOPAY</h3>
-                <p>Transfer ke nomor GOPAY berikut:</p>
-                <div class="payment-number" id="gopayNumber">0895 4112 34343</div>
-                <p>a.n FASSA FIRMANSYAH</p>
-                <button class="copy-btn" onclick="copyToClipboard('0895 4112 34343', 'gopayNumber')">
-                    <i class="far fa-copy"></i> Salin Nomor
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
+                
+                <div class="payment-tabs">
+                    <div class="payment-tab active" data-tab="qris">
+                        <i class="fas fa-qrcode"></i> QRIS
+                    </div>
+                    <div class="payment-tab" data-tab="dana">
+                        <i class="fas fa-wallet"></i> DANA
+                    </div>
+                    <div class="payment-tab" data-tab="gopay">
+                        <i class="fas fa-money-bill-wave"></i> GOPAY
+                    </div>
+                    <div class="payment-tab" data-tab="ovo">
+                        <i class="fas fa-mobile-alt"></i> OVO
+                    </div>
+                    <div class="payment-tab" data-tab="seabank">
+                        <i class="fas fa-university"></i> Seabank
+                    </div>
+                    <div class="payment-tab" data-tab="jago">
+                        <i class="fas fa-piggy-bank"></i> Jago
+                    </div>
+                </div>
+                
+                <!-- QRIS Content -->
+                <div class="payment-content active" id="qris-content">
+                    <div class="qris-section">
+                        <h3 class="qris-title">Scan QR Code untuk Pembayaran</h3>
+                        <div class="qris-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png" 
+                                 alt="QRIS DigitalStore" 
+                                 id="qrisImage"
+                                 onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://digitalstore.id/pay/order-' + (document.getElementById('orderId').textContent || 'DS123456')">
+                        </div>
+                        <div class="payment-name">
+                            <strong>Penerima:</strong> FASSA FIRMANSYAH
+                        </div>
+                        <div class="action-buttons">
+                            <button class="copy-btn" onclick="copyQRISData()">
+                                <i class="fas fa-copy"></i> Salin Data QRIS
+                            </button>
+                            <button class="copy-btn" onclick="downloadQRIS()">
+                                <i class="fas fa-download"></i> Download QR
+                            </button>
+                        </div>
+                        <div class="qris-instruction">
+                            <h4><i class="fas fa-info-circle"></i> Cara Pembayaran QRIS:</h4>
+                            <ol>
+                                <li>Buka aplikasi mobile banking/e-wallet Anda</li>
+                                <li>Pilih menu "Scan QR" atau "Bayar QR"</li>
+                                <li>Arahkan kamera ke kode QR di atas</li>
+                                <li>Periksa nominal dan konfirmasi pembayaran</li>
+                                <li>Simpan bukti pembayaran untuk konfirmasi</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DANA Content -->
+                <div class="payment-content" id="dana-content">
+                    <div class="ewallet-section">
+                        <div class="payment-detail">
+                            <div class="payment-header">
+                                <div class="payment-icon icon-dana">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <h3>Transfer via DANA</h3>
+                            </div>
+                            <div class="payment-name">
+                                Transfer ke nomor DANA berikut:
+                            </div>
+                            <div class="payment-number" id="danaNumber">0821 2382 9824</div>
+                            <div class="payment-name">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            <div class="action-buttons">
+                                <button class="copy-btn" data-number="0821 2382 9824" onclick="copyPaymentNumber(this, 'danaNumber')">
+                                    <i class="far fa-copy"></i> Salin Nomor
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GOPAY Content -->
+                <div class="payment-content" id="gopay-content">
+                    <div class="ewallet-section">
+                        <div class="payment-detail">
+                            <div class="payment-header">
+                                <div class="payment-icon icon-gopay">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <h3>Transfer via GOPAY</h3>
+                            </div>
+                            <div class="payment-name">
+                                Transfer ke nomor GOPAY berikut:
+                            </div>
+                            <div class="payment-number" id="gopayNumber">0895 4112 34343</div>
+                            <div class="payment-name">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            <div class="action-buttons">
+                                <button class="copy-btn" data-number="0895 4112 34343" onclick="copyPaymentNumber(this, 'gopayNumber')">
+                                    <i class="far fa-copy"></i> Salin Nomor
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- OVO Content -->
+                <div class="payment-content" id="ovo-content">
+                    <div class="ewallet-section">
+                        <div class="payment-detail">
+                            <div class="payment-header">
+                                <div class="payment-icon icon-ovo">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <h3>Transfer via OVO</h3>
+                            </div>
+                            <div class="payment-name">
+                                Transfer ke nomor OVO berikut:
+                            </div>
+                            <div class="payment-number" id="ovoNumber">0821 2382 9824</div>
+                            <div class="payment-name">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            <div class="action-buttons">
+                                <button class="copy-btn" data-number="0821 2382 9824" onclick="copyPaymentNumber(this, 'ovoNumber')">
+                                    <i class="far fa-copy"></i> Salin Nomor
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seabank Content -->
+                <div class="payment-content" id="seabank-content">
+                    <div class="ewallet-section">
+                        <div class="payment-detail">
+                            <div class="payment-header">
+                                <div class="payment-icon icon-seabank">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <h3>Transfer via Seabank</h3>
+                            </div>
+                            <div class="payment-name">
+                                Transfer ke nomor rekening berikut:
+                            </div>
+                            <div class="payment-number" id="seabankNumber">901678000284</div>
+                            <div class="payment-name">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH<br>
+                                <strong>Bank:</strong> Seabank Indonesia
+                            </div>
+                            <div class="action-buttons">
+                                <button class="copy-btn" data-number="901678000284" onclick="copyPaymentNumber(this, 'seabankNumber')">
+                                    <i class="far fa-copy"></i> Salin Nomor Rekening
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Jago Content -->
+                <div class="payment-content" id="jago-content">
+                    <div class="ewallet-section">
+                        <div class="payment-detail">
+                            <div class="payment-header">
+                                <div class="payment-icon icon-jago">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                                <h3>Transfer via Bank Jago</h3>
+                            </div>
+                            <div class="payment-name">
+                                Transfer ke nomor rekening berikut:
+                            </div>
+                            <div class="payment-number" id="jagoNumber">107910289909</div>
+                            <div class="payment-name">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH<br>
+                                <strong>Bank:</strong> Bank Jago
+                            </div>
+                            <div class="action-buttons">
+                                <button class="copy-btn" data-number="107910289909" onclick="copyPaymentNumber(this, 'jagoNumber')">
+                                    <i class="far fa-copy"></i> Salin Nomor Rekening
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timer Notice -->
+                <div class="timer-notice">
+                    <p><i class="fas fa-clock"></i> Selesaikan pembayaran dalam:</p>
+                    <div class="timer" id="paymentTimer">15:00</div>
+                    <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">
+                        Setelah melakukan transfer, klik tombol di bawah untuk konfirmasi
+                    </p>
+                </div>
+                
+                <!-- Next Step Button -->
+                <button class="next-step-btn" onclick="redirectToConfirmation()">
+                    <i class="fas fa-arrow-right"></i> Lanjut ke Konfirmasi Pembayaran
                 </button>
             </div>
         </div>
-        
-        <button class="next-btn" onclick="redirectToConfirmation()">
-            <i class="fas fa-arrow-right"></i> Lanjut ke Konfirmasi
-        </button>
     </div>
+    
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2024 DigitalStore. Semua transaksi dilindungi dan terenkripsi.</p>
+                <p style="margin-top: 5px; font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt"></i> Pembayaran Aman • 
+                    <i class="fas fa-bolt"></i> Proses Cepat • 
+                    <i class="fas fa-headset"></i> Support 24/7
+                </p>
+            </div>
+        </div>
+    </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // Global Variables
+        let paymentTimer;
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+        let hasCopied = false;
+        
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Load order summary from localStorage
+            // Load order summary
+            loadOrderSummary();
+            
+            // Setup payment tabs
+            setupPaymentTabs();
+            
+            // Start payment timer
+            startPaymentTimer();
+            
+            // Update QR code with order ID
+            updateQRCode();
+        });
+        
+        // Load order summary from localStorage
+        function loadOrderSummary() {
             const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
             const cart = JSON.parse(localStorage.getItem('digitalstore_cart') || '[]');
             
@@ -274,83 +860,272 @@
             }
             
             displayOrderSummary(orderSummary);
-        });
+        }
         
+        // Display order summary
         function displayOrderSummary(order) {
-            const container = document.getElementById('orderSummary');
-            let html = '<h3 style="color: var(--accent); margin-bottom: 20px;">Ringkasan Pesanan</h3>';
+            const container = document.getElementById('orderItems');
+            const totalElement = document.getElementById('orderTotal');
+            const orderIdElement = document.getElementById('orderId');
+            const orderTimeElement = document.getElementById('orderTime');
             
-            if (order.products) {
+            let html = '';
+            let total = 0;
+            
+            if (order.products && order.products.length > 0) {
                 order.products.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
                     html += `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <div class="order-item">
                             <div>
                                 <strong>${item.name}</strong><br>
-                                <small>${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</small>
+                                <small style="color: #94a3b8;">${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</small>
                             </div>
-                            <div>Rp ${item.total.toLocaleString('id-ID')}</div>
+                            <div style="font-weight: 600; color: var(--accent);">
+                                Rp ${itemTotal.toLocaleString('id-ID')}
+                            </div>
                         </div>
                     `;
                 });
+            } else {
+                // Fallback: load from cart
+                const cart = JSON.parse(localStorage.getItem('digitalstore_cart') || '[]');
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    html += `
+                        <div class="order-item">
+                            <div>
+                                <strong>${item.name}</strong><br>
+                                <small style="color: #94a3b8;">${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</small>
+                            </div>
+                            <div style="font-weight: 600; color: var(--accent);">
+                                Rp ${itemTotal.toLocaleString('id-ID')}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                // Update order summary
+                order.total = total;
+                order.orderId = order.orderId || generateOrderId();
+                localStorage.setItem('digitalstore_order_summary', JSON.stringify(order));
             }
             
-            html += `
-                <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 1.2rem; font-weight: bold; color: var(--accent);">
-                    <div>Total:</div>
-                    <div>Rp ${order.total ? order.total.toLocaleString('id-ID') : '0'}</div>
-                </div>
-                <div style="margin-top: 10px; font-size: 0.9rem; color: #94a3b8;">
-                    Order ID: ${order.orderId || 'N/A'}
-                </div>
-            `;
-            
             container.innerHTML = html;
+            totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            orderIdElement.textContent = order.orderId || generateOrderId();
+            
+            // Set order time
+            const now = new Date();
+            orderTimeElement.textContent = now.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            }) + ' WIB';
         }
         
-        function copyToClipboard(text, elementId) {
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target.closest('.copy-btn');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                btn.style.background = 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)';
-                
-                // Highlight the number
-                const numberElement = document.getElementById(elementId);
-                numberElement.style.backgroundColor = 'rgba(40, 167, 69, 0.2)';
-                numberElement.style.borderColor = '#28a745';
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    numberElement.style.backgroundColor = '';
-                    numberElement.style.borderColor = '';
-                }, 2000);
-                
-                showAlert('success', 'Berhasil Disalin', `Nomor ${text} telah disalin.`);
+        // Setup payment tabs
+        function setupPaymentTabs() {
+            const tabs = document.querySelectorAll('.payment-tab');
+            const contents = document.querySelectorAll('.payment-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-content`).classList.add('active');
+                    
+                    // Update hasCopied flag based on selected method
+                    hasCopied = false;
+                });
             });
         }
         
-        function redirectToConfirmation() {
-            showAlert('info', 'Langkah Berikutnya', 'Setelah transfer, Anda akan diarahkan ke halaman konfirmasi.');
+        // Copy payment number
+        function copyPaymentNumber(button, elementId) {
+            const number = button.getAttribute('data-number');
+            const numberElement = document.getElementById(elementId);
             
-            // Simpan status bahwa nomor sudah disalin (untuk demo)
-            localStorage.setItem('payment_copied', 'true');
+            navigator.clipboard.writeText(number).then(() => {
+                // Visual feedback
+                button.classList.add('copied');
+                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                numberElement.classList.add('copied');
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = '<i class="far fa-copy"></i> Salin Nomor';
+                    numberElement.classList.remove('copied');
+                }, 2000);
+                
+                // Set hasCopied flag
+                hasCopied = true;
+                
+                showAlert('success', 'Berhasil Disalin', `Nomor ${number} telah disalin ke clipboard.`);
+            }).catch(err => {
+                showAlert('error', 'Gagal Menyalin', 'Silakan salin secara manual.');
+            });
+        }
+        
+        // Copy QRIS data
+        function copyQRISData() {
+            const orderId = document.getElementById('orderId').textContent;
+            const total = document.getElementById('orderTotal').textContent;
+            const qrisData = `DigitalStore Payment\nOrder ID: ${orderId}\nAmount: ${total}\nPayee: FASSA FIRMANSYAH`;
+            
+            navigator.clipboard.writeText(qrisData).then(() => {
+                const button = event.target.closest('.copy-btn');
+                button.classList.add('copied');
+                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = '<i class="fas fa-copy"></i> Salin Data QRIS';
+                }, 2000);
+                
+                hasCopied = true;
+                showAlert('success', 'Data Tersalin', 'Data QRIS telah disalin.');
+            });
+        }
+        
+        // Download QR code
+        function downloadQRIS() {
+            const qrisImage = document.getElementById('qrisImage');
+            const link = document.createElement('a');
+            link.href = qrisImage.src;
+            link.download = `QRIS-DigitalStore-${document.getElementById('orderId').textContent}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showAlert('success', 'QR Code Downloaded', 'QR Code berhasil diunduh.');
+        }
+        
+        // Update QR code with order data
+        function updateQRCode() {
+            const orderId = document.getElementById('orderId').textContent;
+            const total = document.getElementById('orderTotal').textContent;
+            const amount = total.replace(/[^0-9]/g, '');
+            
+            // Create dynamic QR code URL
+            const qrData = `https://digitalstore.id/pay/${orderId}?amount=${amount}&method=QRIS`;
+            const qrisImage = document.getElementById('qrisImage');
+            
+            // If image fails to load, generate QR code
+            qrisImage.onerror = function() {
+                this.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}&bgcolor=0f172a&color=d4af37`;
+            };
+        }
+        
+        // Start payment timer
+        function startPaymentTimer() {
+            paymentTimer = setInterval(() => {
+                timeLeft--;
+                
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                document.getElementById('paymentTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Change color when less than 5 minutes
+                if (timeLeft < 300) {
+                    document.getElementById('paymentTimer').style.color = '#ef4444';
+                }
+                
+                // Time's up
+                if (timeLeft <= 0) {
+                    clearInterval(paymentTimer);
+                    showAlert('warning', 'Waktu Habis', 'Waktu pembayaran telah habis. Silakan ulangi proses checkout.');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 3000);
+                }
+            }, 1000);
+        }
+        
+        // Redirect to confirmation page
+        function redirectToConfirmation() {
+            if (!hasCopied) {
+                showAlert('warning', 'Konfirmasi Salin', 
+                    'Pastikan Anda telah menyalin nomor pembayaran sebelum melanjutkan. Apakah Anda yakin ingin melanjutkan?',
+                    true).then(result => {
+                    if (result.isConfirmed) {
+                        proceedToConfirmation();
+                    }
+                });
+            } else {
+                proceedToConfirmation();
+            }
+        }
+        
+        function proceedToConfirmation() {
+            // Save payment method
+            const activeTab = document.querySelector('.payment-tab.active');
+            const paymentMethod = activeTab ? activeTab.getAttribute('data-tab').toUpperCase() : 'QRIS';
+            
+            const paymentData = {
+                method: paymentMethod,
+                timestamp: new Date().toISOString(),
+                timeLeft: timeLeft
+            };
+            
+            localStorage.setItem('payment_method', JSON.stringify(paymentData));
+            
+            // Show transition
+            showAlert('info', 'Mengarahkan...', 'Anda akan diarahkan ke halaman konfirmasi.');
             
             setTimeout(() => {
                 window.location.href = 'confirmation.html';
-            }, 2000);
+            }, 1500);
         }
         
-        function showAlert(icon, title, text) {
-            Swal.fire({
+        // Generate order ID
+        function generateOrderId() {
+            const timestamp = Date.now().toString().slice(-8);
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `DS${timestamp}${random}`;
+        }
+        
+        // Show alert with custom options
+        function showAlert(icon, title, text, showCancel = false) {
+            const swalConfig = {
                 icon: icon,
                 title: title,
                 text: text,
                 confirmButtonColor: '#d4af37',
                 background: 'linear-gradient(145deg, #1e293b, #0f172a)',
-                color: '#e2e8f0'
-            });
+                color: '#e2e8f0',
+                backdrop: 'rgba(0, 0, 0, 0.7)'
+            };
+            
+            if (showCancel) {
+                swalConfig.showCancelButton = true;
+                swalConfig.confirmButtonText = 'Ya, Lanjutkan';
+                swalConfig.cancelButtonText = 'Belum, Tunggu';
+                return Swal.fire(swalConfig);
+            } else {
+                Swal.fire(swalConfig);
+            }
         }
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (paymentTimer) {
+                clearInterval(paymentTimer);
+            }
+        });
     </script>
 </body>
 </html>
