@@ -102,6 +102,15 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            transition: all 0.5s var(--transition);
+        }
+        
+        .hero-wrapper.hidden {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
         }
         
         .hero-wrapper::before {
@@ -156,6 +165,8 @@
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            border: none;
         }
         
         .cta-button::before {
@@ -180,6 +191,33 @@
         
         .spacer {
             height: 400px;
+            transition: all 0.5s var(--transition);
+        }
+        
+        .spacer.hidden {
+            height: 0;
+        }
+        
+        /* ===== TOMBOL PRODUK DI HEADER ===== */
+        .product-header-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 15px;
+        }
+        
+        .product-header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
         
         /* ===== MAIN CONTENT WRAPPER ===== */
@@ -193,6 +231,8 @@
         /* ===== NAVIGATION ===== */
         nav {
             animation: slideInRight 0.8s var(--transition) 0.2s both;
+            display: flex;
+            align-items: center;
         }
         
         nav ul {
@@ -613,478 +653,6 @@
             box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
         }
         
-        /* ===== PAYMENT SECTION ===== */
-        .payment {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            position: relative;
-            overflow: hidden;
-            display: none;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .payment.active {
-            display: block;
-            animation: slideInUp 0.8s var(--transition) forwards;
-        }
-        
-        .checkout-progress {
-            display: flex;
-            justify-content: space-between;
-            margin: 50px 0 70px;
-            position: relative;
-        }
-        
-        .checkout-progress::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, 
-                var(--accent) 0%, 
-                var(--accent) 33%, 
-                rgba(212, 175, 55, 0.3) 33%, 
-                rgba(212, 175, 55, 0.3) 100%);
-            border-radius: 2px;
-            z-index: 1;
-            transition: all 1s var(--transition);
-        }
-        
-        .checkout-progress.step-2::before {
-            background: linear-gradient(90deg, 
-                var(--accent) 0%, 
-                var(--accent) 66%, 
-                rgba(212, 175, 55, 0.3) 66%, 
-                rgba(212, 175, 55, 0.3) 100%);
-        }
-        
-        .checkout-progress.step-3::before {
-            background: linear-gradient(90deg, 
-                var(--accent) 0%, 
-                var(--accent) 100%);
-        }
-        
-        .progress-step {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            flex: 1;
-        }
-        
-        .step-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            color: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-weight: bold;
-            transition: all 0.5s var(--transition);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            font-size: 1.2rem;
-        }
-        
-        .progress-step.active .step-circle {
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
-            border-color: var(--accent);
-            transform: scale(1.15);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
-            animation: pulse 2s infinite;
-        }
-        
-        .progress-step.completed .step-circle {
-            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
-            color: white;
-            border-color: var(--success);
-        }
-        
-        .step-label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.7);
-            transition: all 0.3s var(--transition);
-        }
-        
-        .progress-step.active .step-label {
-            color: var(--accent);
-            font-weight: 700;
-        }
-        
-        .payment-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 50px;
-        }
-        
-        .payment-methods, .payment-form {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transform: translateY(30px);
-            opacity: 0;
-            animation: fadeInUp 0.8s var(--transition) 0.3s forwards;
-        }
-        
-        .payment-methods {
-            animation-delay: 0.4s;
-        }
-        
-        .payment-method {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s var(--transition);
-        }
-        
-        .payment-method:hover {
-            transform: translateX(10px);
-        }
-        
-        .payment-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 25px;
-            font-size: 1.8rem;
-            color: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s var(--transition);
-        }
-        
-        .payment-method:hover .payment-logo {
-            transform: scale(1.1) rotate(10deg);
-        }
-        
-        .dana { background: linear-gradient(135deg, #008FE5 0%, #0066A6 100%); }
-        .gopay { background: linear-gradient(135deg, #00A34D 0%, #007A38 100%); }
-        .seabank { background: linear-gradient(135deg, #FF6B00 0%, #CC5500 100%); }
-        .jago { background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%); color: #333; }
-        
-        .payment-details h4 {
-            margin-bottom: 8px;
-            font-size: 1.3rem;
-            color: var(--light);
-        }
-        
-        .payment-number {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--accent);
-            letter-spacing: 1px;
-        }
-        
-        .copy-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: var(--light);
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: all 0.3s var(--transition);
-            margin-top: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .copy-btn:hover {
-            background: linear-gradient(135deg, var(--secondary) 0%, #0d47a1 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(24, 90, 219, 0.4);
-        }
-        
-        .payment-form h3 {
-            color: var(--accent);
-            margin-bottom: 30px;
-            font-size: 1.8rem;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .payment-form h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), transparent);
-            border-radius: 2px;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s var(--transition) forwards;
-        }
-        
-        .form-group:nth-child(1) { animation-delay: 0.5s; }
-        .form-group:nth-child(2) { animation-delay: 0.6s; }
-        .form-group:nth-child(3) { animation-delay: 0.7s; }
-        .form-group:nth-child(4) { animation-delay: 0.8s; }
-        .form-group:nth-child(5) { animation-delay: 0.9s; }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: #cbd5e1;
-            font-size: 1.05rem;
-        }
-        
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
-            color: var(--light);
-            font-size: 1.05rem;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s var(--transition);
-        }
-        
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .upload-area {
-            border: 3px dashed rgba(212, 175, 55, 0.4);
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.4s var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .upload-area::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transition: left 0.7s;
-        }
-        
-        .upload-area:hover::before {
-            left: 100%;
-        }
-        
-        .upload-area:hover {
-            border-color: var(--accent);
-            background-color: rgba(212, 175, 55, 0.05);
-            transform: translateY(-5px);
-        }
-        
-        .upload-area i {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            transition: transform 0.3s var(--transition);
-        }
-        
-        .upload-area:hover i {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .upload-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
-            border: none;
-            padding: 18px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s var(--transition);
-            margin-top: 30px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-        }
-        
-        .upload-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.6);
-            letter-spacing: 1px;
-        }
-        
-        /* ===== INVOICE SECTION ===== */
-        .invoice-section {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            display: none;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-        
-        .invoice-section.active {
-            display: block;
-            animation: slideInUp 0.8s var(--transition) forwards;
-        }
-        
-        .invoice-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
-            border-radius: 24px;
-            padding: 60px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .invoice-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            z-index: 0;
-        }
-        
-        .invoice-header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .invoice-header h3 {
-            font-size: 2.8rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-        
-        .invoice-details {
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .invoice-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 22px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s var(--transition);
-        }
-        
-        .invoice-row:hover {
-            background: rgba(255, 255, 255, 0.03);
-            padding-left: 20px;
-            padding-right: 20px;
-            border-radius: 10px;
-        }
-        
-        .invoice-label {
-            font-weight: 600;
-            color: #cbd5e1;
-            font-size: 1.1rem;
-        }
-        
-        .invoice-value {
-            font-weight: 700;
-            color: var(--accent);
-            font-size: 1.1rem;
-        }
-        
-        .invoice-total {
-            display: flex;
-            justify-content: space-between;
-            padding: 30px 0;
-            border-top: 3px solid rgba(212, 175, 55, 0.4);
-            font-size: 1.5rem;
-            font-weight: 800;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .invoice-actions {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 50px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .whatsapp-btn, .print-btn {
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s var(--transition);
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            min-width: 250px;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .whatsapp-btn {
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-        }
-        
-        .whatsapp-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
-            letter-spacing: 1px;
-        }
-        
-        .print-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, #0d1b3e 100%);
-            color: var(--light);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .print-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
-            border-color: var(--accent);
-            letter-spacing: 1px;
-        }
-        
         /* ===== ANIMASI UTAMA ===== */
         @keyframes fadeInUp {
             from {
@@ -1160,178 +728,6 @@
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
-        }
-        
-        /* ===== MODAL UPLOAD BUKTI ===== */
-        .upload-proof-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        
-        .upload-proof-content {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
-            width: 95%;
-            max-width: 600px;
-            border-radius: 24px;
-            padding: 50px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
-            border: 2px solid var(--accent);
-            position: relative;
-            animation: slideInUp 0.6s var(--transition);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        
-        .upload-proof-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .upload-proof-icon {
-            font-size: 4rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .upload-proof-header h3 {
-            color: var(--accent);
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-        
-        .upload-proof-body {
-            margin-bottom: 40px;
-        }
-        
-        .proof-upload-area {
-            border: 4px dashed rgba(212, 175, 55, 0.5);
-            border-radius: 16px;
-            padding: 50px 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.4s var(--transition);
-            margin-bottom: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .proof-upload-area:hover, .proof-upload-area.active {
-            border-color: var(--accent);
-            background-color: rgba(212, 175, 55, 0.08);
-            transform: translateY(-5px);
-        }
-        
-        .proof-upload-area i {
-            font-size: 3.5rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            transition: transform 0.3s var(--transition);
-        }
-        
-        .proof-upload-area:hover i {
-            transform: scale(1.1) rotate(10deg);
-        }
-        
-        .proof-file-name {
-            color: var(--light);
-            margin-top: 15px;
-            word-break: break-all;
-            font-size: 1.05rem;
-        }
-        
-        .proof-preview {
-            margin-top: 25px;
-            display: none;
-            animation: fadeIn 0.5s var(--transition);
-        }
-        
-        .proof-preview img {
-            max-width: 100%;
-            max-height: 250px;
-            border-radius: 12px;
-            border: 3px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-        
-        .upload-proof-actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        
-        .upload-proof-btn, .skip-proof-btn {
-            padding: 18px 35px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: all 0.4s var(--transition);
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            min-width: 200px;
-        }
-        
-        .upload-proof-btn {
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
-        }
-        
-        .upload-proof-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.7);
-            letter-spacing: 1px;
-        }
-        
-        .skip-proof-btn {
-            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
-            color: var(--light);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .skip-proof-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(108, 117, 125, 0.5);
-            letter-spacing: 1px;
-        }
-        
-        .close-proof-modal {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: all 0.3s var(--transition);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .close-proof-modal:hover {
-            color: var(--accent);
-            transform: rotate(90deg);
-            background: rgba(212, 175, 55, 0.1);
         }
         
         /* ===== CART MODAL ===== */
@@ -1632,15 +1028,6 @@
             .hero-content h2 {
                 font-size: 2.6rem;
             }
-            
-            .invoice-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .whatsapp-btn, .print-btn {
-                min-width: 100%;
-            }
         }
         
         @media (max-width: 768px) {
@@ -1678,29 +1065,9 @@
                 grid-template-columns: 1fr;
             }
             
-            .payment-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .payment-methods, .payment-form {
-                padding: 30px;
-            }
-            
-            .upload-proof-actions {
-                flex-direction: column;
-            }
-            
-            .upload-proof-btn, .skip-proof-btn {
-                min-width: 100%;
-            }
-            
-            .invoice-container {
-                padding: 40px 30px;
-            }
-            
-            .invoice-header h3 {
-                font-size: 2.2rem;
+            .cart-modal-content {
+                max-width: 100%;
+                padding: 25px 20px;
             }
         }
         
@@ -1735,27 +1102,13 @@
                 font-size: 1.1rem;
             }
             
-            .feature-card, .payment-methods, .payment-form {
+            .feature-card {
                 padding: 25px 20px;
             }
             
-            .payment-method {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .payment-logo {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .upload-proof-content {
-                padding: 30px 20px;
-            }
-            
-            .cart-modal-content {
-                max-width: 100%;
-                padding: 25px 20px;
+            .product-header-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
         }
         
@@ -1827,39 +1180,6 @@
         </div>
     </div>
     
-    <!-- Upload Proof Modal -->
-    <div class="upload-proof-modal" id="uploadProofModal">
-        <div class="upload-proof-content">
-            <button class="close-proof-modal" onclick="closeUploadProofModal()">&times;</button>
-            <div class="upload-proof-header">
-                <div class="upload-proof-icon">
-                    <i class="fas fa-file-upload"></i>
-                </div>
-                <h3>Upload Bukti Transfer</h3>
-                <p>Unggah bukti pembayaran Anda untuk melanjutkan proses</p>
-            </div>
-            <div class="upload-proof-body">
-                <div class="proof-upload-area" id="proofUploadArea" onclick="triggerProofUpload()">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Klik atau seret file ke sini</p>
-                    <p class="proof-file-name" id="proofFileName">Format: JPG, PNG (Maks. 5MB)</p>
-                </div>
-                <input type="file" id="proofInput" accept="image/*" style="display: none;" onchange="handleProofUpload(event)">
-                <div class="proof-preview" id="proofPreview">
-                    <img id="proofPreviewImage" src="" alt="Preview Bukti Transfer">
-                </div>
-            </div>
-            <div class="upload-proof-actions">
-                <button class="skip-proof-btn" onclick="skipProofUpload()">
-                    <i class="fas fa-clock"></i> Nanti Saja
-                </button>
-                <button class="upload-proof-btn" onclick="submitProofUpload()">
-                    <i class="fas fa-upload"></i> Upload & Lanjutkan
-                </button>
-            </div>
-        </div>
-    </div>
-    
     <!-- Fixed Header & Hero -->
     <div class="fixed-header-hero" id="fixedHeaderHero">
         <header>
@@ -1869,13 +1189,13 @@
                     <h1>Digital<span>Store</span></h1>
                 </div>
                 <nav>
+                    <button class="product-header-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i> Produk
+                        <span class="cart-count">0</span>
+                    </button>
                     <ul>
                         <li><a href="#home"><i class="fas fa-home"></i> Beranda</a></li>
                         <li><a href="#products"><i class="fas fa-shopping-bag"></i> Produk</a></li>
-                        <li class="cart-icon" onclick="toggleCart()">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
-                        </li>
                     </ul>
                 </nav>
             </div>
@@ -1885,13 +1205,13 @@
             <div class="container hero-content">
                 <h2>Toko Digital Premium Terpercaya</h2>
                 <p>Menyediakan berbagai akun digital, tools premium, dan layanan berkualitas tinggi dengan garansi keamanan dan stabilitas. Didukung sistem pembayaran lengkap dan invoice otomatis.</p>
-                <a href="#products" class="cta-button">Lihat Produk <i class="fas fa-arrow-right"></i></a>
+                <button class="cta-button" onclick="hideHeroAndScrollToProducts()">Lihat Produk <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     </div>
     
     <!-- Spacer untuk konten utama -->
-    <div class="spacer"></div>
+    <div class="spacer" id="mainSpacer"></div>
     
     <!-- Main Content -->
     <div class="main-content">
@@ -1997,194 +1317,6 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Payment Section (Hidden Initially) -->
-        <section class="payment" id="payment">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Proses Pembayaran</h2>
-                </div>
-                
-                <!-- Checkout Progress Steps -->
-                <div class="checkout-progress step-1" id="checkoutProgress">
-                    <div class="progress-step active">
-                        <div class="step-circle">1</div>
-                        <div class="step-label">Checkout</div>
-                    </div>
-                    <div class="progress-step">
-                        <div class="step-circle">2</div>
-                        <div class="step-label">Pembayaran</div>
-                    </div>
-                    <div class="progress-step">
-                        <div class="step-circle">3</div>
-                        <div class="step-label">Upload Bukti</div>
-                    </div>
-                </div>
-                
-                <div class="payment-container">
-                    <div class="payment-methods">
-                        <h3>Metode Pembayaran</h3>
-                        
-                        <div class="payment-method">
-                            <div class="payment-logo dana">
-                                <i class="fas fa-wallet"></i>
-                            </div>
-                            <div class="payment-details">
-                                <h4>DANA</h4>
-                                <div class="payment-number">0821 2382 9824</div>
-                                <p>a.n FASSA FIRMANSYAH</p>
-                                <button class="copy-btn" onclick="copyToClipboard('0821 2382 9824')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="payment-method">
-                            <div class="payment-logo gopay">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <div class="payment-details">
-                                <h4>GOPAY</h4>
-                                <div class="payment-number">0895 4112 34343</div>
-                                <p>a.n FASSA FIRMANSYAH</p>
-                                <button class="copy-btn" onclick="copyToClipboard('0895 4112 34343')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="payment-method">
-                            <div class="payment-logo seabank">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <div class="payment-details">
-                                <h4>SEABANK</h4>
-                                <div class="payment-number">901678000284</div>
-                                <p>a.n FASSA FIRMANSYAH</p>
-                                <button class="copy-btn" onclick="copyToClipboard('901678000284')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="payment-method">
-                            <div class="payment-logo jago">
-                                <i class="fas fa-credit-card"></i>
-                            </div>
-                            <div class="payment-details">
-                                <h4>BANK JAGO</h4>
-                                <div class="payment-number">107910289909</div>
-                                <p>a.n FASSA FIRMANSYAH</p>
-                                <button class="copy-btn" onclick="copyToClipboard('107910289909')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="payment-form" id="paymentFormContainer">
-                        <h3>Konfirmasi Pembayaran</h3>
-                        <form id="paymentForm">
-                            <div class="form-group">
-                                <label for="name">Nama Lengkap</label>
-                                <input type="text" id="name" required placeholder="Masukkan nama lengkap">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Nomor WhatsApp</label>
-                                <input type="text" id="phone" required placeholder="Contoh: 081234567890">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" required placeholder="email@contoh.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="paymentMethod">Metode Pembayaran</label>
-                                <select id="paymentMethod" required>
-                                    <option value="">Pilih metode pembayaran</option>
-                                    <option value="DANA">DANA</option>
-                                    <option value="GOPAY">GOPAY</option>
-                                    <option value="SEABANK">SEABANK</option>
-                                    <option value="BANK JAGO">BANK JAGO</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Upload Bukti Transfer</label>
-                                <div class="upload-area" onclick="triggerMainPaymentProof()">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Klik untuk upload bukti transfer</p>
-                                    <p id="fileName">Belum ada file dipilih</p>
-                                </div>
-                                <input type="file" id="paymentProof" accept="image/*" style="display: none;" required>
-                            </div>
-                            <button type="submit" class="upload-btn">
-                                <i class="fas fa-check-circle"></i> Konfirmasi Pembayaran
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Invoice Section (Hidden Initially) -->
-        <section class="invoice-section" id="invoice">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Invoice Pembelian</h2>
-                </div>
-                <div class="invoice-container">
-                    <div class="invoice-header">
-                        <h3>INVOICE #<span id="invoiceNumber">DS2024001</span></h3>
-                        <p>Tanggal: <span id="invoiceDate"></span></p>
-                    </div>
-                    <div class="invoice-details">
-                        <div class="invoice-row">
-                            <div class="invoice-label">Nama Pelanggan:</div>
-                            <div class="invoice-value" id="invoiceName">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Nomor WhatsApp:</div>
-                            <div class="invoice-value" id="invoicePhone">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Email:</div>
-                            <div class="invoice-value" id="invoiceEmail">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Produk:</div>
-                            <div class="invoice-value" id="invoiceProduct">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Jumlah:</div>
-                            <div class="invoice-value" id="invoiceQuantity">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Harga Satuan:</div>
-                            <div class="invoice-value" id="invoiceUnitPrice">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Metode Pembayaran:</div>
-                            <div class="invoice-value" id="invoicePaymentMethod">-</div>
-                        </div>
-                        <div class="invoice-row">
-                            <div class="invoice-label">Status:</div>
-                            <div class="invoice-value" id="invoiceStatus">Menunggu Konfirmasi</div>
-                        </div>
-                        <div class="invoice-total">
-                            <div>Total Pembayaran:</div>
-                            <div id="invoiceTotal">Rp 0</div>
-                        </div>
-                    </div>
-                    <div class="invoice-actions">
-                        <button class="whatsapp-btn" onclick="sendToWhatsApp()">
-                            <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp Admin
-                        </button>
-                        <button class="print-btn" onclick="window.print()">
-                            <i class="fas fa-print"></i> Cetak Invoice
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
     
     <!-- Footer -->
@@ -2234,7 +1366,7 @@
                     <span>Total:</span>
                     <span id="cartTotal" style="font-weight:bold; color:var(--accent);">Rp 0</span>
                 </div>
-                <button onclick="startCheckoutProcess()" class="cart-checkout-btn">
+                <button onclick="redirectToPayment()" class="cart-checkout-btn" id="checkoutBtn">
                     <i class="fas fa-shopping-cart"></i> Lanjut ke Pembayaran
                 </button>
             </div>
@@ -2393,103 +1525,79 @@
         // ===== STATE MANAGEMENT =====
         let cart = [];
         let currentStep = 1;
-        let proofFile = null;
-        let paymentProofFile = null;
-        let orderData = {
-            name: "",
-            phone: "",
-            email: "",
-            paymentMethod: "",
-            product: "",
-            quantity: 0,
-            unitPrice: 0,
-            total: 0,
-            orderId: generateOrderId(),
-            status: "pending"
-        };
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Set invoice date
-            const now = new Date();
-            const options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            document.getElementById('invoiceDate').textContent = now.toLocaleDateString('id-ID', options);
-            document.getElementById('invoiceNumber').textContent = orderData.orderId;
+            // Load cart from localStorage if exists
+            const savedCart = localStorage.getItem('digitalstore_cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartCount();
+            }
             
             // Render products
             renderProducts();
             updateCartCount();
             
-            // Setup file upload handlers
-            document.getElementById('paymentProof').addEventListener('change', function(e) {
-                paymentProofFile = e.target.files[0];
-                const fileName = paymentProofFile ? paymentProofFile.name : "Belum ada file dipilih";
-                document.getElementById('fileName').textContent = fileName;
-            });
-            
-            // Setup payment form submission
-            document.getElementById('paymentForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                processPayment();
-            });
-            
             // Setup scroll animations
             setupScrollAnimations();
-            
-            // Setup drag and drop for proof upload
-            setupDragAndDrop();
         });
 
         // ===== PRODUCT FUNCTIONS =====
         function renderProducts() {
             // Facebook products
             const facebookContainer = document.getElementById('facebook-products');
+            facebookContainer.innerHTML = '';
             products.facebook.forEach(product => {
                 facebookContainer.innerHTML += createProductCard(product);
             });
             
             // GSuite products
             const gsuiteContainer = document.getElementById('gsuite-products');
+            gsuiteContainer.innerHTML = '';
             products.gsuite.forEach(product => {
                 gsuiteContainer.innerHTML += createProductCard(product);
             });
             
             // YouTube products
             const youtubeContainer = document.getElementById('youtube-products');
+            youtubeContainer.innerHTML = '';
             products.youtube.forEach(product => {
                 youtubeContainer.innerHTML += createProductCard(product);
             });
             
             // Tools products
             const toolsContainer = document.getElementById('tools-products');
+            toolsContainer.innerHTML = '';
             products.tools.forEach(product => {
                 toolsContainer.innerHTML += createProductCard(product);
             });
             
             // Gmail products
             const gmailContainer = document.getElementById('gmail-products');
+            gmailContainer.innerHTML = '';
             products.gmail.forEach(product => {
                 gmailContainer.innerHTML += createProductCard(product);
             });
             
             // Attach event listeners
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = parseInt(this.getAttribute('data-id'));
-                    const quantityInput = document.getElementById(`quantity-${productId}`);
-                    const quantity = parseInt(quantityInput.value);
-                    
-                    if (quantity < 1) {
-                        showAlert('warning', 'Jumlah tidak valid', 'Masukkan jumlah yang valid untuk produk ini.');
-                        return;
-                    }
-                    
-                    addToCart(productId, quantity);
-                });
-            });
-            
-            // Animate product cards
             setTimeout(() => {
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        const quantityInput = document.getElementById(`quantity-${productId}`);
+                        const quantity = parseInt(quantityInput.value);
+                        
+                        if (quantity < 1) {
+                            showAlert('warning', 'Jumlah tidak valid', 'Masukkan jumlah yang valid untuk produk ini.');
+                            return;
+                        }
+                        
+                        addToCart(productId, quantity);
+                    });
+                });
+                
+                // Animate product cards
                 document.querySelectorAll('.product-card').forEach((card, index) => {
                     card.classList.add('animate-in');
                     card.style.animationDelay = `${index * 0.1}s`;
@@ -2579,11 +1687,14 @@
                 });
             }
             
+            // Save to localStorage
+            localStorage.setItem('digitalstore_cart', JSON.stringify(cart));
+            
             updateCartCount();
             
             // Show success animation
-            const cartIcon = document.querySelector('.cart-icon');
-            cartIcon.style.transform = 'scale(1.3)';
+            const cartIcon = document.querySelector('.product-header-btn');
+            cartIcon.style.transform = 'scale(1.1)';
             setTimeout(() => {
                 cartIcon.style.transform = 'scale(1)';
             }, 300);
@@ -2595,6 +1706,18 @@
         function updateCartCount() {
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             document.querySelector('.cart-count').textContent = totalItems;
+            
+            // Enable/disable checkout button
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (totalItems === 0) {
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = '0.6';
+                checkoutBtn.style.cursor = 'not-allowed';
+            } else {
+                checkoutBtn.disabled = false;
+                checkoutBtn.style.opacity = '1';
+                checkoutBtn.style.cursor = 'pointer';
+            }
         }
 
         function toggleCart() {
@@ -2648,283 +1771,64 @@
         }
 
         // ===== CHECKOUT PROCESS =====
-        function startCheckoutProcess() {
+        function redirectToPayment() {
             if (cart.length === 0) {
                 showAlert('warning', 'Keranjang Kosong', 'Tambahkan produk terlebih dahulu sebelum checkout.');
                 return;
             }
             
-            // Update order data with cart items
-            const firstItem = cart[0];
-            orderData.product = firstItem.name;
-            orderData.quantity = firstItem.quantity;
-            orderData.unitPrice = firstItem.price;
-            orderData.total = firstItem.price * firstItem.quantity;
+            // Save cart data for payment page
+            localStorage.setItem('digitalstore_cart', JSON.stringify(cart));
             
-            // Close cart modal
-            toggleCart();
+            // Calculate total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Start step 1: Redirect to payment with animation
-            showPageTransition('Mengarahkan ke Pembayaran...', 'Menyiapkan detail pembayaran Anda');
+            // Save order summary
+            const orderSummary = {
+                products: cart.map(item => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                    total: item.price * item.quantity
+                })),
+                total: total,
+                timestamp: new Date().toISOString(),
+                orderId: 'DS' + Date.now().toString().slice(-8)
+            };
+            
+            localStorage.setItem('digitalstore_order_summary', JSON.stringify(orderSummary));
+            
+            // Show transition
+            showPageTransition('Mengarahkan ke Pembayaran...', 'Menyiapkan halaman pembayaran');
             
             setTimeout(() => {
-                hidePageTransition();
-                
-                // Scroll to payment section
-                document.getElementById('payment').scrollIntoView({ 
+                // Redirect to payment.html
+                window.location.href = 'payment.html';
+            }, 1500);
+        }
+
+        // ===== HERO FUNCTIONS =====
+        function hideHeroAndScrollToProducts() {
+            // Hide hero section
+            const heroWrapper = document.querySelector('.hero-wrapper');
+            const mainSpacer = document.getElementById('mainSpacer');
+            
+            heroWrapper.classList.add('hidden');
+            mainSpacer.classList.add('hidden');
+            
+            // Scroll to products section
+            setTimeout(() => {
+                document.getElementById('products').scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
                 });
-                
-                // Show payment section with animation
-                setTimeout(() => {
-                    document.getElementById('payment').classList.add('active');
-                    
-                    // Update progress
-                    updateCheckoutProgress(1);
-                    
-                    // Show instruction
-                    showAlert('info', 'Langkah 1: Pilih Metode Pembayaran', 
-                        `Silakan pilih metode pembayaran dan transfer sesuai nominal:<br><br>
-                        <strong>Produk:</strong> ${orderData.product}<br>
-                        <strong>Jumlah:</strong> ${orderData.quantity}<br>
-                        <strong>Total:</strong> Rp ${orderData.total.toLocaleString('id-ID')}<br><br>
-                        Setelah transfer, upload bukti pembayaran untuk melanjutkan.`, 5000);
-                }, 300);
-            }, 1500);
-        }
-
-        function updateCheckoutProgress(step) {
-            const progress = document.getElementById('checkoutProgress');
-            progress.className = `checkout-progress step-${step}`;
+            }, 300);
             
-            document.querySelectorAll('.progress-step').forEach((stepEl, index) => {
-                stepEl.classList.remove('active', 'completed');
-                if (index + 1 < step) {
-                    stepEl.classList.add('completed');
-                } else if (index + 1 === step) {
-                    stepEl.classList.add('active');
-                }
-            });
-            
-            currentStep = step;
-        }
-
-        // ===== PAYMENT FUNCTIONS =====
-        function processPayment() {
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const paymentMethod = document.getElementById('paymentMethod').value;
-            
-            // Validation
-            if (!name || !phone || !email || !paymentMethod || !paymentProofFile) {
-                showAlert('error', 'Data Belum Lengkap', 'Harap lengkapi semua data pembayaran dan upload bukti transfer.');
-                return;
-            }
-            
-            // Update order data
-            orderData.name = name;
-            orderData.phone = phone;
-            orderData.email = email;
-            orderData.paymentMethod = paymentMethod;
-            orderData.status = "payment_verified";
-            
-            // Show transition
-            showPageTransition('Memproses Pembayaran...', 'Menyimpan data dan mengupdate invoice');
-            
-            setTimeout(() => {
-                hidePageTransition();
-                
-                // Update checkout progress
-                updateCheckoutProgress(3);
-                
-                // Hide payment section
-                document.getElementById('payment').classList.remove('active');
-                
-                // Show invoice section
-                updateInvoice();
-                document.getElementById('invoice').classList.add('active');
-                
-                // Scroll to invoice
-                setTimeout(() => {
-                    document.getElementById('invoice').scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    
-                    // Show success message
-                    showAlert('success', 'Pembayaran Berhasil!', 
-                        `Pembayaran Anda telah diverifikasi.<br>
-                        Invoice telah dibuat dan siap dikirim ke admin.<br><br>
-                        <strong>Silakan klik "Kirim ke WhatsApp Admin" untuk menyelesaikan proses.</strong>`, 4000);
-                }, 300);
-            }, 2000);
-        }
-
-        // ===== INVOICE FUNCTIONS =====
-        function updateInvoice() {
-            document.getElementById('invoiceName').textContent = orderData.name;
-            document.getElementById('invoicePhone').textContent = orderData.phone;
-            document.getElementById('invoiceEmail').textContent = orderData.email;
-            document.getElementById('invoiceProduct').textContent = orderData.product;
-            document.getElementById('invoiceQuantity').textContent = orderData.quantity;
-            document.getElementById('invoiceUnitPrice').textContent = `Rp ${orderData.unitPrice.toLocaleString('id-ID')}`;
-            document.getElementById('invoicePaymentMethod').textContent = orderData.paymentMethod;
-            document.getElementById('invoiceTotal').textContent = `Rp ${orderData.total.toLocaleString('id-ID')}`;
-            document.getElementById('invoiceStatus').textContent = "Pembayaran Diverifikasi";
-            document.getElementById('invoiceStatus').style.color = "#28a745";
-        }
-
-        function sendToWhatsApp() {
-            if (!orderData.product || orderData.product === "") {
-                showAlert('warning', 'Belum ada pembelian', 'Silakan tambahkan produk ke keranjang dan lakukan checkout terlebih dahulu.');
-                return;
-            }
-            
-            const message = `Halo Admin DigitalStore,\n\nSaya telah melakukan pembelian dengan detail berikut:\n\n` +
-                           `📋 *INVOICE #${orderData.orderId}*\n` +
-                           `📅 Tanggal: ${new Date().toLocaleDateString('id-ID')}\n` +
-                           `👤 Nama: ${orderData.name}\n` +
-                           `📱 WhatsApp: ${orderData.phone}\n` +
-                           `📧 Email: ${orderData.email}\n` +
-                           `🛒 Produk: ${orderData.product}\n` +
-                           `🔢 Jumlah: ${orderData.quantity}\n` +
-                           `💰 Total: Rp ${orderData.total.toLocaleString('id-ID')}\n` +
-                           `💳 Metode: ${orderData.paymentMethod}\n` +
-                           `✅ Status: Pembayaran Diverifikasi\n\n` +
-                           `Silakan proses pesanan saya. Terima kasih.`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/6282123829824?text=${encodedMessage}`;
-            
-            // Show transition before redirecting
-            showPageTransition('Mengarahkan ke WhatsApp...', 'Membuka WhatsApp untuk konfirmasi ke admin');
-            
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-                hidePageTransition();
-                
-                // Reset cart after successful order
-                cart = [];
-                updateCartCount();
-                
-                // Show final success message
-                setTimeout(() => {
-                    showAlert('success', 'Pesanan Berhasil!', 
-                        `Terima kasih telah berbelanja di DigitalStore.<br><br>
-                        Pesanan Anda akan diproses segera setelah konfirmasi dari admin.<br>
-                        Produk akan dikirim ke email: <strong>${orderData.email}</strong><br><br>
-                        <small>Silakan cek email Anda secara berkala.</small>`, 5000);
-                }, 1000);
-            }, 1500);
-        }
-
-        // ===== UPLOAD PROOF FUNCTIONS =====
-        function showUploadProofModal() {
-            document.getElementById('uploadProofModal').style.display = 'flex';
-            document.getElementById('proofUploadArea').classList.add('active');
-        }
-
-        function closeUploadProofModal() {
-            document.getElementById('uploadProofModal').style.display = 'none';
-            document.getElementById('proofUploadArea').classList.remove('active');
-        }
-
-        function triggerProofUpload() {
-            document.getElementById('proofInput').click();
-        }
-
-        function triggerMainPaymentProof() {
-            document.getElementById('paymentProof').click();
-        }
-
-        function handleProofUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                // Validate file
-                if (file.size > 5 * 1024 * 1024) {
-                    showAlert('error', 'File Terlalu Besar', 'Ukuran file maksimal 5MB.');
-                    return;
-                }
-                
-                if (!file.type.match('image.*')) {
-                    showAlert('error', 'Format Tidak Didukung', 'Hanya file gambar (JPG, PNG) yang diterima.');
-                    return;
-                }
-                
-                proofFile = file;
-                
-                // Update UI
-                document.getElementById('proofFileName').textContent = file.name;
-                
-                // Show preview
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('proofPreview');
-                    const previewImage = document.getElementById('proofPreviewImage');
-                    previewImage.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-                
-                showAlert('success', 'File berhasil diupload', 'Bukti transfer telah siap diunggah.', 1500);
-            }
-        }
-
-        function submitProofUpload() {
-            if (!proofFile) {
-                showAlert('warning', 'Belum Ada File', 'Silakan pilih file bukti transfer terlebih dahulu.');
-                return;
-            }
-            
-            showPageTransition('Mengupload Bukti Transfer...', 'Mengirim bukti pembayaran ke sistem');
-            
-            setTimeout(() => {
-                hidePageTransition();
-                closeUploadProofModal();
-                
-                // Update checkout progress
-                updateCheckoutProgress(3);
-                
-                // Show payment form automatically
-                setTimeout(() => {
-                    document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
-                    
-                    showAlert('success', 'Bukti Transfer Siap!', 
-                        `Bukti pembayaran telah diupload.<br>
-                        Silakan lengkapi data diri dan konfirmasi pembayaran.`, 2000);
-                }, 500);
-            }, 2000);
-        }
-
-        function skipProofUpload() {
-            showAlert('info', 'Instruksi Pembayaran', 
-                `Silakan konfirmasi pembayaran Anda dengan mengirim bukti transfer ke WhatsApp Admin:<br><br>
-                <strong>0821 2382 9824</strong><br><br>
-                Produk akan dikirim setelah pembayaran diverifikasi.`, 4000);
-            
-            closeUploadProofModal();
+            // Show alert
+            showAlert('info', 'Pilih Produk', 'Silakan pilih produk yang Anda inginkan dan tambahkan ke keranjang.', 2000);
         }
 
         // ===== UTILITY FUNCTIONS =====
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // Show copy animation
-                const copyBtn = event.target.closest('.copy-btn');
-                const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                copyBtn.style.background = 'linear-gradient(135deg, var(--success) 0%, #1e7e34 100%)';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalText;
-                    copyBtn.style.background = '';
-                }, 1500);
-                
-                showAlert('success', 'Berhasil Disalin', `Nomor ${text} telah disalin ke clipboard.`, 1500);
-            });
-        }
-
         function showAlert(icon, title, html, timer = 3000) {
             Swal.fire({
                 icon: icon,
@@ -2947,12 +1851,6 @@
 
         function hidePageTransition() {
             document.getElementById('pageTransition').classList.remove('active');
-        }
-
-        function generateOrderId() {
-            const timestamp = Date.now();
-            const random = Math.floor(Math.random() * 1000);
-            return `DS${timestamp.toString().slice(-6)}${random.toString().padStart(3, '0')}`;
         }
 
         // ===== SCROLL ANIMATIONS =====
@@ -2984,55 +1882,6 @@
                 
                 lastScrollTop = scrollTop;
             });
-        }
-
-        // ===== DRAG AND DROP =====
-        function setupDragAndDrop() {
-            const uploadArea = document.getElementById('proofUploadArea');
-            
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                uploadArea.addEventListener(eventName, preventDefaults, false);
-            });
-            
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            
-            ['dragenter', 'dragover'].forEach(eventName => {
-                uploadArea.addEventListener(eventName, highlight, false);
-            });
-            
-            ['dragleave', 'drop'].forEach(eventName => {
-                uploadArea.addEventListener(eventName, unhighlight, false);
-            });
-            
-            function highlight() {
-                uploadArea.classList.add('active');
-            }
-            
-            function unhighlight() {
-                uploadArea.classList.remove('active');
-            }
-            
-            uploadArea.addEventListener('drop', handleDrop, false);
-            
-            function handleDrop(e) {
-                const dt = e.dataTransfer;
-                const files = dt.files;
-                
-                if (files.length > 0) {
-                    const file = files[0];
-                    const event = { target: { files: [file] } };
-                    handleProofUpload(event);
-                }
-            }
-        }
-
-        // ===== PRINT FUNCTION =====
-        window.print = function() {
-            showAlert('info', 'Mencetak Invoice', 'Invoice sedang disiapkan untuk dicetak...');
-            // Actual print functionality would be implemented here
         }
     </script>
 </body>
