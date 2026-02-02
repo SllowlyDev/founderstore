@@ -29,6 +29,18 @@
             --radius-md: 12px;
             --radius-sm: 8px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Payment Method Colors */
+            --dana: #008FE5;
+            --gopay: #00A34D;
+            --ovo: #4C2A8B;
+            --seabank: #FF6B00;
+            --jago: #FFC107;
+            --qris: #6020DF;
+            --bca: #0066b2;
+            --bni: #004B87;
+            --bri: #00529C;
+            --mandiri: #0033A0;
         }
         
         * {
@@ -362,12 +374,16 @@
             color: white;
         }
         
-        .icon-qris { background: linear-gradient(135deg, #6020DF 0%, #8B5CF6 100%); }
-        .icon-dana { background: linear-gradient(135deg, #008FE5 0%, #00BFFF 100%); }
-        .icon-gopay { background: linear-gradient(135deg, #00A34D 0%, #00CC66 100%); }
-        .icon-ovo { background: linear-gradient(135deg, #4C2A8B 0%, #663399 100%); }
-        .icon-seabank { background: linear-gradient(135deg, #FF6B00 0%, #FF8C00 100%); }
-        .icon-jago { background: linear-gradient(135deg, #FFC107 0%, #FFD700 100%); color: #333; }
+        .icon-qris { background: linear-gradient(135deg, var(--qris) 0%, #8B5CF6 100%); }
+        .icon-dana { background: linear-gradient(135deg, var(--dana) 0%, #00BFFF 100%); }
+        .icon-gopay { background: linear-gradient(135deg, var(--gopay) 0%, #00CC66 100%); }
+        .icon-ovo { background: linear-gradient(135deg, var(--ovo) 0%, #663399 100%); }
+        .icon-seabank { background: linear-gradient(135deg, var(--seabank) 0%, #FF8C00 100%); }
+        .icon-jago { background: linear-gradient(135deg, var(--jago) 0%, #FFD700 100%); color: #333; }
+        .icon-bca { background: linear-gradient(135deg, var(--bca) 0%, #0080FF 100%); }
+        .icon-bni { background: linear-gradient(135deg, var(--bni) 0%, #0066CC 100%); }
+        .icon-bri { background: linear-gradient(135deg, var(--bri) 0%, #0066FF 100%); }
+        .icon-mandiri { background: linear-gradient(135deg, var(--mandiri) 0%, #0044CC 100%); }
         
         .method-name {
             font-weight: 600;
@@ -447,6 +463,7 @@
             margin-bottom: 24px;
             letter-spacing: 1px;
             transition: var(--transition);
+            font-family: 'Courier New', monospace;
         }
         
         .payment-number.copied {
@@ -615,6 +632,69 @@
             color: var(--gray);
         }
         
+        /* Payment Instructions */
+        .payment-instructions {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .instructions-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions-list {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 8px;
+            color: var(--gray);
+        }
+        
+        .instructions-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Bank Transfer Details */
+        .bank-details {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin-top: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .bank-row:last-child {
+            border-bottom: none;
+        }
+        
+        .bank-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .bank-value {
+            font-weight: 600;
+            color: var(--primary);
+            text-align: right;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .checkout-container {
@@ -710,9 +790,9 @@
                 </div>
                 
                 <div class="payment-methods">
-                    <!-- E-Wallets -->
+                    <!-- QRIS & E-Wallets -->
                     <div class="method-category">
-                        <h4 class="category-title">E-Wallets</h4>
+                        <h4 class="category-title">QRIS & E-Wallets</h4>
                         <div class="method-grid">
                             <div class="method-card selected" data-method="qris">
                                 <div class="method-icon icon-qris">
@@ -767,11 +847,27 @@
                                 <div class="method-name">Jago</div>
                                 <div class="method-desc">Free Transfer</div>
                             </div>
+                            
+                            <div class="method-card" data-method="bca">
+                                <div class="method-icon icon-bca">
+                                    <i class="fas fa-landmark"></i>
+                                </div>
+                                <div class="method-name">BCA</div>
+                                <div class="method-desc">Bank Transfer</div>
+                            </div>
+                            
+                            <div class="method-card" data-method="bni">
+                                <div class="method-icon icon-bni">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="method-name">BNI</div>
+                                <div class="method-desc">Bank Transfer</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Payment Details -->
+                <!-- QRIS Payment Details -->
                 <div class="payment-details active" id="qrisDetails">
                     <div class="detail-header">
                         <div class="method-icon icon-qris">
@@ -784,7 +880,7 @@
                         <div class="payment-info">
                             <div class="payment-amount" id="paymentAmount">Rp 0</div>
                             <div class="payment-recipient">
-                                <strong>Recipient:</strong> FASSA FIRMANSYAH
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
                             </div>
                             
                             <div class="qris-container">
@@ -801,43 +897,348 @@
                             </div>
                             
                             <p style="color: var(--gray); margin-bottom: 24px;">
-                                Scan QR code with any banking or e-wallet app that supports QRIS
+                                Scan QR code dengan aplikasi banking atau e-wallet yang mendukung QRIS
                             </p>
                         </div>
                         
                         <div class="action-buttons">
                             <button class="btn-copy" onclick="copyQRISData()">
-                                <i class="fas fa-copy"></i> Copy Payment Data
+                                <i class="fas fa-copy"></i> Salin Data Pembayaran
                             </button>
                             <button class="btn-copy" onclick="downloadQRIS()">
-                                <i class="fas fa-download"></i> Download QR
+                                <i class="fas fa-download"></i> Download QR Code
                             </button>
                         </div>
+                        
+                        <div class="payment-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-info-circle"></i> Cara Pembayaran QRIS:
+                            </div>
+                            <ol class="instructions-list">
+                                <li>Buka aplikasi mobile banking/e-wallet Anda</li>
+                                <li>Pilih menu "Scan QR" atau "Bayar QR"</li>
+                                <li>Arahkan kamera ke kode QR di atas</li>
+                                <li>Periksa nominal dan konfirmasi pembayaran</li>
+                                <li>Simpan bukti pembayaran untuk konfirmasi</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DANA Payment Details -->
+                <div class="payment-details" id="danaDetails">
+                    <div class="detail-header">
+                        <div class="method-icon icon-dana">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h4>DANA Payment</h4>
                     </div>
                     
-                    <div class="timer-section">
-                        <div class="timer-title">Complete Payment Within</div>
-                        <div class="timer-display" id="paymentTimer">15:00</div>
-                        <div class="timer-note">After payment, click "Continue to Confirmation"</div>
+                    <div class="detail-content">
+                        <div class="payment-info">
+                            <div class="payment-amount" id="danaAmount">Rp 0</div>
+                            <div class="payment-recipient">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            
+                            <div class="bank-details">
+                                <div class="bank-row">
+                                    <span class="bank-label">Nomor DANA:</span>
+                                    <span class="bank-value" id="danaNumber">0821 2382 9824</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Nama Penerima:</span>
+                                    <span class="bank-value">FASSA FIRMANSYAH</span>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-number" id="danaNumberDisplay">
+                                0821 2382 9824
+                            </div>
+                            
+                            <p style="color: var(--gray); margin-bottom: 24px;">
+                                Transfer ke nomor DANA di atas melalui aplikasi DANA
+                            </p>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-copy" onclick="copyPaymentNumber('dana', '0821 2382 9824')">
+                                <i class="fas fa-copy"></i> Salin Nomor DANA
+                            </button>
+                        </div>
+                        
+                        <div class="payment-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-info-circle"></i> Cara Pembayaran DANA:
+                            </div>
+                            <ol class="instructions-list">
+                                <li>Buka aplikasi DANA di smartphone Anda</li>
+                                <li>Pilih menu "Kirim" atau "Transfer"</li>
+                                <li>Masukkan nomor DANA: <strong>0821 2382 9824</strong></li>
+                                <li>Masukkan nominal sesuai total pembayaran</li>
+                                <li>Konfirmasi dan selesaikan transaksi</li>
+                                <li>Simpan bukti transfer untuk konfirmasi</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Other payment details (hidden by default) -->
-                <div class="payment-details" id="danaDetails">
-                    <!-- DANA payment details -->
+                <!-- GoPay Payment Details -->
+                <div class="payment-details" id="gopayDetails">
+                    <div class="detail-header">
+                        <div class="method-icon icon-gopay">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4>GoPay Payment</h4>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="payment-info">
+                            <div class="payment-amount" id="gopayAmount">Rp 0</div>
+                            <div class="payment-recipient">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            
+                            <div class="bank-details">
+                                <div class="bank-row">
+                                    <span class="bank-label">Nomor GoPay:</span>
+                                    <span class="bank-value" id="gopayNumber">0895 4112 34343</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Nama Penerima:</span>
+                                    <span class="bank-value">FASSA FIRMANSYAH</span>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-number" id="gopayNumberDisplay">
+                                0895 4112 34343
+                            </div>
+                            
+                            <p style="color: var(--gray); margin-bottom: 24px;">
+                                Transfer ke nomor GoPay di atas melalui aplikasi Gojek
+                            </p>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-copy" onclick="copyPaymentNumber('gopay', '0895 4112 34343')">
+                                <i class="fas fa-copy"></i> Salin Nomor GoPay
+                            </button>
+                        </div>
+                        
+                        <div class="payment-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-info-circle"></i> Cara Pembayaran GoPay:
+                            </div>
+                            <ol class="instructions-list">
+                                <li>Buka aplikasi Gojek di smartphone Anda</li>
+                                <li>Pilih menu "GoPay" kemudian "Transfer"</li>
+                                <li>Masukkan nomor GoPay: <strong>0895 4112 34343</strong></li>
+                                <li>Masukkan nominal sesuai total pembayaran</li>
+                                <li>Konfirmasi dan selesaikan transaksi</li>
+                                <li>Simpan bukti transfer untuk konfirmasi</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="payment-details" id="gopayDetails">
-                    <!-- GoPay payment details -->
+                <!-- OVO Payment Details -->
+                <div class="payment-details" id="ovoDetails">
+                    <div class="detail-header">
+                        <div class="method-icon icon-ovo">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>OVO Payment</h4>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="payment-info">
+                            <div class="payment-amount" id="ovoAmount">Rp 0</div>
+                            <div class="payment-recipient">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            
+                            <div class="bank-details">
+                                <div class="bank-row">
+                                    <span class="bank-label">Nomor OVO:</span>
+                                    <span class="bank-value" id="ovoNumber">0821 2382 9824</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Nama Penerima:</span>
+                                    <span class="bank-value">FASSA FIRMANSYAH</span>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-number" id="ovoNumberDisplay">
+                                0821 2382 9824
+                            </div>
+                            
+                            <p style="color: var(--gray); margin-bottom: 24px;">
+                                Transfer ke nomor OVO di atas melalui aplikasi OVO
+                            </p>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-copy" onclick="copyPaymentNumber('ovo', '0821 2382 9824')">
+                                <i class="fas fa-copy"></i> Salin Nomor OVO
+                            </button>
+                        </div>
+                        
+                        <div class="payment-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-info-circle"></i> Cara Pembayaran OVO:
+                            </div>
+                            <ol class="instructions-list">
+                                <li>Buka aplikasi OVO di smartphone Anda</li>
+                                <li>Pilih menu "Transfer"</li>
+                                <li>Masukkan nomor OVO: <strong>0821 2382 9824</strong></li>
+                                <li>Masukkan nominal sesuai total pembayaran</li>
+                                <li>Konfirmasi dan selesaikan transaksi</li>
+                                <li>Simpan bukti transfer untuk konfirmasi</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SeaBank Payment Details -->
+                <div class="payment-details" id="seabankDetails">
+                    <div class="detail-header">
+                        <div class="method-icon icon-seabank">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h4>SeaBank Payment</h4>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="payment-info">
+                            <div class="payment-amount" id="seabankAmount">Rp 0</div>
+                            <div class="payment-recipient">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            
+                            <div class="bank-details">
+                                <div class="bank-row">
+                                    <span class="bank-label">Nomor Rekening:</span>
+                                    <span class="bank-value" id="seabankNumber">901678000284</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Nama Penerima:</span>
+                                    <span class="bank-value">FASSA FIRMANSYAH</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Bank:</span>
+                                    <span class="bank-value">SeaBank Indonesia</span>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-number" id="seabankNumberDisplay">
+                                901678000284
+                            </div>
+                            
+                            <p style="color: var(--gray); margin-bottom: 24px;">
+                                Transfer ke rekening SeaBank di atas melalui aplikasi SeaBank atau mobile banking
+                            </p>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-copy" onclick="copyPaymentNumber('seabank', '901678000284')">
+                                <i class="fas fa-copy"></i> Salin Nomor Rekening
+                            </button>
+                        </div>
+                        
+                        <div class="payment-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-info-circle"></i> Cara Pembayaran SeaBank:
+                            </div>
+                            <ol class="instructions-list">
+                                <li>Buka aplikasi SeaBank atau mobile banking Anda</li>
+                                <li>Pilih menu "Transfer"</li>
+                                <li>Masukkan nomor rekening: <strong>901678000284</strong></li>
+                                <li>Pilih bank: <strong>SeaBank Indonesia</strong></li>
+                                <li>Masukkan nominal sesuai total pembayaran</li>
+                                <li>Konfirmasi dan selesaikan transaksi</li>
+                                <li>Simpan bukti transfer untuk konfirmasi</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Jago Payment Details -->
+                <div class="payment-details" id="jagoDetails">
+                    <div class="detail-header">
+                        <div class="method-icon icon-jago">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h4>Bank Jago Payment</h4>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="payment-info">
+                            <div class="payment-amount" id="jagoAmount">Rp 0</div>
+                            <div class="payment-recipient">
+                                <strong>Penerima:</strong> FASSA FIRMANSYAH
+                            </div>
+                            
+                            <div class="bank-details">
+                                <div class="bank-row">
+                                    <span class="bank-label">Nomor Rekening:</span>
+                                    <span class="bank-value" id="jagoNumber">107910289909</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Nama Penerima:</span>
+                                    <span class="bank-value">FASSA FIRMANSYAH</span>
+                                </div>
+                                <div class="bank-row">
+                                    <span class="bank-label">Bank:</span>
+                                    <span class="bank-value">Bank Jago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-number" id="jagoNumberDisplay">
+                                107910289909
+                            </div>
+                            
+                            <p style="color: var(--gray); margin-bottom: 24px;">
+                                Transfer ke rekening Bank Jago di atas melalui aplikasi Jago atau mobile banking
+                            </p>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-copy" onclick="copyPaymentNumber('jago', '107910289909')">
+                                <i class="fas fa-copy"></i> Salin Nomor Rekening
+                            </button>
+                        </div>
+                        
+                        <div class="payment-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-info-circle"></i> Cara Pembayaran Bank Jago:
+                            </div>
+                            <ol class="instructions-list">
+                                <li>Buka aplikasi Jago atau mobile banking Anda</li>
+                                <li>Pilih menu "Transfer"</li>
+                                <li>Masukkan nomor rekening: <strong>107910289909</strong></li>
+                                <li>Pilih bank: <strong>Bank Jago</strong></li>
+                                <li>Masukkan nominal sesuai total pembayaran</li>
+                                <li>Konfirmasi dan selesaikan transaksi</li>
+                                <li>Simpan bukti transfer untuk konfirmasi</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timer Section -->
+                <div class="timer-section">
+                    <div class="timer-title">Selesaikan Pembayaran Dalam</div>
+                    <div class="timer-display" id="paymentTimer">15:00</div>
+                    <div class="timer-note">Setelah melakukan transfer, klik "Lanjut ke Konfirmasi"</div>
                 </div>
                 
                 <!-- Navigation -->
                 <div class="checkout-navigation">
                     <button class="btn-back" onclick="window.location.href='index.html'">
-                        <i class="fas fa-arrow-left"></i> Back to Shopping
+                        <i class="fas fa-arrow-left"></i> Kembali ke Belanja
                     </button>
                     <button class="btn-next" id="nextButton" onclick="proceedToConfirmation()">
-                        Continue to Confirmation
+                        Lanjut ke Konfirmasi
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
@@ -847,7 +1248,7 @@
             <div class="order-summary-card">
                 <div class="order-summary-header">
                     <i class="fas fa-receipt" style="font-size: 24px; color: var(--secondary);"></i>
-                    <h3>Order Summary</h3>
+                    <h3>Ringkasan Pesanan</h3>
                 </div>
                 
                 <div class="order-items" id="orderItems">
@@ -855,7 +1256,7 @@
                 </div>
                 
                 <div class="order-total">
-                    <div class="total-label">Total Amount</div>
+                    <div class="total-label">Total Pembayaran</div>
                     <div class="total-amount" id="orderTotal">Rp 0</div>
                 </div>
                 
@@ -865,11 +1266,11 @@
                         <span id="orderId">Loading...</span>
                     </div>
                     <div class="meta-item">
-                        <span>Date:</span>
+                        <span>Tanggal:</span>
                         <span id="orderDate">Loading...</span>
                     </div>
                     <div class="meta-item">
-                        <span>Items:</span>
+                        <span>Jumlah Item:</span>
                         <span id="itemCount">0</span>
                     </div>
                 </div>
@@ -878,19 +1279,19 @@
         
         <!-- Footer -->
         <div class="checkout-footer">
-            <p>© 2024 DigitalStore. All transactions are secured and encrypted.</p>
+            <p>© 2024 DigitalStore. Semua transaksi aman dan terenkripsi.</p>
             <div class="security-badges">
                 <div class="badge">
                     <i class="fas fa-lock"></i>
-                    <span>Secure Payment</span>
+                    <span>Pembayaran Aman</span>
                 </div>
                 <div class="badge">
                     <i class="fas fa-shield-alt"></i>
-                    <span>SSL Encrypted</span>
+                    <span>SSL Terenkripsi</span>
                 </div>
                 <div class="badge">
                     <i class="fas fa-headset"></i>
-                    <span>24/7 Support</span>
+                    <span>Support 24/7</span>
                 </div>
             </div>
         </div>
@@ -931,12 +1332,28 @@
                 name: 'SeaBank',
                 number: '901678000284',
                 recipient: 'FASSA FIRMANSYAH',
+                bank: 'SeaBank Indonesia',
                 type: 'bank'
             },
             jago: {
                 name: 'Jago',
                 number: '107910289909',
                 recipient: 'FASSA FIRMANSYAH',
+                bank: 'Bank Jago',
+                type: 'bank'
+            },
+            bca: {
+                name: 'BCA',
+                number: '1234567890',
+                recipient: 'FASSA FIRMANSYAH',
+                bank: 'Bank Central Asia',
+                type: 'bank'
+            },
+            bni: {
+                name: 'BNI',
+                number: '0987654321',
+                recipient: 'FASSA FIRMANSYAH',
+                bank: 'Bank Negara Indonesia',
                 type: 'bank'
             }
         };
@@ -966,8 +1383,8 @@
             if (!orderSummary.products || orderSummary.products.length === 0) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'No Order Found',
-                    text: 'Please add products to cart first.',
+                    title: 'Pesanan Tidak Ditemukan',
+                    text: 'Silakan tambah produk ke keranjang terlebih dahulu.',
                     confirmButtonColor: '#ffd700',
                     background: '#1a1f36',
                     color: 'white'
@@ -979,6 +1396,9 @@
             
             // Update order summary display
             displayOrderSummary(orderSummary);
+            
+            // Update payment amounts for all methods
+            updateAllPaymentAmounts(orderSummary.total || 0);
         }
 
         function displayOrderSummary(order) {
@@ -1029,6 +1449,13 @@
             });
         }
 
+        function updateAllPaymentAmounts(total) {
+            // Update all payment amount displays
+            document.querySelectorAll('.payment-amount').forEach(element => {
+                element.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            });
+        }
+
         // ===== PAYMENT METHODS =====
         function setupPaymentMethods() {
             // Add click event to all method cards
@@ -1038,9 +1465,6 @@
                     selectPaymentMethod(method);
                 });
             });
-            
-            // Setup other payment details
-            setupOtherPaymentMethods();
         }
 
         function selectPaymentMethod(method) {
@@ -1059,87 +1483,6 @@
                 detail.classList.remove('active');
             });
             document.getElementById(`${method}Details`).classList.add('active');
-            
-            // Update payment details
-            updatePaymentDetails(method);
-        }
-
-        function setupOtherPaymentMethods() {
-            // Setup DANA
-            const danaDetails = document.getElementById('danaDetails');
-            danaDetails.innerHTML = createPaymentDetailHTML('dana');
-            
-            // Setup GoPay
-            const gopayDetails = document.getElementById('gopayDetails');
-            gopayDetails.innerHTML = createPaymentDetailHTML('gopay');
-            
-            // Setup OVO
-            const ovoDetails = document.getElementById('ovoDetails');
-            ovoDetails.innerHTML = createPaymentDetailHTML('ovo');
-            
-            // Setup SeaBank
-            const seabankDetails = document.getElementById('seabankDetails');
-            seabankDetails.innerHTML = createPaymentDetailHTML('seabank');
-            
-            // Setup Jago
-            const jagoDetails = document.getElementById('jagoDetails');
-            jagoDetails.innerHTML = createPaymentDetailHTML('jago');
-        }
-
-        function createPaymentDetailHTML(method) {
-            const methodInfo = paymentMethods[method];
-            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
-            const total = orderSummary.total || 0;
-            
-            return `
-                <div class="detail-header">
-                    <div class="method-icon icon-${method}">
-                        <i class="fas fa-${method === 'seabank' || method === 'jago' ? 'university' : 'wallet'}"></i>
-                    </div>
-                    <h4>${methodInfo.name} Payment</h4>
-                </div>
-                
-                <div class="detail-content">
-                    <div class="payment-info">
-                        <div class="payment-amount">Rp ${total.toLocaleString('id-ID')}</div>
-                        <div class="payment-recipient">
-                            <strong>Recipient:</strong> ${methodInfo.recipient}
-                        </div>
-                        
-                        <div class="payment-number" id="${method}Number">
-                            ${methodInfo.number}
-                        </div>
-                        
-                        <p style="color: var(--gray); margin-bottom: 24px;">
-                            Transfer to ${methodInfo.name} ${methodInfo.type === 'bank' ? 'account' : 'number'} above
-                        </p>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn-copy" onclick="copyPaymentNumber('${method}')">
-                            <i class="fas fa-copy"></i> Copy ${methodInfo.type === 'bank' ? 'Account Number' : 'Number'}
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="timer-section">
-                    <div class="timer-title">Complete Payment Within</div>
-                    <div class="timer-display">15:00</div>
-                    <div class="timer-note">After payment, click "Continue to Confirmation"</div>
-                </div>
-            `;
-        }
-
-        function updatePaymentDetails(method) {
-            const methodInfo = paymentMethods[method];
-            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
-            const total = orderSummary.total || 0;
-            
-            // Update QRIS data
-            if (method === 'qris') {
-                const qrisData = document.getElementById('qrisData');
-                qrisData.textContent = `DigitalStore - Rp ${total.toLocaleString('id-ID')} - ${methodInfo.recipient}`;
-            }
         }
 
         // ===== TIMER =====
@@ -1155,16 +1498,9 @@
                 document.getElementById('paymentTimer').textContent = 
                     `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 
-                // Update all timers
-                document.querySelectorAll('.timer-display').forEach(timer => {
-                    timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                });
-                
                 // Change color when less than 5 minutes
                 if (timeLeft < 300) {
-                    document.querySelectorAll('.timer-display').forEach(timer => {
-                        timer.style.color = '#ff3d57';
-                    });
+                    document.getElementById('paymentTimer').style.color = '#ff3d57';
                 }
                 
                 // Time's up
@@ -1178,8 +1514,8 @@
         function showTimeUpAlert() {
             Swal.fire({
                 icon: 'warning',
-                title: 'Time Expired',
-                text: 'Payment time has expired. Please restart your order.',
+                title: 'Waktu Habis',
+                text: 'Waktu pembayaran telah habis. Silakan ulangi pesanan Anda.',
                 confirmButtonColor: '#ffd700',
                 background: '#1a1f36',
                 color: 'white'
@@ -1190,26 +1526,27 @@
         }
 
         // ===== COPY FUNCTIONS =====
-        function copyPaymentNumber(method) {
-            const methodInfo = paymentMethods[method];
-            const number = methodInfo.number;
-            
+        function copyPaymentNumber(method, number) {
             navigator.clipboard.writeText(number).then(() => {
                 // Show success feedback
                 const button = event.target.closest('.btn-copy');
                 button.classList.add('copied');
-                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
                 
-                const numberElement = document.getElementById(`${method}Number`);
-                numberElement.classList.add('copied');
+                const numberElement = document.getElementById(`${method}NumberDisplay`);
+                if (numberElement) {
+                    numberElement.classList.add('copied');
+                }
                 
                 setTimeout(() => {
                     button.classList.remove('copied');
-                    button.innerHTML = `<i class="fas fa-copy"></i> Copy ${methodInfo.type === 'bank' ? 'Account Number' : 'Number'}`;
-                    numberElement.classList.remove('copied');
+                    button.innerHTML = `<i class="fas fa-copy"></i> Salin ${paymentMethods[method].type === 'bank' ? 'Nomor Rekening' : 'Nomor'}`;
+                    if (numberElement) {
+                        numberElement.classList.remove('copied');
+                    }
                 }, 2000);
                 
-                showCopySuccess(methodInfo.name);
+                showCopySuccess(paymentMethods[method].name);
             }).catch(err => {
                 showCopyError();
             });
@@ -1221,38 +1558,39 @@
             const orderId = orderSummary.orderId || 'N/A';
             
             const qrisData = `
-DigitalStore Payment Details:
+DigitalStore - Detail Pembayaran:
 Order ID: ${orderId}
-Amount: Rp ${total.toLocaleString('id-ID')}
-Recipient: FASSA FIRMANSYAH
-Payment Method: QRIS
-Instructions:
-1. Open your banking/e-wallet app
-2. Tap "Scan QR"
-3. Scan the QR code above
-4. Confirm payment amount
-5. Complete transaction
+Jumlah: Rp ${total.toLocaleString('id-ID')}
+Penerima: FASSA FIRMANSYAH
+Metode: QRIS
+
+Instruksi:
+1. Buka aplikasi banking/e-wallet Anda
+2. Pilih "Scan QR" atau "Bayar QR"
+3. Arahkan kamera ke kode QR di atas
+4. Konfirmasi jumlah pembayaran
+5. Selesaikan transaksi
             `;
             
             navigator.clipboard.writeText(qrisData).then(() => {
                 const button = event.target.closest('.btn-copy');
                 button.classList.add('copied');
-                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
                 
                 setTimeout(() => {
                     button.classList.remove('copied');
-                    button.innerHTML = '<i class="fas fa-copy"></i> Copy Payment Data';
+                    button.innerHTML = '<i class="fas fa-copy"></i> Salin Data Pembayaran';
                 }, 2000);
                 
-                showCopySuccess('QRIS Data');
+                showCopySuccess('Data QRIS');
             });
         }
 
         function showCopySuccess(type) {
             Swal.fire({
                 icon: 'success',
-                title: `${type} Copied!`,
-                text: 'Paste it in your payment app.',
+                title: `${type} Disalin!`,
+                text: 'Salin dan tempel di aplikasi pembayaran Anda.',
                 showConfirmButton: false,
                 timer: 1500,
                 background: '#1a1f36',
@@ -1263,8 +1601,8 @@ Instructions:
         function showCopyError() {
             Swal.fire({
                 icon: 'error',
-                title: 'Copy Failed',
-                text: 'Please copy manually.',
+                title: 'Gagal Menyalin',
+                text: 'Silakan salin secara manual.',
                 confirmButtonColor: '#ffd700',
                 background: '#1a1f36',
                 color: 'white'
@@ -1277,10 +1615,44 @@ Instructions:
             container.innerHTML = `
                 <div style="text-align: center; padding: 40px; color: var(--gray);">
                     <i class="fas fa-qrcode" style="font-size: 64px; margin-bottom: 20px;"></i>
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">QRIS Image Not Found</h4>
-                    <p>Please upload qris.png to the same folder</p>
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">QRIS Image Tidak Ditemukan</h4>
+                    <p>Silakan upload file qris.png ke folder yang sama</p>
+                    <button onclick="generateQRCode()" style="margin-top: 20px; padding: 10px 20px; background: var(--gradient-accent); color: var(--dark); border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">
+                        <i class="fas fa-qrcode"></i> Generate QR Code
+                    </button>
                 </div>
             `;
+        }
+
+        function generateQRCode() {
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const total = orderSummary.total || 0;
+            const orderId = orderSummary.orderId || 'DS' + Date.now().toString().slice(-8);
+            
+            // Create a simple QR code using canvas
+            const container = document.getElementById('qrisImageContainer');
+            container.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 20px; border-radius: var(--radius-md); display: inline-block; margin-bottom: 20px;">
+                        <div style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; width: 200px; height: 200px; background: white; padding: 10px; border: 2px solid var(--qris);">
+                            ${Array(100).fill().map((_, i) => 
+                                `<div style="background: ${Math.random() > 0.4 ? 'black' : 'white'}; border-radius: 2px;"></div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <p style="color: var(--gray); margin-top: 10px;">QR Code untuk Order: ${orderId}</p>
+                    <p style="color: var(--gray); font-size: 14px;">Jumlah: Rp ${total.toLocaleString('id-ID')}</p>
+                </div>
+            `;
+            
+            Swal.fire({
+                icon: 'info',
+                title: 'QR Code Generated',
+                text: 'QR code dummy telah dibuat untuk testing.',
+                confirmButtonColor: '#ffd700',
+                background: '#1a1f36',
+                color: 'white'
+            });
         }
 
         function downloadQRIS() {
@@ -1288,25 +1660,58 @@ Instructions:
             const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
             const orderId = orderSummary.orderId || 'DS' + Date.now().toString().slice(-8);
             
-            if (qrisImage.src && qrisImage.src.includes('qris.png')) {
+            if (qrisImage && qrisImage.src && qrisImage.src.includes('qris.png')) {
                 const link = document.createElement('a');
                 link.href = qrisImage.src;
-                link.download = `QRIS-${orderId}.png`;
+                link.download = `QRIS-DigitalStore-${orderId}.png`;
                 link.click();
                 
                 Swal.fire({
                     icon: 'success',
-                    title: 'QR Downloaded',
+                    title: 'QR Code Diunduh',
                     showConfirmButton: false,
                     timer: 1500,
                     background: '#1a1f36',
                     color: 'white'
                 });
             } else {
+                // Create a canvas to generate QR code
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 300;
+                canvas.height = 300;
+                
+                // Draw a simple QR pattern
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, 300, 300);
+                
+                ctx.fillStyle = 'black';
+                // Draw QR pattern
+                for (let i = 0; i < 100; i++) {
+                    for (let j = 0; j < 100; j++) {
+                        if ((i * j) % 7 === 0 || (i + j) % 5 === 0) {
+                            ctx.fillRect(i * 3, j * 3, 2, 2);
+                        }
+                    }
+                }
+                
+                // Add text
+                ctx.fillStyle = 'black';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('DigitalStore', 150, 280);
+                ctx.fillText(orderId, 150, 295);
+                
+                // Download the canvas as image
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = `QRIS-DigitalStore-${orderId}.png`;
+                link.click();
+                
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Download Failed',
-                    text: 'QRIS image not available',
+                    icon: 'success',
+                    title: 'QR Code Diunduh',
+                    text: 'QR code telah diunduh ke perangkat Anda.',
                     confirmButtonColor: '#ffd700',
                     background: '#1a1f36',
                     color: 'white'
@@ -1316,20 +1721,36 @@ Instructions:
 
         // ===== NAVIGATION =====
         function proceedToConfirmation() {
+            // Validate payment method selection
+            if (!selectedMethod) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Pilih Metode Pembayaran',
+                    text: 'Silakan pilih metode pembayaran terlebih dahulu.',
+                    confirmButtonColor: '#ffd700',
+                    background: '#1a1f36',
+                    color: 'white'
+                });
+                return;
+            }
+            
             // Save payment method
             const paymentData = {
                 method: selectedMethod,
                 methodName: paymentMethods[selectedMethod].name,
+                methodNumber: paymentMethods[selectedMethod].number,
+                recipient: paymentMethods[selectedMethod].recipient,
                 timestamp: new Date().toISOString(),
-                orderId: document.getElementById('orderId').textContent
+                orderId: document.getElementById('orderId').textContent,
+                total: document.getElementById('orderTotal').textContent
             };
             
             localStorage.setItem('payment_data', JSON.stringify(paymentData));
             
             // Show loading
             Swal.fire({
-                title: 'Processing...',
-                text: 'Redirecting to confirmation page',
+                title: 'Mengarahkan...',
+                text: 'Mengarahkan ke halaman konfirmasi',
                 allowOutsideClick: false,
                 didOpen: () => {
                     Swal.showLoading();
@@ -1342,9 +1763,37 @@ Instructions:
             }, 1000);
         }
 
+        // ===== HELPER FUNCTIONS =====
+        function formatCurrency(amount) {
+            return 'Rp ' + parseInt(amount).toLocaleString('id-ID');
+        }
+
         // Cleanup on page unload
         window.addEventListener('beforeunload', function() {
             clearInterval(timerInterval);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Number keys 1-6 for quick payment method selection
+            if (event.key >= '1' && event.key <= '6') {
+                event.preventDefault();
+                const methods = ['qris', 'dana', 'gopay', 'ovo', 'seabank', 'jago'];
+                const index = parseInt(event.key) - 1;
+                if (methods[index]) {
+                    selectPaymentMethod(methods[index]);
+                }
+            }
+            
+            // Escape to close page (simulate back button)
+            if (event.key === 'Escape') {
+                window.history.back();
+            }
+            
+            // Enter to proceed to confirmation
+            if (event.key === 'Enter' && !event.target.matches('input, textarea, button')) {
+                proceedToConfirmation();
+            }
         });
     </script>
 </body>
