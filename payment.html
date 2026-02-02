@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembayaran - DigitalStore</title>
+    <title>Secure Checkout | DigitalStore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0a1931;
-            --secondary: #185adb;
-            --accent: #d4af37;
-            --dark: #111827;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --transition: cubic-bezier(0.4, 0, 0.2, 1);
-            --dana: #008FE5;
-            --gopay: #00A34D;
-            --ovo: #4C2A8B;
-            --seabank: #FF6B00;
-            --jago: #FFC107;
-            --qris: #6020DF;
+            --primary: #1a1f36;
+            --secondary: #0066ff;
+            --accent: #ffd700;
+            --dark: #0f1420;
+            --light: #ffffff;
+            --gray-light: #f5f7fa;
+            --gray: #8a94a6;
+            --success: #00c853;
+            --danger: #ff3d57;
+            --gradient-primary: linear-gradient(135deg, #1a1f36 0%, #0f1420 100%);
+            --gradient-accent: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            --gradient-blue: linear-gradient(135deg, #0066ff 0%, #0052d4 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius-xl: 20px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
@@ -34,256 +38,360 @@
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #333;
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
         
-        .container {
-            width: 100%;
+        .checkout-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 40px 24px;
         }
         
         /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            position: relative;
-            border-bottom: 2px solid var(--accent);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-            color: var(--accent);
-        }
-        
-        .logo span {
-            color: var(--light);
-        }
-        
-        /* Main Content */
-        .payment-container {
-            padding: 80px 0;
-        }
-        
-        .page-title {
+        .checkout-header {
             text-align: center;
-            margin-bottom: 50px;
-            position: relative;
+            margin-bottom: 60px;
         }
         
-        .page-title h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+        .checkout-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .logo-text span {
             color: var(--accent);
-            margin-bottom: 15px;
+            font-weight: 800;
         }
         
-        .page-title p {
-            color: #cbd5e1;
-            font-size: 1.2rem;
+        .checkout-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .checkout-subtitle {
+            color: var(--gray);
+            font-size: 18px;
             max-width: 600px;
             margin: 0 auto;
         }
         
-        /* Progress Steps */
+        /* Progress Bar */
         .checkout-progress {
-            display: flex;
-            justify-content: space-between;
-            margin: 50px 0 70px;
-            position: relative;
+            max-width: 800px;
+            margin: 0 auto 60px;
         }
         
-        .checkout-progress::before {
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 24px;
+        }
+        
+        .progress-steps::before {
             content: '';
             position: absolute;
             top: 20px;
             left: 0;
-            width: 100%;
+            right: 0;
             height: 4px;
-            background: linear-gradient(90deg, 
-                var(--accent) 0%, 
-                var(--accent) 33%, 
-                rgba(212, 175, 55, 0.3) 33%, 
-                rgba(212, 175, 55, 0.3) 100%);
-            border-radius: 2px;
+            background: rgba(0, 0, 0, 0.1);
             z-index: 1;
         }
         
-        .checkout-progress.step-2::before {
-            background: linear-gradient(90deg, 
-                var(--accent) 0%, 
-                var(--accent) 66%, 
-                rgba(212, 175, 55, 0.3) 66%, 
-                rgba(212, 175, 55, 0.3) 100%);
-        }
-        
-        .checkout-progress.step-3::before {
-            background: linear-gradient(90deg, 
-                var(--accent) 0%, 
-                var(--accent) 100%);
-        }
-        
-        .progress-step {
-            position: relative;
+        .progress-bar {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 4px;
+            background: var(--gradient-accent);
             z-index: 2;
+            transition: var(--transition);
+        }
+        
+        .step {
+            position: relative;
+            z-index: 3;
             text-align: center;
             flex: 1;
         }
         
-        .step-circle {
-            width: 45px;
-            height: 45px;
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: 3px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-weight: bold;
-            border: 2px solid var(--accent);
-            font-size: 1.2rem;
+            margin: 0 auto 12px;
+            font-weight: 700;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+        
+        .step.active .step-number {
+            background: var(--gradient-accent);
+            border-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .step.completed .step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
         }
         
         .step-label {
-            font-size: 1rem;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--accent);
+            color: var(--gray);
+        }
+        
+        .step.active .step-label {
+            color: var(--primary);
         }
         
         /* Layout */
-        .payment-layout {
+        .checkout-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-top: 40px;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        @media (max-width: 992px) {
-            .payment-layout {
+        @media (max-width: 968px) {
+            .checkout-layout {
                 grid-template-columns: 1fr;
             }
         }
         
         /* Order Summary */
         .order-summary-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
-            padding: 35px;
-            border-radius: 20px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            height: fit-content;
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
             position: sticky;
-            top: 30px;
+            top: 40px;
+            height: fit-content;
         }
         
-        .order-summary-card h2 {
-            color: var(--accent);
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        .order-summary-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        
+        .order-summary-header h3 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .order-items {
+            margin-bottom: 30px;
         }
         
         .order-item {
             display: flex;
             justify-content: space-between;
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-light);
         }
         
         .order-item:last-child {
             border-bottom: none;
         }
         
+        .item-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .item-price {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
         .order-total {
             display: flex;
             justify-content: space-between;
-            padding: 25px 0;
+            align-items: center;
+            padding: 30px 0;
+            border-top: 3px solid var(--gray-light);
             margin-top: 20px;
-            border-top: 3px solid rgba(212, 175, 55, 0.4);
-            font-size: 1.4rem;
+        }
+        
+        .total-label {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .total-amount {
+            font-size: 32px;
             font-weight: 800;
-            color: var(--accent);
+            color: var(--secondary);
+        }
+        
+        .order-meta {
+            background: var(--gray-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin-top: 30px;
+        }
+        
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: var(--gray);
         }
         
         /* Payment Methods */
-        .payment-methods {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
-            padding: 35px;
-            border-radius: 20px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        .payment-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
         }
         
-        .payment-methods h2 {
-            color: var(--accent);
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
-        }
-        
-        .payment-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .payment-tab {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 12px 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s var(--transition);
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-light);
         }
         
-        .payment-tab.active {
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
+        .section-header h3 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .payment-methods {
+            margin-bottom: 40px;
+        }
+        
+        .method-category {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-left: 8px;
+        }
+        
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .method-card {
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .method-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .method-card.selected {
             border-color: var(--accent);
+            background: rgba(255, 215, 0, 0.05);
         }
         
-        .payment-tab:hover:not(.active) {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: rgba(212, 175, 55, 0.4);
+        .method-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 28px;
+            color: white;
         }
         
-        .payment-content {
+        .icon-qris { background: linear-gradient(135deg, #6020DF 0%, #8B5CF6 100%); }
+        .icon-dana { background: linear-gradient(135deg, #008FE5 0%, #00BFFF 100%); }
+        .icon-gopay { background: linear-gradient(135deg, #00A34D 0%, #00CC66 100%); }
+        .icon-ovo { background: linear-gradient(135deg, #4C2A8B 0%, #663399 100%); }
+        .icon-seabank { background: linear-gradient(135deg, #FF6B00 0%, #FF8C00 100%); }
+        .icon-jago { background: linear-gradient(135deg, #FFC107 0%, #FFD700 100%); color: #333; }
+        
+        .method-name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        
+        .method-desc {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        /* Payment Details */
+        .payment-details {
+            background: var(--gray-light);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-top: 30px;
             display: none;
         }
         
-        .payment-content.active {
+        .payment-details.active {
             display: block;
-            animation: fadeIn 0.5s var(--transition);
+            animation: fadeIn 0.3s ease;
         }
         
         @keyframes fadeIn {
@@ -291,840 +399,754 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* QRIS Section */
-        .qris-section {
-            text-align: center;
-            padding: 20px;
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
         }
         
-        .qris-title {
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
+        .detail-header h4 {
+            font-size: 20px;
+            color: var(--primary);
         }
         
-        .qris-container {
-            position: relative;
-            max-width: 300px;
-            margin: 0 auto 25px;
+        .detail-content {
+            margin-bottom: 30px;
         }
         
-        .qris-image {
-            width: 100%;
-            border-radius: 15px;
-            border: 3px solid rgba(96, 32, 223, 0.3);
-            padding: 15px;
+        .payment-info {
             background: white;
-            box-shadow: 0 10px 30px rgba(96, 32, 223, 0.2);
-            aspect-ratio: 1/1;
-            object-fit: contain;
-        }
-        
-        .qris-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(15, 23, 42, 0.9);
-            padding: 20px;
-            border-radius: 10px;
+            border-radius: var(--radius-md);
+            padding: 30px;
             text-align: center;
-            display: none;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .qris-container:hover .qris-overlay {
-            display: block;
-            animation: fadeIn 0.3s ease;
+        .payment-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 16px;
         }
         
-        .qris-instruction {
-            background: rgba(96, 32, 223, 0.1);
-            border: 1px solid rgba(96, 32, 223, 0.3);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
-            text-align: left;
-        }
-        
-        .qris-instruction h4 {
-            color: #a855f7;
-            margin-bottom: 10px;
-        }
-        
-        .qris-instruction ol {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .qris-instruction li {
-            margin-bottom: 8px;
-            color: #cbd5e1;
-        }
-        
-        /* E-Wallet Sections */
-        .ewallet-section {
-            padding: 20px 0;
-        }
-        
-        .payment-detail {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        
-        .payment-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .payment-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-            margin-right: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .icon-dana { background: linear-gradient(135deg, var(--dana) 0%, #0066A6 100%); }
-        .icon-gopay { background: linear-gradient(135deg, var(--gopay) 0%, #007A38 100%); }
-        .icon-ovo { background: linear-gradient(135deg, var(--ovo) 0%, #3A1C6B 100%); }
-        .icon-seabank { background: linear-gradient(135deg, var(--seabank) 0%, #CC5500 100%); }
-        .icon-jago { background: linear-gradient(135deg, var(--jago) 0%, #FF9800 100%); color: #333; }
-        
-        .payment-header h3 {
-            font-size: 1.6rem;
-            color: var(--light);
+        .payment-recipient {
+            color: var(--gray);
+            margin-bottom: 24px;
         }
         
         .payment-number {
-            font-size: 1.5rem;
+            font-size: 28px;
             font-weight: 800;
-            color: var(--accent);
-            margin: 15px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            text-align: center;
+            color: var(--primary);
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 2px dashed var(--secondary);
+            margin-bottom: 24px;
             letter-spacing: 1px;
-            transition: all 0.3s var(--transition);
+            transition: var(--transition);
         }
         
         .payment-number.copied {
-            background: rgba(40, 167, 69, 0.2);
+            background: rgba(0, 200, 83, 0.1);
             border-color: var(--success);
-            color: #4ade80;
-        }
-        
-        .payment-name {
-            text-align: center;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+            color: var(--success);
         }
         
         .action-buttons {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 16px;
+            margin-top: 24px;
         }
         
-        .copy-btn {
+        .btn-copy {
             flex: 1;
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
+            padding: 16px;
+            background: var(--gradient-blue);
+            color: white;
             border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: 700;
+            border-radius: var(--radius-md);
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.3s var(--transition);
+            transition: var(--transition);
         }
         
-        .copy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         
-        .copy-btn.copied {
-            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
+        .btn-copy.copied {
+            background: var(--success);
         }
         
-        .next-step-btn {
-            background: linear-gradient(135deg, var(--secondary) 0%, #0d47a1 100%);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: block;
-            margin: 50px auto 0;
-            width: 100%;
-            max-width: 400px;
-            transition: all 0.3s var(--transition);
-        }
-        
-        .next-step-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(24, 90, 219, 0.4);
-        }
-        
-        .timer-notice {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 30px;
+        /* QRIS Specific */
+        .qris-container {
             text-align: center;
         }
         
-        .timer {
-            font-size: 1.5rem;
+        .qris-code {
+            max-width: 300px;
+            margin: 0 auto 24px;
+            padding: 20px;
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .qris-code img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+        }
+        
+        /* Timer */
+        .timer-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .timer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .timer-display {
+            font-size: 48px;
             font-weight: 800;
             color: var(--accent);
-            margin: 10px 0;
+            margin-bottom: 16px;
+            font-family: monospace;
         }
         
-        /* QRIS Placeholder */
-        .qris-placeholder {
-            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            margin: 0 auto 25px;
-            max-width: 300px;
-            border: 3px dashed #adb5bd;
+        .timer-note {
+            color: var(--gray);
+            font-size: 14px;
         }
         
-        .qris-placeholder i {
-            font-size: 4rem;
-            color: #6c757d;
-            margin-bottom: 20px;
+        /* Navigation Buttons */
+        .checkout-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-light);
         }
         
-        .qris-placeholder p {
-            color: #495057;
+        .btn-back {
+            padding: 16px 32px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            color: var(--primary);
             font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        
+        .btn-back:hover {
+            border-color: var(--primary);
+        }
+        
+        .btn-next {
+            padding: 16px 40px;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            padding: 40px 0 20px;
-            margin-top: 80px;
-            border-top: 2px solid var(--accent);
+        .checkout-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+            font-size: 14px;
         }
         
-        .copyright {
-            text-align: center;
-            color: #94a3b8;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .payment-layout {
-                gap: 30px;
+            .checkout-container {
+                padding: 24px 16px;
+            }
+            
+            .checkout-title {
+                font-size: 32px;
+            }
+            
+            .checkout-layout {
+                gap: 24px;
             }
             
             .order-summary-card,
-            .payment-methods {
-                padding: 25px;
+            .payment-section {
+                padding: 24px;
             }
             
-            .page-title h1 {
-                font-size: 2.2rem;
+            .method-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             }
             
-            .payment-tabs {
-                justify-content: center;
+            .payment-number {
+                font-size: 20px;
+                padding: 16px;
             }
             
             .action-buttons {
                 flex-direction: column;
             }
             
-            .payment-number {
-                font-size: 1.3rem;
+            .checkout-navigation {
+                flex-direction: column;
+                gap: 16px;
             }
             
-            .qris-container {
-                max-width: 250px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .page-title h1 {
-                font-size: 1.8rem;
-            }
-            
-            .checkout-progress {
-                margin: 30px 0 50px;
-            }
-            
-            .step-circle {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            
-            .step-label {
-                font-size: 0.9rem;
-            }
-            
-            .payment-tab {
-                padding: 10px 15px;
-                font-size: 0.9rem;
+            .btn-back, .btn-next {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <i class="fas fa-crown" style="color: var(--accent); font-size: 2rem;"></i>
-                <h1>Digital<span>Store</span></h1>
-            </div>
-            <div style="color: var(--accent); font-weight: bold; font-size: 1.1rem;">
-                <i class="fas fa-lock"></i> Pembayaran Aman
-            </div>
-        </div>
-    </header>
-    
-    <div class="container payment-container">
-        <div class="page-title">
-            <h1>Pembayaran</h1>
-            <p>Pilih metode pembayaran yang paling nyaman untuk Anda</p>
-        </div>
-        
-        <div class="checkout-progress step-2">
-            <div class="progress-step">
-                <div class="step-circle">1</div>
-                <div class="step-label">Pilih Produk</div>
-            </div>
-            <div class="progress-step">
-                <div class="step-circle">2</div>
-                <div class="step-label">Pembayaran</div>
-            </div>
-            <div class="progress-step">
-                <div class="step-circle">3</div>
-                <div class="step-label">Konfirmasi</div>
-            </div>
-        </div>
-        
-        <div class="payment-layout">
-            <!-- Order Summary -->
-            <div class="order-summary-card">
-                <h2><i class="fas fa-receipt"></i> Ringkasan Pesanan</h2>
-                <div id="orderItems"></div>
-                <div class="order-total">
-                    <span>Total:</span>
-                    <span id="orderTotal">Rp 0</span>
+    <div class="checkout-container">
+        <!-- Header -->
+        <div class="checkout-header">
+            <a href="index.html" class="checkout-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-crown"></i>
                 </div>
-                <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1);">
-                    <div style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 10px;">
-                        <i class="fas fa-info-circle"></i> Order ID: <span id="orderId"></span>
-                    </div>
-                    <div style="color: #94a3b8; font-size: 0.95rem;">
-                        <i class="fas fa-clock"></i> Waktu: <span id="orderTime"></span>
-                    </div>
+                <div class="logo-text">
+                    <h1>Digital<span>Store</span></h1>
                 </div>
-            </div>
+            </a>
             
-            <!-- Payment Methods -->
-            <div class="payment-methods">
-                <h2><i class="fas fa-credit-card"></i> Metode Pembayaran</h2>
+            <h1 class="checkout-title">Secure Checkout</h1>
+            <p class="checkout-subtitle">Complete your purchase with secure payment methods</p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="checkout-progress">
+            <div class="progress-steps">
+                <div class="progress-bar" id="progressBar" style="width: 50%;"></div>
                 
-                <div class="payment-tabs">
-                    <div class="payment-tab active" data-tab="qris">
-                        <i class="fas fa-qrcode"></i> QRIS
-                    </div>
-                    <div class="payment-tab" data-tab="dana">
-                        <i class="fas fa-wallet"></i> DANA
-                    </div>
-                    <div class="payment-tab" data-tab="gopay">
-                        <i class="fas fa-money-bill-wave"></i> GOPAY
-                    </div>
-                    <div class="payment-tab" data-tab="ovo">
-                        <i class="fas fa-mobile-alt"></i> OVO
-                    </div>
-                    <div class="payment-tab" data-tab="seabank">
-                        <i class="fas fa-university"></i> Seabank
-                    </div>
-                    <div class="payment-tab" data-tab="jago">
-                        <i class="fas fa-piggy-bank"></i> Jago
-                    </div>
+                <div class="step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Cart</div>
                 </div>
                 
-                <!-- QRIS Content -->
-                <div class="payment-content active" id="qris-content">
-                    <div class="qris-section">
-                        <h3 class="qris-title">Scan QR Code untuk Pembayaran</h3>
-                        
-                        <div class="qris-container">
-                            <!-- QRIS Image - Gunakan file qris.png dari folder yang sama -->
-                            <img src="qris.png" 
-                                 alt="QRIS DigitalStore" 
-                                 class="qris-image"
-                                 id="qrisImage"
-                                 onerror="handleQRISError(this)">
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Confirm</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Layout -->
+        <div class="checkout-layout">
+            <!-- Payment Methods -->
+            <div class="payment-section">
+                <div class="section-header">
+                    <div class="method-icon icon-qris">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Select Payment Method</h3>
+                </div>
+                
+                <div class="payment-methods">
+                    <!-- E-Wallets -->
+                    <div class="method-category">
+                        <h4 class="category-title">E-Wallets</h4>
+                        <div class="method-grid">
+                            <div class="method-card selected" data-method="qris">
+                                <div class="method-icon icon-qris">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div class="method-name">QRIS</div>
+                                <div class="method-desc">All Banks & E-Wallets</div>
+                            </div>
                             
-                            <div class="qris-overlay" id="qrisOverlay">
-                                <h4 style="color: var(--accent); margin-bottom: 10px;">QRIS DigitalStore</h4>
-                                <p style="color: #cbd5e1; font-size: 0.9rem;">Scan dengan aplikasi e-wallet atau mobile banking Anda</p>
+                            <div class="method-card" data-method="dana">
+                                <div class="method-icon icon-dana">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="method-name">DANA</div>
+                                <div class="method-desc">Instant Transfer</div>
+                            </div>
+                            
+                            <div class="method-card" data-method="gopay">
+                                <div class="method-icon icon-gopay">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="method-name">GoPay</div>
+                                <div class="method-desc">Instant Transfer</div>
+                            </div>
+                            
+                            <div class="method-card" data-method="ovo">
+                                <div class="method-icon icon-ovo">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="method-name">OVO</div>
+                                <div class="method-desc">Instant Transfer</div>
                             </div>
                         </div>
-                        
-                        <div class="payment-name">
-                            <strong>Penerima:</strong> FASSA FIRMANSYAH<br>
-                            <strong>Total:</strong> <span id="qrisAmount">Rp 0</span>
+                    </div>
+                    
+                    <!-- Bank Transfer -->
+                    <div class="method-category">
+                        <h4 class="category-title">Bank Transfer</h4>
+                        <div class="method-grid">
+                            <div class="method-card" data-method="seabank">
+                                <div class="method-icon icon-seabank">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="method-name">SeaBank</div>
+                                <div class="method-desc">Free Transfer</div>
+                            </div>
+                            
+                            <div class="method-card" data-method="jago">
+                                <div class="method-icon icon-jago">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                                <div class="method-name">Jago</div>
+                                <div class="method-desc">Free Transfer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Details -->
+                <div class="payment-details active" id="qrisDetails">
+                    <div class="detail-header">
+                        <div class="method-icon icon-qris">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <h4>QRIS Payment</h4>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="payment-info">
+                            <div class="payment-amount" id="paymentAmount">Rp 0</div>
+                            <div class="payment-recipient">
+                                <strong>Recipient:</strong> FASSA FIRMANSYAH
+                            </div>
+                            
+                            <div class="qris-container">
+                                <div class="qris-code">
+                                    <!-- QRIS Image will be loaded here -->
+                                    <div id="qrisImageContainer">
+                                        <img src="qris.png" alt="QRIS Code" id="qrisImage" onerror="handleQRISError()">
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-number" id="qrisData">
+                                    DigitalStore - QRIS Payment
+                                </div>
+                            </div>
+                            
+                            <p style="color: var(--gray); margin-bottom: 24px;">
+                                Scan QR code with any banking or e-wallet app that supports QRIS
+                            </p>
                         </div>
                         
                         <div class="action-buttons">
-                            <button class="copy-btn" onclick="copyQRISData()">
-                                <i class="fas fa-copy"></i> Salin Data QRIS
+                            <button class="btn-copy" onclick="copyQRISData()">
+                                <i class="fas fa-copy"></i> Copy Payment Data
                             </button>
-                            <button class="copy-btn" onclick="downloadQRIS()">
+                            <button class="btn-copy" onclick="downloadQRIS()">
                                 <i class="fas fa-download"></i> Download QR
                             </button>
                         </div>
-                        
-                        <div class="qris-instruction">
-                            <h4><i class="fas fa-info-circle"></i> Cara Pembayaran QRIS:</h4>
-                            <ol>
-                                <li>Buka aplikasi mobile banking/e-wallet Anda</li>
-                                <li>Pilih menu "Scan QR" atau "Bayar QR"</li>
-                                <li>Arahkan kamera ke kode QR di atas</li>
-                                <li>Periksa nominal dan konfirmasi pembayaran</li>
-                                <li>Simpan bukti pembayaran untuk konfirmasi</li>
-                            </ol>
-                            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 10px;">
-                                <i class="fas fa-exclamation-triangle"></i> Pastikan QR code terbaca dengan jelas. Jika gagal, coba download QR code.
-                            </p>
-                        </div>
+                    </div>
+                    
+                    <div class="timer-section">
+                        <div class="timer-title">Complete Payment Within</div>
+                        <div class="timer-display" id="paymentTimer">15:00</div>
+                        <div class="timer-note">After payment, click "Continue to Confirmation"</div>
                     </div>
                 </div>
                 
-                <!-- DANA Content -->
-                <div class="payment-content" id="dana-content">
-                    <div class="ewallet-section">
-                        <div class="payment-detail">
-                            <div class="payment-header">
-                                <div class="payment-icon icon-dana">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                                <h3>Transfer via DANA</h3>
-                            </div>
-                            <div class="payment-name">
-                                Transfer ke nomor DANA berikut:
-                            </div>
-                            <div class="payment-number" id="danaNumber">0821 2382 9824</div>
-                            <div class="payment-name">
-                                <strong>Penerima:</strong> FASSA FIRMANSYAH
-                            </div>
-                            <div class="action-buttons">
-                                <button class="copy-btn" data-number="0821 2382 9824" onclick="copyPaymentNumber(this, 'danaNumber')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
+                <!-- Other payment details (hidden by default) -->
+                <div class="payment-details" id="danaDetails">
+                    <!-- DANA payment details -->
+                </div>
+                
+                <div class="payment-details" id="gopayDetails">
+                    <!-- GoPay payment details -->
+                </div>
+                
+                <!-- Navigation -->
+                <div class="checkout-navigation">
+                    <button class="btn-back" onclick="window.location.href='index.html'">
+                        <i class="fas fa-arrow-left"></i> Back to Shopping
+                    </button>
+                    <button class="btn-next" id="nextButton" onclick="proceedToConfirmation()">
+                        Continue to Confirmation
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="order-summary-card">
+                <div class="order-summary-header">
+                    <i class="fas fa-receipt" style="font-size: 24px; color: var(--secondary);"></i>
+                    <h3>Order Summary</h3>
+                </div>
+                
+                <div class="order-items" id="orderItems">
+                    <!-- Order items will be loaded here -->
+                </div>
+                
+                <div class="order-total">
+                    <div class="total-label">Total Amount</div>
+                    <div class="total-amount" id="orderTotal">Rp 0</div>
+                </div>
+                
+                <div class="order-meta">
+                    <div class="meta-item">
+                        <span>Order ID:</span>
+                        <span id="orderId">Loading...</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>Date:</span>
+                        <span id="orderDate">Loading...</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>Items:</span>
+                        <span id="itemCount">0</span>
                     </div>
                 </div>
-                
-                <!-- GOPAY Content -->
-                <div class="payment-content" id="gopay-content">
-                    <div class="ewallet-section">
-                        <div class="payment-detail">
-                            <div class="payment-header">
-                                <div class="payment-icon icon-gopay">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                </div>
-                                <h3>Transfer via GOPAY</h3>
-                            </div>
-                            <div class="payment-name">
-                                Transfer ke nomor GOPAY berikut:
-                            </div>
-                            <div class="payment-number" id="gopayNumber">0895 4112 34343</div>
-                            <div class="payment-name">
-                                <strong>Penerima:</strong> FASSA FIRMANSYAH
-                            </div>
-                            <div class="action-buttons">
-                                <button class="copy-btn" data-number="0895 4112 34343" onclick="copyPaymentNumber(this, 'gopayNumber')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="checkout-footer">
+            <p>© 2024 DigitalStore. All transactions are secured and encrypted.</p>
+            <div class="security-badges">
+                <div class="badge">
+                    <i class="fas fa-lock"></i>
+                    <span>Secure Payment</span>
                 </div>
-                
-                <!-- OVO Content -->
-                <div class="payment-content" id="ovo-content">
-                    <div class="ewallet-section">
-                        <div class="payment-detail">
-                            <div class="payment-header">
-                                <div class="payment-icon icon-ovo">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </div>
-                                <h3>Transfer via OVO</h3>
-                            </div>
-                            <div class="payment-name">
-                                Transfer ke nomor OVO berikut:
-                            </div>
-                            <div class="payment-number" id="ovoNumber">0821 2382 9824</div>
-                            <div class="payment-name">
-                                <strong>Penerima:</strong> FASSA FIRMANSYAH
-                            </div>
-                            <div class="action-buttons">
-                                <button class="copy-btn" data-number="0821 2382 9824" onclick="copyPaymentNumber(this, 'ovoNumber')">
-                                    <i class="far fa-copy"></i> Salin Nomor
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SSL Encrypted</span>
                 </div>
-                
-                <!-- Seabank Content -->
-                <div class="payment-content" id="seabank-content">
-                    <div class="ewallet-section">
-                        <div class="payment-detail">
-                            <div class="payment-header">
-                                <div class="payment-icon icon-seabank">
-                                    <i class="fas fa-university"></i>
-                                </div>
-                                <h3>Transfer via Seabank</h3>
-                            </div>
-                            <div class="payment-name">
-                                Transfer ke nomor rekening berikut:
-                            </div>
-                            <div class="payment-number" id="seabankNumber">901678000284</div>
-                            <div class="payment-name">
-                                <strong>Penerima:</strong> FASSA FIRMANSYAH<br>
-                                <strong>Bank:</strong> Seabank Indonesia
-                            </div>
-                            <div class="action-buttons">
-                                <button class="copy-btn" data-number="901678000284" onclick="copyPaymentNumber(this, 'seabankNumber')">
-                                    <i class="far fa-copy"></i> Salin Nomor Rekening
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="badge">
+                    <i class="fas fa-headset"></i>
+                    <span>24/7 Support</span>
                 </div>
-                
-                <!-- Jago Content -->
-                <div class="payment-content" id="jago-content">
-                    <div class="ewallet-section">
-                        <div class="payment-detail">
-                            <div class="payment-header">
-                                <div class="payment-icon icon-jago">
-                                    <i class="fas fa-piggy-bank"></i>
-                                </div>
-                                <h3>Transfer via Bank Jago</h3>
-                            </div>
-                            <div class="payment-name">
-                                Transfer ke nomor rekening berikut:
-                            </div>
-                            <div class="payment-number" id="jagoNumber">107910289909</div>
-                            <div class="payment-name">
-                                <strong>Penerima:</strong> FASSA FIRMANSYAH<br>
-                                <strong>Bank:</strong> Bank Jago
-                            </div>
-                            <div class="action-buttons">
-                                <button class="copy-btn" data-number="107910289909" onclick="copyPaymentNumber(this, 'jagoNumber')">
-                                    <i class="far fa-copy"></i> Salin Nomor Rekening
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Timer Notice -->
-                <div class="timer-notice">
-                    <p><i class="fas fa-clock"></i> Selesaikan pembayaran dalam:</p>
-                    <div class="timer" id="paymentTimer">15:00</div>
-                    <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">
-                        Setelah melakukan transfer, klik tombol di bawah untuk konfirmasi
-                    </p>
-                </div>
-                
-                <!-- Next Step Button -->
-                <button class="next-step-btn" onclick="redirectToConfirmation()">
-                    <i class="fas fa-arrow-right"></i> Lanjut ke Konfirmasi Pembayaran
-                </button>
             </div>
         </div>
     </div>
-    
-    <footer>
-        <div class="container">
-            <div class="copyright">
-                <p>&copy; 2024 DigitalStore. Semua transaksi dilindungi dan terenkripsi.</p>
-                <p style="margin-top: 5px; font-size: 0.9rem;">
-                    <i class="fas fa-shield-alt"></i> Pembayaran Aman • 
-                    <i class="fas fa-bolt"></i> Proses Cepat • 
-                    <i class="fas fa-headset"></i> Support 24/7
-                </p>
-            </div>
-        </div>
-    </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Global Variables
-        let paymentTimer;
+        // ===== GLOBAL VARIABLES =====
+        let selectedMethod = 'qris';
         let timeLeft = 15 * 60; // 15 minutes in seconds
-        let hasCopied = false;
-        
-        // Initialize on page load
+        let timerInterval;
+        let paymentMethods = {
+            qris: {
+                name: 'QRIS',
+                number: 'DigitalStore Payment',
+                recipient: 'FASSA FIRMANSYAH',
+                type: 'qris'
+            },
+            dana: {
+                name: 'DANA',
+                number: '0821 2382 9824',
+                recipient: 'FASSA FIRMANSYAH',
+                type: 'ewallet'
+            },
+            gopay: {
+                name: 'GoPay',
+                number: '0895 4112 34343',
+                recipient: 'FASSA FIRMANSYAH',
+                type: 'ewallet'
+            },
+            ovo: {
+                name: 'OVO',
+                number: '0821 2382 9824',
+                recipient: 'FASSA FIRMANSYAH',
+                type: 'ewallet'
+            },
+            seabank: {
+                name: 'SeaBank',
+                number: '901678000284',
+                recipient: 'FASSA FIRMANSYAH',
+                type: 'bank'
+            },
+            jago: {
+                name: 'Jago',
+                number: '107910289909',
+                recipient: 'FASSA FIRMANSYAH',
+                type: 'bank'
+            }
+        };
+
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             // Load order summary
             loadOrderSummary();
             
-            // Setup payment tabs
-            setupPaymentTabs();
+            // Setup payment method selection
+            setupPaymentMethods();
             
-            // Start payment timer
-            startPaymentTimer();
+            // Start timer
+            startTimer();
             
-            // Setup QRIS image hover effect
-            setupQRISHover();
+            // Check for existing payment method
+            const savedMethod = localStorage.getItem('selected_payment_method');
+            if (savedMethod && paymentMethods[savedMethod]) {
+                selectPaymentMethod(savedMethod);
+            }
         });
-        
-        // Load order summary from localStorage
+
+        // ===== ORDER SUMMARY =====
         function loadOrderSummary() {
             const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
-            const cart = JSON.parse(localStorage.getItem('digitalstore_cart') || '[]');
             
-            if (cart.length === 0) {
-                showAlert('error', 'Keranjang Kosong', 'Silakan kembali ke halaman produk untuk menambahkan item.');
-                setTimeout(() => {
+            if (!orderSummary.products || orderSummary.products.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No Order Found',
+                    text: 'Please add products to cart first.',
+                    confirmButtonColor: '#ffd700',
+                    background: '#1a1f36',
+                    color: 'white'
+                }).then(() => {
                     window.location.href = 'index.html';
-                }, 2000);
+                });
                 return;
             }
             
+            // Update order summary display
             displayOrderSummary(orderSummary);
         }
-        
-        // Display order summary
+
         function displayOrderSummary(order) {
             const container = document.getElementById('orderItems');
             const totalElement = document.getElementById('orderTotal');
             const orderIdElement = document.getElementById('orderId');
-            const orderTimeElement = document.getElementById('orderTime');
-            const qrisAmountElement = document.getElementById('qrisAmount');
+            const orderDateElement = document.getElementById('orderDate');
+            const itemCountElement = document.getElementById('itemCount');
+            const paymentAmountElement = document.getElementById('paymentAmount');
             
             let html = '';
             let total = 0;
+            let itemCount = 0;
             
-            if (order.products && order.products.length > 0) {
-                order.products.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    
-                    html += `
-                        <div class="order-item">
-                            <div>
-                                <strong>${item.name}</strong><br>
-                                <small style="color: #94a3b8;">${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</small>
-                            </div>
-                            <div style="font-weight: 600; color: var(--accent);">
-                                Rp ${itemTotal.toLocaleString('id-ID')}
-                            </div>
-                        </div>
-                    `;
-                });
-            } else {
-                // Fallback: load from cart
-                const cart = JSON.parse(localStorage.getItem('digitalstore_cart') || '[]');
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    
-                    html += `
-                        <div class="order-item">
-                            <div>
-                                <strong>${item.name}</strong><br>
-                                <small style="color: #94a3b8;">${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</small>
-                            </div>
-                            <div style="font-weight: 600; color: var(--accent);">
-                                Rp ${itemTotal.toLocaleString('id-ID')}
-                            </div>
-                        </div>
-                    `;
-                });
+            order.products.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                itemCount += item.quantity;
                 
-                // Update order summary
-                order.total = total;
-                order.orderId = order.orderId || generateOrderId();
-                localStorage.setItem('digitalstore_order_summary', JSON.stringify(order));
-            }
+                html += `
+                    <div class="order-item">
+                        <div class="item-name">
+                            ${item.name}
+                            <div style="font-size: 14px; color: var(--gray); margin-top: 4px;">
+                                ${item.quantity} × Rp ${item.price.toLocaleString('id-ID')}
+                            </div>
+                        </div>
+                        <div class="item-price">
+                            Rp ${itemTotal.toLocaleString('id-ID')}
+                        </div>
+                    </div>
+                `;
+            });
             
             container.innerHTML = html;
             totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-            qrisAmountElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-            orderIdElement.textContent = order.orderId || generateOrderId();
+            paymentAmountElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            orderIdElement.textContent = order.orderId || 'DS' + Date.now().toString().slice(-8);
+            itemCountElement.textContent = itemCount;
             
-            // Set order time
-            const now = new Date();
-            orderTimeElement.textContent = now.toLocaleTimeString('id-ID', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                second: '2-digit'
-            }) + ' WIB';
+            // Format date
+            const date = new Date(order.timestamp || Date.now());
+            orderDateElement.textContent = date.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
         }
-        
-        // Setup payment tabs
-        function setupPaymentTabs() {
-            const tabs = document.querySelectorAll('.payment-tab');
-            const contents = document.querySelectorAll('.payment-content');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    this.classList.add('active');
-                    document.getElementById(`${tabId}-content`).classList.add('active');
-                    
-                    // Update hasCopied flag based on selected method
-                    hasCopied = false;
+
+        // ===== PAYMENT METHODS =====
+        function setupPaymentMethods() {
+            // Add click event to all method cards
+            document.querySelectorAll('.method-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const method = this.getAttribute('data-method');
+                    selectPaymentMethod(method);
                 });
             });
+            
+            // Setup other payment details
+            setupOtherPaymentMethods();
         }
-        
-        // Setup QRIS image hover effect
-        function setupQRISHover() {
-            const qrisContainer = document.querySelector('.qris-container');
-            const qrisOverlay = document.getElementById('qrisOverlay');
+
+        function selectPaymentMethod(method) {
+            // Update selected method
+            selectedMethod = method;
+            localStorage.setItem('selected_payment_method', method);
             
-            qrisContainer.addEventListener('mouseenter', function() {
-                qrisOverlay.style.display = 'block';
+            // Update UI
+            document.querySelectorAll('.method-card').forEach(card => {
+                card.classList.remove('selected');
             });
+            document.querySelector(`[data-method="${method}"]`).classList.add('selected');
             
-            qrisContainer.addEventListener('mouseleave', function() {
-                qrisOverlay.style.display = 'none';
+            // Show corresponding details
+            document.querySelectorAll('.payment-details').forEach(detail => {
+                detail.classList.remove('active');
             });
+            document.getElementById(`${method}Details`).classList.add('active');
+            
+            // Update payment details
+            updatePaymentDetails(method);
         }
-        
-        // Handle QRIS image error
-        function handleQRISError(imgElement) {
-            console.log('QRIS image failed to load, showing placeholder');
+
+        function setupOtherPaymentMethods() {
+            // Setup DANA
+            const danaDetails = document.getElementById('danaDetails');
+            danaDetails.innerHTML = createPaymentDetailHTML('dana');
             
-            // Create placeholder
-            const container = imgElement.parentElement;
-            container.innerHTML = `
-                <div class="qris-placeholder">
-                    <i class="fas fa-qrcode"></i>
-                    <p>File qris.png tidak ditemukan</p>
-                    <p style="font-size: 0.8rem; margin-top: 10px; color: #6c757d;">
-                        Silakan upload file qris.png ke folder yang sama
-                    </p>
+            // Setup GoPay
+            const gopayDetails = document.getElementById('gopayDetails');
+            gopayDetails.innerHTML = createPaymentDetailHTML('gopay');
+            
+            // Setup OVO
+            const ovoDetails = document.getElementById('ovoDetails');
+            ovoDetails.innerHTML = createPaymentDetailHTML('ovo');
+            
+            // Setup SeaBank
+            const seabankDetails = document.getElementById('seabankDetails');
+            seabankDetails.innerHTML = createPaymentDetailHTML('seabank');
+            
+            // Setup Jago
+            const jagoDetails = document.getElementById('jagoDetails');
+            jagoDetails.innerHTML = createPaymentDetailHTML('jago');
+        }
+
+        function createPaymentDetailHTML(method) {
+            const methodInfo = paymentMethods[method];
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const total = orderSummary.total || 0;
+            
+            return `
+                <div class="detail-header">
+                    <div class="method-icon icon-${method}">
+                        <i class="fas fa-${method === 'seabank' || method === 'jago' ? 'university' : 'wallet'}"></i>
+                    </div>
+                    <h4>${methodInfo.name} Payment</h4>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="payment-info">
+                        <div class="payment-amount">Rp ${total.toLocaleString('id-ID')}</div>
+                        <div class="payment-recipient">
+                            <strong>Recipient:</strong> ${methodInfo.recipient}
+                        </div>
+                        
+                        <div class="payment-number" id="${method}Number">
+                            ${methodInfo.number}
+                        </div>
+                        
+                        <p style="color: var(--gray); margin-bottom: 24px;">
+                            Transfer to ${methodInfo.name} ${methodInfo.type === 'bank' ? 'account' : 'number'} above
+                        </p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-copy" onclick="copyPaymentNumber('${method}')">
+                            <i class="fas fa-copy"></i> Copy ${methodInfo.type === 'bank' ? 'Account Number' : 'Number'}
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="timer-section">
+                    <div class="timer-title">Complete Payment Within</div>
+                    <div class="timer-display">15:00</div>
+                    <div class="timer-note">After payment, click "Continue to Confirmation"</div>
                 </div>
             `;
+        }
+
+        function updatePaymentDetails(method) {
+            const methodInfo = paymentMethods[method];
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const total = orderSummary.total || 0;
             
-            // Update overlay
-            const overlay = document.getElementById('qrisOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
+            // Update QRIS data
+            if (method === 'qris') {
+                const qrisData = document.getElementById('qrisData');
+                qrisData.textContent = `DigitalStore - Rp ${total.toLocaleString('id-ID')} - ${methodInfo.recipient}`;
             }
-            
-            showAlert('warning', 'QRIS Image Missing', 'File qris.png tidak ditemukan. Silakan pastikan file ada di folder yang sama dengan payment.html.');
         }
-        
-        // Copy payment number
-        function copyPaymentNumber(button, elementId) {
-            const number = button.getAttribute('data-number');
-            const numberElement = document.getElementById(elementId);
+
+        // ===== TIMER =====
+        function startTimer() {
+            clearInterval(timerInterval);
             
-            navigator.clipboard.writeText(number).then(() => {
-                // Visual feedback
-                button.classList.add('copied');
-                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                numberElement.classList.add('copied');
-                
-                // Reset button after 2 seconds
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.innerHTML = '<i class="far fa-copy"></i> Salin Nomor';
-                    numberElement.classList.remove('copied');
-                }, 2000);
-                
-                // Set hasCopied flag
-                hasCopied = true;
-                
-                showAlert('success', 'Berhasil Disalin', `Nomor ${number} telah disalin ke clipboard.`);
-            }).catch(err => {
-                showAlert('error', 'Gagal Menyalin', 'Silakan salin secara manual.');
-            });
-        }
-        
-        // Copy QRIS data
-        function copyQRISData() {
-            const orderId = document.getElementById('orderId').textContent;
-            const total = document.getElementById('orderTotal').textContent;
-            const qrisData = `DigitalStore Payment\nOrder ID: ${orderId}\nAmount: ${total}\nPayee: FASSA FIRMANSYAH\nPayment Method: QRIS`;
-            
-            navigator.clipboard.writeText(qrisData).then(() => {
-                const button = event.target.closest('.copy-btn');
-                button.classList.add('copied');
-                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
-                
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.innerHTML = '<i class="fas fa-copy"></i> Salin Data QRIS';
-                }, 2000);
-                
-                hasCopied = true;
-                showAlert('success', 'Data Tersalin', 'Data QRIS telah disalin ke clipboard.');
-            });
-        }
-        
-        // Download QR code
-        function downloadQRIS() {
-            const qrisImage = document.getElementById('qrisImage');
-            
-            // Check if image exists
-            if (!qrisImage || qrisImage.src.includes('data:image')) {
-                showAlert('error', 'Download Gagal', 'File QRIS tidak tersedia untuk didownload.');
-                return;
-            }
-            
-            // Create download link
-            const link = document.createElement('a');
-            link.href = qrisImage.src;
-            link.download = `QRIS-DigitalStore-${document.getElementById('orderId').textContent}.png`;
-            
-            // Trigger download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showAlert('success', 'Download Berhasil', 'QRIS berhasil diunduh ke perangkat Anda.');
-        }
-        
-        // Start payment timer
-        function startPaymentTimer() {
-            paymentTimer = setInterval(() => {
+            timerInterval = setInterval(() => {
                 timeLeft--;
                 
                 const minutes = Math.floor(timeLeft / 60);
@@ -1133,95 +1155,196 @@
                 document.getElementById('paymentTimer').textContent = 
                     `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 
+                // Update all timers
+                document.querySelectorAll('.timer-display').forEach(timer => {
+                    timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                });
+                
                 // Change color when less than 5 minutes
                 if (timeLeft < 300) {
-                    document.getElementById('paymentTimer').style.color = '#ef4444';
+                    document.querySelectorAll('.timer-display').forEach(timer => {
+                        timer.style.color = '#ff3d57';
+                    });
                 }
                 
                 // Time's up
                 if (timeLeft <= 0) {
-                    clearInterval(paymentTimer);
-                    showAlert('warning', 'Waktu Habis', 'Waktu pembayaran telah habis. Silakan ulangi proses checkout.');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 3000);
+                    clearInterval(timerInterval);
+                    showTimeUpAlert();
                 }
             }, 1000);
         }
-        
-        // Redirect to confirmation page
-        function redirectToConfirmation() {
-            const activeTab = document.querySelector('.payment-tab.active');
-            const paymentMethod = activeTab ? activeTab.getAttribute('data-tab').toUpperCase() : 'QRIS';
+
+        function showTimeUpAlert() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Time Expired',
+                text: 'Payment time has expired. Please restart your order.',
+                confirmButtonColor: '#ffd700',
+                background: '#1a1f36',
+                color: 'white'
+            }).then(() => {
+                localStorage.removeItem('digitalstore_order_summary');
+                window.location.href = 'index.html';
+            });
+        }
+
+        // ===== COPY FUNCTIONS =====
+        function copyPaymentNumber(method) {
+            const methodInfo = paymentMethods[method];
+            const number = methodInfo.number;
             
-            // For QRIS, we don't require copying
-            if (paymentMethod !== 'QRIS' && !hasCopied) {
-                showAlert('warning', 'Konfirmasi Salin', 
-                    `Pastikan Anda telah menyalin nomor ${paymentMethod} sebelum melanjutkan. Apakah Anda yakin ingin melanjutkan?`,
-                    true).then(result => {
-                    if (result.isConfirmed) {
-                        proceedToConfirmation(paymentMethod);
-                    }
+            navigator.clipboard.writeText(number).then(() => {
+                // Show success feedback
+                const button = event.target.closest('.btn-copy');
+                button.classList.add('copied');
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                const numberElement = document.getElementById(`${method}Number`);
+                numberElement.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = `<i class="fas fa-copy"></i> Copy ${methodInfo.type === 'bank' ? 'Account Number' : 'Number'}`;
+                    numberElement.classList.remove('copied');
+                }, 2000);
+                
+                showCopySuccess(methodInfo.name);
+            }).catch(err => {
+                showCopyError();
+            });
+        }
+
+        function copyQRISData() {
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const total = orderSummary.total || 0;
+            const orderId = orderSummary.orderId || 'N/A';
+            
+            const qrisData = `
+DigitalStore Payment Details:
+Order ID: ${orderId}
+Amount: Rp ${total.toLocaleString('id-ID')}
+Recipient: FASSA FIRMANSYAH
+Payment Method: QRIS
+Instructions:
+1. Open your banking/e-wallet app
+2. Tap "Scan QR"
+3. Scan the QR code above
+4. Confirm payment amount
+5. Complete transaction
+            `;
+            
+            navigator.clipboard.writeText(qrisData).then(() => {
+                const button = event.target.closest('.btn-copy');
+                button.classList.add('copied');
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = '<i class="fas fa-copy"></i> Copy Payment Data';
+                }, 2000);
+                
+                showCopySuccess('QRIS Data');
+            });
+        }
+
+        function showCopySuccess(type) {
+            Swal.fire({
+                icon: 'success',
+                title: `${type} Copied!`,
+                text: 'Paste it in your payment app.',
+                showConfirmButton: false,
+                timer: 1500,
+                background: '#1a1f36',
+                color: 'white'
+            });
+        }
+
+        function showCopyError() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Copy Failed',
+                text: 'Please copy manually.',
+                confirmButtonColor: '#ffd700',
+                background: '#1a1f36',
+                color: 'white'
+            });
+        }
+
+        // ===== QRIS FUNCTIONS =====
+        function handleQRISError() {
+            const container = document.getElementById('qrisImageContainer');
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: var(--gray);">
+                    <i class="fas fa-qrcode" style="font-size: 64px; margin-bottom: 20px;"></i>
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">QRIS Image Not Found</h4>
+                    <p>Please upload qris.png to the same folder</p>
+                </div>
+            `;
+        }
+
+        function downloadQRIS() {
+            const qrisImage = document.getElementById('qrisImage');
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const orderId = orderSummary.orderId || 'DS' + Date.now().toString().slice(-8);
+            
+            if (qrisImage.src && qrisImage.src.includes('qris.png')) {
+                const link = document.createElement('a');
+                link.href = qrisImage.src;
+                link.download = `QRIS-${orderId}.png`;
+                link.click();
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'QR Downloaded',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    background: '#1a1f36',
+                    color: 'white'
                 });
             } else {
-                proceedToConfirmation(paymentMethod);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Download Failed',
+                    text: 'QRIS image not available',
+                    confirmButtonColor: '#ffd700',
+                    background: '#1a1f36',
+                    color: 'white'
+                });
             }
         }
-        
-        function proceedToConfirmation(paymentMethod) {
+
+        // ===== NAVIGATION =====
+        function proceedToConfirmation() {
             // Save payment method
             const paymentData = {
-                method: paymentMethod,
+                method: selectedMethod,
+                methodName: paymentMethods[selectedMethod].name,
                 timestamp: new Date().toISOString(),
-                timeLeft: timeLeft,
-                orderId: document.getElementById('orderId').textContent,
-                total: document.getElementById('orderTotal').textContent
+                orderId: document.getElementById('orderId').textContent
             };
             
-            localStorage.setItem('payment_method', JSON.stringify(paymentData));
+            localStorage.setItem('payment_data', JSON.stringify(paymentData));
             
-            // Show transition
-            showAlert('info', 'Mengarahkan...', `Pembayaran ${paymentMethod} dipilih. Anda akan diarahkan ke halaman konfirmasi.`);
+            // Show loading
+            Swal.fire({
+                title: 'Processing...',
+                text: 'Redirecting to confirmation page',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             
+            // Redirect
             setTimeout(() => {
                 window.location.href = 'confirmation.html';
-            }, 1500);
+            }, 1000);
         }
-        
-        // Generate order ID
-        function generateOrderId() {
-            const timestamp = Date.now().toString().slice(-8);
-            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-            return `DS${timestamp}${random}`;
-        }
-        
-        // Show alert with custom options
-        function showAlert(icon, title, text, showCancel = false) {
-            const swalConfig = {
-                icon: icon,
-                title: title,
-                text: text,
-                confirmButtonColor: '#d4af37',
-                background: 'linear-gradient(145deg, #1e293b, #0f172a)',
-                color: '#e2e8f0',
-                backdrop: 'rgba(0, 0, 0, 0.7)'
-            };
-            
-            if (showCancel) {
-                swalConfig.showCancelButton = true;
-                swalConfig.confirmButtonText = 'Ya, Lanjutkan';
-                swalConfig.cancelButtonText = 'Belum, Tunggu';
-                return Swal.fire(swalConfig);
-            } else {
-                Swal.fire(swalConfig);
-            }
-        }
-        
+
         // Cleanup on page unload
         window.addEventListener('beforeunload', function() {
-            if (paymentTimer) {
-                clearInterval(paymentTimer);
-            }
+            clearInterval(timerInterval);
         });
     </script>
 </body>
