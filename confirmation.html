@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Konfirmasi - DigitalStore</title>
+    <title>Order Confirmation | DigitalStore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0a1931;
-            --secondary: #185adb;
-            --accent: #d4af37;
-            --dark: #111827;
-            --light: #f8f9fa;
+            --primary: #1a1f36;
+            --secondary: #0066ff;
+            --accent: #ffd700;
+            --dark: #0f1420;
+            --light: #ffffff;
+            --gray-light: #f5f7fa;
+            --gray: #8a94a6;
+            --success: #00c853;
+            --danger: #ff3d57;
+            --gradient-primary: linear-gradient(135deg, #1a1f36 0%, #0f1420 100%);
+            --gradient-accent: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            --gradient-blue: linear-gradient(135deg, #0066ff 0%, #0052d4 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius-xl: 20px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
@@ -22,229 +38,770 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #333;
             line-height: 1.6;
+            min-height: 100vh;
         }
         
-        .container {
+        .confirmation-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 24px;
         }
         
-        header {
+        /* Header */
+        .confirmation-header {
             text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            font-size: 48px;
+            animation: bounce 1s ease infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        
+        .confirmation-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .confirmation-subtitle {
+            color: var(--gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Status Card */
+        .status-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
             margin-bottom: 40px;
+            text-align: center;
         }
         
-        .logo {
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 215, 0, 0.1);
             color: var(--accent);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        h1 {
-            color: var(--accent);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
             margin-bottom: 30px;
-            text-align: center;
+            border: 2px solid var(--accent);
         }
         
-        .confirmation-form {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            padding: 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            color: var(--light);
-            font-size: 1rem;
-        }
-        
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .upload-area {
-            border: 3px dashed rgba(212, 175, 55, 0.4);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
+        .status-message {
+            font-size: 18px;
+            color: var(--gray);
             margin-bottom: 20px;
         }
         
-        .submit-btn {
-            background: linear-gradient(135deg, var(--accent) 0%, #b8941f 100%);
-            color: var(--dark);
-            border: none;
-            padding: 18px 40px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
+        /* Order Card */
+        .order-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 40px;
         }
         
-        .back-btn {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            cursor: pointer;
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        
+        .card-header h3 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .order-details {
+            margin-bottom: 30px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .detail-value.amount {
+            color: var(--secondary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        /* Form */
+        .confirmation-form {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .form-input {
             width: 100%;
-            margin-top: 15px;
+            padding: 16px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .file-upload {
+            border: 2px dashed var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .file-upload:hover {
+            border-color: var(--secondary);
+            background: rgba(0, 102, 255, 0.02);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+        
+        .file-name {
+            color: var(--gray);
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .btn-whatsapp {
+            padding: 20px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-home {
+            padding: 20px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .btn-home:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .confirmation-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .support-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 40px 16px;
+            }
+            
+            .confirmation-title {
+                font-size: 32px;
+            }
+            
+            .status-card,
+            .order-card,
+            .confirmation-form {
+                padding: 24px;
+            }
+            
+            .success-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-check-circle"></i>
+    <div class="confirmation-container">
+        <!-- Header -->
+        <div class="confirmation-header">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
             </div>
-            <h1>Konfirmasi Pembayaran</h1>
-            <p>Silakan lengkapi data dan upload bukti transfer</p>
-        </header>
+            
+            <h1 class="confirmation-title">Payment Successful!</h1>
+            <p class="confirmation-subtitle">Please confirm your payment details below to complete your order</p>
+        </div>
         
-        <form class="confirmation-form" id="confirmationForm">
-            <div class="form-group">
-                <label for="name">Nama Lengkap</label>
-                <input type="text" id="name" required placeholder="Masukkan nama lengkap">
+        <!-- Status Card -->
+        <div class="status-card">
+            <div class="status-badge">
+                <i class="fas fa-clock"></i>
+                Waiting for Admin Confirmation
+            </div>
+            <p class="status-message">
+                Your payment has been received. Please send payment proof to WhatsApp Admin for verification.
+                Your order will be processed within 1-15 minutes after confirmation.
+            </p>
+        </div>
+        
+        <!-- Order Details -->
+        <div class="order-card">
+            <div class="card-header">
+                <i class="fas fa-receipt" style="font-size: 24px; color: var(--secondary);"></i>
+                <h3>Order Details</h3>
             </div>
             
-            <div class="form-group">
-                <label for="phone">Nomor WhatsApp</label>
-                <input type="tel" id="phone" required placeholder="081234567890">
+            <div class="order-details" id="orderDetails">
+                <!-- Order details will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Confirmation Form -->
+        <div class="confirmation-form">
+            <div class="card-header">
+                <i class="fas fa-user-check" style="font-size: 24px; color: var(--secondary);"></i>
+                <h3>Payment Confirmation</h3>
             </div>
             
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required placeholder="email@contoh.com">
-            </div>
-            
-            <div class="form-group">
-                <label for="paymentMethod">Metode Pembayaran</label>
-                <select id="paymentMethod" required>
-                    <option value="">Pilih metode</option>
-                    <option value="DANA">DANA</option>
-                    <option value="GOPAY">GOPAY</option>
-                    <option value="SEABANK">SEABANK</option>
-                    <option value="BANK JAGO">BANK JAGO</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Upload Bukti Transfer</label>
-                <div class="upload-area" onclick="document.getElementById('proof').click()">
-                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
-                    <p>Klik untuk upload bukti transfer</p>
-                    <p id="fileName" style="color: #94a3b8; margin-top: 10px;">Format: JPG, PNG, PDF (Maks. 5MB)</p>
+            <form id="confirmationForm">
+                <div class="form-group">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required>
                 </div>
-                <input type="file" id="proof" accept="image/*,.pdf" style="display: none;" onchange="showFileName(this)">
-            </div>
-            
-            <div class="form-group">
-                <label for="notes">Catatan (Opsional)</label>
-                <textarea id="notes" placeholder="Tambahkan catatan jika diperlukan..."></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">
-                <i class="fas fa-paper-plane"></i> Kirim Konfirmasi
+                
+                <div class="form-group">
+                    <label for="phoneNumber" class="form-label">WhatsApp Number</label>
+                    <input type="tel" id="phoneNumber" class="form-input" placeholder="081234567890" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Payment Method</label>
+                    <div class="detail-value" id="paymentMethodDisplay">Loading...</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Payment Proof</label>
+                    <div class="file-upload" onclick="document.getElementById('paymentProof').click()">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <p>Click to upload payment proof</p>
+                        <p class="file-name" id="fileName">JPG, PNG, or PDF (Max 5MB)</p>
+                    </div>
+                    <input type="file" id="paymentProof" class="file-input" accept="image/*,.pdf" onchange="showFileName(this)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes" class="form-label">Additional Notes (Optional)</label>
+                    <textarea id="notes" class="form-input" rows="4" placeholder="Add any additional information or instructions..."></textarea>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn-whatsapp" onclick="sendToWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Send to WhatsApp Admin
             </button>
             
-            <button type="button" class="back-btn" onclick="window.location.href='payment.html'">
-                <i class="fas fa-arrow-left"></i> Kembali ke Pembayaran
+            <button class="btn-home" onclick="goToHome()">
+                <i class="fas fa-home"></i> Back to Homepage
             </button>
-        </form>
+        </div>
+        
+        <!-- Footer -->
+        <div class="confirmation-footer">
+            <p>Need help? Contact our support team</p>
+            <div class="support-info">
+                <div class="support-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+62 821-2382-9824</span>
+                </div>
+                <div class="support-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@digitalstore.id</span>
+                </div>
+                <div class="support-item">
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Support</span>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById('confirmationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load order and payment data
+            loadOrderData();
             
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
-            const proof = document.getElementById('proof').files[0];
+            // Load saved form data
+            loadSavedFormData();
             
-            if (!name || !phone || !email || !paymentMethod || !proof) {
+            // Auto-save form data
+            setupAutoSave();
+        });
+
+        // ===== DATA LOADING =====
+        function loadOrderData() {
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
+            
+            // Check if data exists
+            if (!orderSummary.products || orderSummary.products.length === 0) {
                 Swal.fire({
-                    icon: 'warning',
-                    title: 'Data Belum Lengkap',
-                    text: 'Harap lengkapi semua data dan upload bukti transfer.',
-                    confirmButtonColor: '#d4af37'
+                    icon: 'error',
+                    title: 'No Order Found',
+                    text: 'Please complete your payment first.',
+                    confirmButtonColor: '#ffd700',
+                    background: '#1a1f36',
+                    color: 'white'
+                }).then(() => {
+                    window.location.href = 'index.html';
                 });
                 return;
             }
             
-            // Simpan data konfirmasi
+            // Display order details
+            displayOrderDetails(orderSummary, paymentData);
+        }
+
+        function displayOrderDetails(order, payment) {
+            const container = document.getElementById('orderDetails');
+            
+            let html = '';
+            
+            // Order ID
+            html += `
+                <div class="detail-item">
+                    <div class="detail-label">Order ID</div>
+                    <div class="detail-value">${order.orderId || 'N/A'}</div>
+                </div>
+            `;
+            
+            // Payment Method
+            const paymentMethod = payment.methodName || payment.method || 'N/A';
+            document.getElementById('paymentMethodDisplay').textContent = paymentMethod;
+            
+            html += `
+                <div class="detail-item">
+                    <div class="detail-label">Payment Method</div>
+                    <div class="detail-value">${paymentMethod}</div>
+                </div>
+            `;
+            
+            // Order Date
+            const orderDate = new Date(order.timestamp || Date.now());
+            html += `
+                <div class="detail-item">
+                    <div class="detail-label">Order Date</div>
+                    <div class="detail-value">${orderDate.toLocaleString('id-ID')}</div>
+                </div>
+            `;
+            
+            // Order Items
+            if (order.products && order.products.length > 0) {
+                html += `
+                    <div class="detail-item">
+                        <div class="detail-label">Items</div>
+                        <div class="detail-value" style="text-align: right;">
+                            ${order.products.map(item => `${item.quantity} × ${item.name}`).join('<br>')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Total Amount
+            html += `
+                <div class="detail-item">
+                    <div class="detail-label">Total Amount</div>
+                    <div class="detail-value amount">Rp ${order.total ? order.total.toLocaleString('id-ID') : '0'}</div>
+                </div>
+            `;
+            
+            // Status
+            html += `
+                <div class="detail-item">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value" style="color: var(--accent); font-weight: 700;">
+                        <i class="fas fa-clock"></i> Waiting for Confirmation
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // ===== FORM HANDLING =====
+        function loadSavedFormData() {
+            const savedData = localStorage.getItem('confirmation_form_data');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                
+                document.getElementById('fullName').value = data.fullName || '';
+                document.getElementById('phoneNumber').value = data.phoneNumber || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('notes').value = data.notes || '';
+                
+                if (data.fileName) {
+                    document.getElementById('fileName').textContent = data.fileName;
+                    document.getElementById('fileName').style.color = 'var(--secondary)';
+                }
+            }
+        }
+
+        function setupAutoSave() {
+            const form = document.getElementById('confirmationForm');
+            const fileInput = document.getElementById('paymentProof');
+            
+            // Auto-save form inputs
+            form.addEventListener('input', function() {
+                saveFormData();
+            });
+            
+            // Auto-save file selection
+            fileInput.addEventListener('change', function() {
+                saveFormData();
+            });
+        }
+
+        function saveFormData() {
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                email: document.getElementById('email').value,
+                notes: document.getElementById('notes').value,
+                fileName: document.getElementById('fileName').textContent
+            };
+            
+            localStorage.setItem('confirmation_form_data', JSON.stringify(formData));
+        }
+
+        function showFileName(input) {
+            const fileName = document.getElementById('fileName');
+            
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'File Too Large',
+                        text: 'Maximum file size is 5MB',
+                        confirmButtonColor: '#ffd700',
+                        background: '#1a1f36',
+                        color: 'white'
+                    });
+                    input.value = '';
+                    return;
+                }
+                
+                fileName.textContent = file.name;
+                fileName.style.color = 'var(--secondary)';
+            } else {
+                fileName.textContent = 'JPG, PNG, or PDF (Max 5MB)';
+                fileName.style.color = 'var(--gray)';
+            }
+            
+            saveFormData();
+        }
+
+        // ===== WHATSAPP INTEGRATION =====
+        function sendToWhatsApp() {
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Get form data
+            const formData = getFormData();
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
+            
+            // Build WhatsApp message
+            const message = buildWhatsAppMessage(formData, orderSummary, paymentData);
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // WhatsApp number
+            const phoneNumber = '6282123829824'; // Admin WhatsApp
+            
+            // Open WhatsApp
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+            
+            // Show confirmation
+            Swal.fire({
+                icon: 'success',
+                title: 'WhatsApp Opened!',
+                text: 'Please send payment proof to complete confirmation.',
+                confirmButtonColor: '#25D366',
+                background: '#1a1f36',
+                color: 'white'
+            });
+            
+            // Save confirmation
+            saveConfirmation();
+        }
+
+        function validateForm() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const fileInput = document.getElementById('paymentProof');
+            
+            // Check required fields
+            if (!fullName) {
+                showValidationError('Please enter your full name');
+                return false;
+            }
+            
+            if (!phoneNumber) {
+                showValidationError('Please enter your WhatsApp number');
+                return false;
+            }
+            
+            if (!email) {
+                showValidationError('Please enter your email address');
+                return false;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showValidationError('Please enter a valid email address');
+                return false;
+            }
+            
+            // Check payment proof
+            if (!fileInput.files.length) {
+                showValidationError('Please upload payment proof');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function showValidationError(message) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Incomplete Form',
+                text: message,
+                confirmButtonColor: '#ffd700',
+                background: '#1a1f36',
+                color: 'white'
+            });
+        }
+
+        function getFormData() {
+            return {
+                fullName: document.getElementById('fullName').value.trim(),
+                phoneNumber: document.getElementById('phoneNumber').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                notes: document.getElementById('notes').value.trim()
+            };
+        }
+
+        function buildWhatsAppMessage(formData, orderSummary, paymentData) {
+            let message = `Halo Admin DigitalStore,\n\n`;
+            message += `Saya telah melakukan pembayaran dengan detail berikut:\n\n`;
+            message += `📋 *ORDER DETAILS*\n`;
+            message += `────────────────────\n`;
+            message += `Order ID: ${orderSummary.orderId || 'N/A'}\n`;
+            message += `Nama: ${formData.fullName}\n`;
+            message += `WhatsApp: ${formData.phoneNumber}\n`;
+            message += `Email: ${formData.email}\n`;
+            message += `Metode Bayar: ${paymentData.methodName || paymentData.method || 'N/A'}\n\n`;
+            
+            if (orderSummary.products && orderSummary.products.length > 0) {
+                message += `🛒 *PRODUK*\n`;
+                message += `────────────────────\n`;
+                orderSummary.products.forEach(item => {
+                    message += `• ${item.name} (${item.quantity} × Rp ${item.price.toLocaleString('id-ID')})\n`;
+                });
+                message += `\n`;
+            }
+            
+            message += `💰 *TOTAL PEMBAYARAN*\n`;
+            message += `────────────────────\n`;
+            message += `Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}\n\n`;
+            
+            if (formData.notes) {
+                message += `📝 *CATATAN*\n`;
+                message += `────────────────────\n`;
+                message += `${formData.notes}\n\n`;
+            }
+            
+            message += `Terima kasih, mohon konfirmasi pembayaran saya.`;
+            
+            return message;
+        }
+
+        function saveConfirmation() {
             const confirmationData = {
-                name,
-                phone,
-                email,
-                paymentMethod,
-                timestamp: new Date().toISOString()
+                ...getFormData(),
+                timestamp: new Date().toISOString(),
+                orderId: JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}').orderId,
+                status: 'pending'
             };
             
             localStorage.setItem('confirmation_data', JSON.stringify(confirmationData));
-            
-            Swal.fire({
-                icon: 'success',
-                title: 'Konfirmasi Terkirim!',
-                text: 'Data pembayaran Anda telah dikirim.',
-                confirmButtonColor: '#d4af37'
-            }).then(() => {
-                // Redirect ke halaman admin
-                window.location.href = 'admin.html';
-            });
-        });
-        
-        function showFileName(input) {
-            const fileName = document.getElementById('fileName');
-            if (input.files.length > 0) {
-                fileName.textContent = input.files[0].name;
-                fileName.style.color = 'var(--accent)';
-            } else {
-                fileName.textContent = 'Format: JPG, PNG, PDF (Maks. 5MB)';
-                fileName.style.color = '#94a3b8';
-            }
         }
-        
-        // Load saved data jika ada
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedData = localStorage.getItem('confirmation_data');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                document.getElementById('name').value = data.name || '';
-                document.getElementById('phone').value = data.phone || '';
-                document.getElementById('email').value = data.email || '';
-                document.getElementById('paymentMethod').value = data.paymentMethod || '';
-            }
+
+        // ===== NAVIGATION =====
+        function goToHome() {
+            Swal.fire({
+                title: 'Return to Homepage?',
+                text: 'Your data will be saved for 24 hours.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#ffd700',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, Go Home',
+                cancelButtonText: 'Stay Here',
+                background: '#1a1f36',
+                color: 'white'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        // ===== CLEANUP =====
+        window.addEventListener('beforeunload', function() {
+            // Auto-save before leaving
+            saveFormData();
         });
     </script>
 </body>
