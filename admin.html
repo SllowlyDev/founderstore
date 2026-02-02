@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - DigitalStore</title>
+    <title>Order Complete | DigitalStore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0a1931;
-            --secondary: #185adb;
-            --accent: #d4af37;
-            --dark: #111827;
-            --light: #f8f9fa;
-            --success: #25D366;
+            --primary: #1a1f36;
+            --secondary: #0066ff;
+            --accent: #ffd700;
+            --dark: #0f1420;
+            --light: #ffffff;
+            --gray-light: #f5f7fa;
+            --gray: #8a94a6;
+            --success: #00c853;
+            --danger: #ff3d57;
+            --gradient-primary: linear-gradient(135deg, #1a1f36 0%, #0f1420 100%);
+            --gradient-accent: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            --gradient-blue: linear-gradient(135deg, #0066ff 0%, #0052d4 100%);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius-xl: 20px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
@@ -23,257 +38,788 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1f36 0%, #0f1420 100%);
+            color: white;
             line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            padding: 20px;
+        }
+        
+        .completion-container {
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        /* Success Card */
+        .success-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
         }
         
         .success-icon {
-            text-align: center;
-            font-size: 5rem;
-            color: var(--accent);
-            margin-bottom: 30px;
-            animation: bounce 2s infinite;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--success) 0%, #00b248 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            font-size: 60px;
+            animation: successPulse 2s ease infinite;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes successPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 200, 83, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
         }
         
-        h1 {
-            color: var(--accent);
-            text-align: center;
+        .success-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .success-message {
+            color: var(--gray);
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Status Info */
+        .status-info {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 102, 255, 0.1) 100%);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin: 40px 0;
+            text-align: left;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 20px;
         }
         
-        .order-details {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            margin-bottom: 30px;
+        .status-header h3 {
+            color: var(--primary);
+            font-size: 20px;
         }
         
-        .detail-row {
+        .status-details {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .status-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .detail-label {
-            color: #94a3b8;
+        .status-label {
+            color: var(--gray);
+            font-weight: 500;
         }
         
-        .detail-value {
+        .status-value {
+            color: var(--primary);
             font-weight: 600;
-            color: var(--light);
         }
         
-        .whatsapp-btn {
-            background: linear-gradient(135deg, var(--success) 0%, #128C7E 100%);
+        .status-value.order-id {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        .status-value.amount {
+            color: var(--success);
+            font-weight: 800;
+            font-size: 20px;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: grid;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        
+        .btn-whatsapp {
+            padding: 20px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             border: none;
-            padding: 20px 40px;
-            border-radius: 12px;
-            font-size: 1.3rem;
-            font-weight: bold;
+            border-radius: var(--radius-md);
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            width: 100%;
-            margin-bottom: 15px;
+            gap: 12px;
+            transition: var(--transition);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
         }
         
-        .home-btn {
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+        }
+        
+        .btn-home {
+            padding: 20px;
+            background: var(--gradient-accent);
+            color: var(--dark);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            width: 100%;
+            gap: 12px;
+            transition: var(--transition);
         }
         
-        .status-badge {
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--accent);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Delivery Info */
+        .delivery-info {
+            background: var(--gray-light);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .delivery-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .delivery-header h4 {
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .delivery-steps {
+            display: grid;
+            gap: 20px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .delivery-steps::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary);
+        }
+        
+        .step {
+            position: relative;
+        }
+        
+        .step::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--secondary);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .step.completed::before {
+            background: var(--success);
+        }
+        
+        .step.current::before {
+            background: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+        
+        .step-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .step-description {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        .completion-footer {
             text-align: center;
-            margin: 20px 0;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .support-contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .success-card {
+                padding: 40px 24px;
+            }
+            
+            .success-title {
+                font-size: 28px;
+            }
+            
+            .success-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 48px;
+            }
+            
+            .status-info,
+            .delivery-info {
+                padding: 24px;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .delivery-steps {
+                padding-left: 30px;
+            }
+            
+            .step::before {
+                left: -30px;
+                width: 24px;
+                height: 24px;
+                border-width: 3px;
+            }
+            
+            .support-contact {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
+    <div class="completion-container">
+        <div class="success-card">
+            <!-- Success Icon -->
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <!-- Success Message -->
+            <h1 class="success-title">Order Complete!</h1>
+            <p class="success-message">
+                Thank you for your purchase! Your order has been received and is being processed.
+            </p>
+            
+            <!-- Status Info -->
+            <div class="status-info">
+                <div class="status-header">
+                    <i class="fas fa-info-circle" style="color: var(--accent); font-size: 24px;"></i>
+                    <h3>Order Information</h3>
+                </div>
+                
+                <div class="status-details" id="orderStatus">
+                    <!-- Order details will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Delivery Timeline -->
+            <div class="delivery-info">
+                <div class="delivery-header">
+                    <i class="fas fa-shipping-fast" style="color: var(--secondary); font-size: 20px;"></i>
+                    <h4>Delivery Status</h4>
+                </div>
+                
+                <div class="delivery-steps">
+                    <div class="step completed">
+                        <div class="step-title">Payment Confirmed</div>
+                        <div class="step-description">Payment received and verified</div>
+                    </div>
+                    
+                    <div class="step current">
+                        <div class="step-title">Processing Order</div>
+                        <div class="step-description">Preparing your digital products</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-title">Sending Delivery</div>
+                        <div class="step-description">Products will be sent to your email</div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-title">Order Complete</div>
+                        <div class="step-description">Delivery confirmed and order closed</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-whatsapp" onclick="contactSupport()">
+                    <i class="fab fa-whatsapp"></i> Contact Support
+                </button>
+                
+                <button class="btn-home" onclick="goToHome()">
+                    <i class="fas fa-home"></i> Back to Homepage
+                </button>
+            </div>
+            
+            <!-- Footer -->
+            <div class="completion-footer">
+                <p>Your order will be processed within 1-15 minutes</p>
+                <div class="support-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+62 821-2382-9824</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>support@digitalstore.id</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>24/7 Support</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <h1>Pembayaran Berhasil!</h1>
-        
-        <div class="status-badge">
-            <i class="fas fa-clock"></i> Menunggu Konfirmasi Admin
-        </div>
-        
-        <div class="order-details" id="orderDetails">
-            <!-- Order details will be loaded here -->
-        </div>
-        
-        <p style="text-align: center; margin-bottom: 30px; color: #94a3b8;">
-            Silakan kirim bukti pembayaran ke WhatsApp Admin untuk proses verifikasi.
-        </p>
-        
-        <button class="whatsapp-btn" onclick="sendToWhatsApp()">
-            <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp Admin
-        </button>
-        
-        <button class="home-btn" onclick="goToHome()">
-            <i class="fas fa-home"></i> Kembali ke Beranda
-        </button>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            displayOrderDetails();
+            // Load order data
+            loadOrderData();
+            
+            // Setup delivery tracking
+            setupDeliveryTracking();
         });
-        
-        function displayOrderDetails() {
+
+        // ===== ORDER DATA =====
+        function loadOrderData() {
             const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
             const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
+            const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
             
-            const container = document.getElementById('orderDetails');
+            // Check if data exists
+            if (!orderSummary.products || orderSummary.products.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No Order Found',
+                    text: 'Please complete your order first.',
+                    confirmButtonColor: '#ffd700',
+                    background: '#1a1f36',
+                    color: 'white'
+                }).then(() => {
+                    window.location.href = 'index.html';
+                });
+                return;
+            }
             
-            let html = '<h3 style="color: var(--accent); margin-bottom: 20px;">Detail Pesanan</h3>';
+            // Display order status
+            displayOrderStatus(orderSummary, confirmationData, paymentData);
             
-            // Order info
+            // Start order processing simulation
+            simulateOrderProcessing();
+        }
+
+        function displayOrderStatus(order, confirmation, payment) {
+            const container = document.getElementById('orderStatus');
+            
+            let html = '';
+            
+            // Order ID
             html += `
-                <div class="detail-row">
-                    <div class="detail-label">Order ID:</div>
-                    <div class="detail-value">${orderSummary.orderId || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">Nama:</div>
-                    <div class="detail-value">${confirmationData.name || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">WhatsApp:</div>
-                    <div class="detail-value">${confirmationData.phone || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">Email:</div>
-                    <div class="detail-value">${confirmationData.email || 'N/A'}</div>
-                </div>
-                
-                <div class="detail-row">
-                    <div class="detail-label">Metode Pembayaran:</div>
-                    <div class="detail-value">${confirmationData.paymentMethod || 'N/A'}</div>
+                <div class="status-item">
+                    <div class="status-label">Order ID</div>
+                    <div class="status-value order-id">${order.orderId || 'N/A'}</div>
                 </div>
             `;
             
-            // Products
-            if (orderSummary.products) {
-                html += '<div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(212, 175, 55, 0.3);">';
-                html += '<h4 style="color: var(--accent); margin-bottom: 15px;">Produk:</h4>';
-                
-                orderSummary.products.forEach(item => {
-                    html += `
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                            <div>${item.name}</div>
-                            <div>${item.quantity} x Rp ${item.price.toLocaleString('id-ID')}</div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
+            // Customer Name
+            if (confirmation.fullName) {
+                html += `
+                    <div class="status-item">
+                        <div class="status-label">Customer</div>
+                        <div class="status-value">${confirmation.fullName}</div>
+                    </div>
+                `;
             }
             
-            // Total
+            // Payment Method
+            if (payment.methodName || payment.method) {
+                html += `
+                    <div class="status-item">
+                        <div class="status-label">Payment Method</div>
+                        <div class="status-value">${payment.methodName || payment.method}</div>
+                    </div>
+                `;
+            }
+            
+            // Order Date
+            const orderDate = new Date(order.timestamp || Date.now());
             html += `
-                <div style="display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(212, 175, 55, 0.3); font-size: 1.2rem; font-weight: bold; color: var(--accent);">
-                    <div>Total Pembayaran:</div>
-                    <div>Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}</div>
+                <div class="status-item">
+                    <div class="status-label">Order Date</div>
+                    <div class="status-value">${orderDate.toLocaleString('id-ID')}</div>
+                </div>
+            `;
+            
+            // Total Amount
+            html += `
+                <div class="status-item">
+                    <div class="status-label">Total Amount</div>
+                    <div class="status-value amount">Rp ${order.total ? order.total.toLocaleString('id-ID') : '0'}</div>
+                </div>
+            `;
+            
+            // Status
+            html += `
+                <div class="status-item">
+                    <div class="status-label">Status</div>
+                    <div class="status-value" style="color: var(--accent);">
+                        <i class="fas fa-check-circle"></i> Payment Confirmed
+                    </div>
                 </div>
             `;
             
             container.innerHTML = html;
         }
-        
-        function sendToWhatsApp() {
+
+        // ===== DELIVERY TRACKING =====
+        function setupDeliveryTracking() {
+            // Simulate order processing steps
+            setTimeout(() => {
+                updateDeliveryStep(2); // Move to "Processing Order"
+            }, 2000);
+            
+            setTimeout(() => {
+                updateDeliveryStep(3); // Move to "Sending Delivery"
+                
+                // Show delivery notification
+                showDeliveryNotification();
+            }, 5000);
+            
+            setTimeout(() => {
+                updateDeliveryStep(4); // Move to "Order Complete"
+                
+                // Show completion notification
+                showCompletionNotification();
+            }, 8000);
+        }
+
+        function updateDeliveryStep(stepNumber) {
+            // Reset all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('completed', 'current');
+            });
+            
+            // Update steps up to the current one
+            for (let i = 1; i <= stepNumber; i++) {
+                const step = document.querySelector(`.step:nth-child(${i})`);
+                if (step) {
+                    if (i === stepNumber) {
+                        step.classList.add('current');
+                    } else {
+                        step.classList.add('completed');
+                        step.classList.remove('current');
+                    }
+                }
+            }
+            
+            // Update status message for current step
+            updateStatusMessage(stepNumber);
+        }
+
+        function updateStatusMessage(stepNumber) {
+            const messages = [
+                '',
+                'Payment confirmed and verified',
+                'Processing your order...',
+                'Sending delivery to your email...',
+                'Order completed successfully!'
+            ];
+            
+            if (messages[stepNumber]) {
+                const statusValue = document.querySelector('.status-item:last-child .status-value');
+                if (statusValue) {
+                    const icons = ['', 'fa-check-circle', 'fa-cog', 'fa-paper-plane', 'fa-check-circle'];
+                    const colors = ['', 'var(--accent)', 'var(--secondary)', 'var(--secondary)', 'var(--success)'];
+                    
+                    statusValue.innerHTML = `<i class="fas ${icons[stepNumber]}" style="color: ${colors[stepNumber]};"></i> ${messages[stepNumber]}`;
+                }
+            }
+        }
+
+        function showDeliveryNotification() {
+            // Play notification sound (if browser allows)
+            playNotificationSound();
+            
+            // Show notification
+            Swal.fire({
+                icon: 'success',
+                title: 'Delivery in Progress!',
+                html: `
+                    <p>Your digital products are being sent to:</p>
+                    <p><strong>${getCustomerEmail()}</strong></p>
+                    <p style="font-size: 14px; color: #666; margin-top: 10px;">
+                        Please check your email within 5-10 minutes.
+                    </p>
+                `,
+                showConfirmButton: true,
+                confirmButtonColor: '#ffd700',
+                background: '#1a1f36',
+                color: 'white'
+            });
+        }
+
+        function showCompletionNotification() {
+            // Play completion sound
+            playCompletionSound();
+            
+            // Show completion message
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Delivered!',
+                html: `
+                    <div style="text-align: center;">
+                        <i class="fas fa-trophy" style="font-size: 60px; color: var(--accent); margin-bottom: 20px;"></i>
+                        <p>Your order has been completed successfully!</p>
+                        <p style="font-size: 14px; color: #666; margin-top: 10px;">
+                            Check your email for delivery details.
+                        </p>
+                    </div>
+                `,
+                showConfirmButton: true,
+                confirmButtonColor: '#ffd700',
+                background: '#1a1f36',
+                color: 'white'
+            });
+            
+            // Update order status
+            const statusValue = document.querySelector('.status-item:last-child .status-value');
+            if (statusValue) {
+                statusValue.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> Order Completed';
+                statusValue.style.color = 'var(--success)';
+            }
+        }
+
+        function getCustomerEmail() {
+            const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
+            return confirmationData.email || 'your registered email';
+        }
+
+        // ===== SOUND FUNCTIONS =====
+        function playNotificationSound() {
+            // Create a simple notification sound using Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log('Audio context not supported');
+            }
+        }
+
+        function playCompletionSound() {
+            // Play a success sound
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 1000;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 1);
+            } catch (e) {
+                console.log('Audio context not supported');
+            }
+        }
+
+        // ===== ORDER PROCESSING SIMULATION =====
+        function simulateOrderProcessing() {
+            const processingTime = 5000; // 5 seconds for simulation
+            
+            // Show processing message
+            setTimeout(() => {
+                const statusMessage = document.querySelector('.success-message');
+                if (statusMessage) {
+                    statusMessage.innerHTML = `
+                        <div style="color: var(--success);">
+                            <i class="fas fa-cog fa-spin"></i> Processing your order...
+                        </div>
+                    `;
+                }
+            }, 1000);
+            
+            // Complete processing
+            setTimeout(() => {
+                const statusMessage = document.querySelector('.success-message');
+                if (statusMessage) {
+                    statusMessage.innerHTML = `
+                        <div style="color: var(--success);">
+                            <i class="fas fa-check-circle"></i> Order processed successfully!
+                        </div>
+                        <p style="color: var(--gray); margin-top: 10px;">
+                            Your digital products have been sent to your email.
+                        </p>
+                    `;
+                }
+                
+                // Create download receipt
+                createReceipt();
+            }, processingTime);
+        }
+
+        function createReceipt() {
             const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
             const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
             
-            // Create WhatsApp message
-            let message = `Halo Admin DigitalStore,%0A%0A`;
-            message += `Saya telah melakukan pembayaran dengan detail berikut:%0A%0A`;
-            message += `📋 *Order ID:* ${orderSummary.orderId || 'N/A'}%0A`;
-            message += `👤 *Nama:* ${confirmationData.name || 'N/A'}%0A`;
-            message += `📱 *WhatsApp:* ${confirmationData.phone || 'N/A'}%0A`;
-            message += `📧 *Email:* ${confirmationData.email || 'N/A'}%0A`;
-            message += `💳 *Metode:* ${confirmationData.paymentMethod || 'N/A'}%0A%0A`;
+            const receipt = {
+                orderId: orderSummary.orderId || 'N/A',
+                date: new Date().toLocaleString('id-ID'),
+                customer: confirmationData.fullName || 'Customer',
+                email: confirmationData.email || 'N/A',
+                items: orderSummary.products || [],
+                total: orderSummary.total || 0,
+                status: 'Completed',
+                delivery: 'Digital Delivery - Email'
+            };
             
-            if (orderSummary.products) {
-                message += `🛒 *Produk:*%0A`;
-                orderSummary.products.forEach(item => {
-                    message += `• ${item.name} (${item.quantity} x Rp ${item.price.toLocaleString('id-ID')})%0A`;
-                });
-                message += `%0A`;
-            }
-            
-            message += `💰 *Total:* Rp ${orderSummary.total ? orderSummary.total.toLocaleString('id-ID') : '0'}%0A%0A`;
-            message += `Silakan verifikasi pembayaran saya. Terima kasih.`;
-            
-            // Open WhatsApp
-            const phone = '6282123829824'; // WhatsApp admin
-            const url = `https://wa.me/${phone}?text=${message}`;
-            
-            window.open(url, '_blank');
-            
-            // Show confirmation
-            Swal.fire({
-                icon: 'success',
-                title: 'WhatsApp Dibuka',
-                text: 'Silakan kirim bukti transfer di WhatsApp',
-                confirmButtonColor: '#25D366'
-            });
+            localStorage.setItem('order_receipt', JSON.stringify(receipt));
         }
-        
+
+        // ===== ACTION FUNCTIONS =====
+        function contactSupport() {
+            const orderSummary = JSON.parse(localStorage.getItem('digitalstore_order_summary') || '{}');
+            const confirmationData = JSON.parse(localStorage.getItem('confirmation_data') || '{}');
+            
+            // Build WhatsApp message
+            let message = `Halo Admin DigitalStore,\n\n`;
+            message += `Saya ingin konfirmasi pesanan saya:\n\n`;
+            message += `Order ID: ${orderSummary.orderId || 'N/A'}\n`;
+            message += `Nama: ${confirmationData.fullName || 'N/A'}\n`;
+            message += `WhatsApp: ${confirmationData.phoneNumber || 'N/A'}\n\n`;
+            message += `Apakah pesanan saya sudah dikirim?\n`;
+            message += `Terima kasih.`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = '6282123829824';
+            
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        }
+
         function goToHome() {
-            // Clear cart and order data
+            // Clear all order data
             localStorage.removeItem('digitalstore_cart');
             localStorage.removeItem('digitalstore_order_summary');
+            localStorage.removeItem('payment_data');
             localStorage.removeItem('confirmation_data');
+            localStorage.removeItem('confirmation_form_data');
             
             // Redirect to home
             window.location.href = 'index.html';
         }
+
+        // ===== AUTO-SAVE RECEIPT =====
+        window.addEventListener('beforeunload', function() {
+            // Save receipt before leaving
+            const receipt = localStorage.getItem('order_receipt');
+            if (!receipt) {
+                createReceipt();
+            }
+        });
     </script>
 </body>
 </html>
