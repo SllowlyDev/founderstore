@@ -1,839 +1,1371 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Cici Store | Akun Digital Terpercaya</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sllowly Store — Digital Service & AI Editing</title>
+    <meta name="description" content="Sllowly Store — Jasa Digital Service, AI Editing, TikTok Boost, YouTube Premium, dan Design Logo. Trusted Seller, Fast Response, Harga Bersahabat.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.06);
+            --text: #f0f0f5;
+            --text-muted: #8888a0;
+            --text-dim: #555570;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(124,58,237,0.3);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient-hero: linear-gradient(135deg, #0a0a0f 0%, #1a1033 50%, #0a0a0f 100%);
+            --gradient-accent: linear-gradient(135deg, #7c3aed, #a78bfa);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-glow: 0 0 40px rgba(124,58,237,0.15);
+        }
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(145deg, #fff5f7 0%, #ffe4ed 100%);
-      color: #5e2a3e;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
-    .floating-hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .heart {
-      position: absolute;
-      color: #ffb7c5;
-      font-size: 1rem;
-      opacity: 0.3;
-      animation: floatHeart linear infinite;
-      user-select: none;
-    }
-    @keyframes floatHeart {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-      100% { transform: translateY(-10vh) scale(1.2); opacity: 0.2; }
-    }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 2;
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #FF69B4, #ff9eb5);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 24px;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: #c4456e;
-      font-weight: 500;
-      transition: 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .nav-links a:hover { color: #FF69B4; }
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 50px 0 40px;
-      gap: 30px;
-    }
-    .hero-text h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(to right, #c93a6b, #FF69B4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      line-height: 1.2;
-    }
-    .hero-text p {
-      font-size: 1.2rem;
-      margin: 20px 0 30px;
-      color: #ad5b7a;
-      font-weight: 500;
-    }
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      border-radius: 60px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-    }
-    .btn-primary {
-      background: #FF69B4;
-      color: white;
-      box-shadow: 0 8px 20px #ff69b466;
-    }
-    .btn-primary:hover { transform: translateY(-4px); background: #ff4da6; }
-    .btn-outline {
-      background: #fff0f3;
-      border: 1.5px solid #FFB7C5;
-      color: #d45a86;
-    }
-    .btn-outline:hover { background: #ffe3ea; transform: translateY(-3px); }
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin: 60px 0 30px;
-      text-align: center;
-      color: #b3416c;
-      position: relative;
-    }
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 32px;
-      margin-bottom: 60px;
-    }
-    .product-card {
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(2px);
-      border-radius: 32px;
-      padding: 24px 22px 28px;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      box-shadow: 0 18px 30px -12px rgba(255, 105, 180, 0.2);
-      text-align: left;
-      border: 1px solid #ffe2ec;
-    }
-    .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 38px -12px #ff80aa80;
-      border-color: #ffc0d0;
-    }
-    .product-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
-    }
-    .product-icon {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff0f5;
-      border-radius: 20px;
-    }
-    .product-icon i {
-      font-size: 2rem;
-    }
-    .product-title {
-      flex: 1;
-    }
-    .product-name {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #c93a6b;
-      line-height: 1.3;
-    }
-    .price {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #d64078;
-      margin: 8px 0 6px;
-    }
-    .status {
-      background: #FFD1DC;
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 60px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      margin: 8px 0;
-    }
-    .description {
-      font-size: 0.78rem;
-      background: #fff5f8;
-      padding: 12px 14px;
-      border-radius: 24px;
-      margin: 12px 0;
-      line-height: 1.45;
-      color: #704257;
-    }
-    .description ul {
-      margin-left: 0;
-      list-style: none;
-    }
-    .description li {
-      margin: 5px 0;
-      padding-left: 18px;
-      position: relative;
-    }
-    .description li:before {
-      content: "•";
-      color: #FF69B4;
-      font-weight: bold;
-      position: absolute;
-      left: 4px;
-    }
-    .quantity-control {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #fff4f8;
-      padding: 8px 16px;
-      border-radius: 60px;
-      margin: 16px 0 12px;
-    }
-    .qty-label {
-      font-weight: 600;
-      font-size: 0.85rem;
-      color: #b35d7e;
-    }
-    .qty-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .qty-btn {
-      background: #FFD9E6;
-      border: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #c93a6b;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .qty-btn:hover {
-      background: #FF69B4;
-      color: white;
-    }
-    .qty-number {
-      font-size: 1.2rem;
-      font-weight: 800;
-      min-width: 40px;
-      text-align: center;
-      color: #b3406a;
-    }
-    .subtotal-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 8px 0 12px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #bc6f8f;
-    }
-    .btn-beli-modern {
-      background: linear-gradient(105deg, #ff8ab5, #FF69B4);
-      border: none;
-      padding: 14px 16px;
-      border-radius: 60px;
-      width: 100%;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: 0.25s;
-      cursor: pointer;
-      box-shadow: 0 6px 14px #ff69b480;
-      margin-top: 8px;
-    }
-    .btn-beli-modern:hover {
-      background: #ff579f;
-      transform: scale(1.01);
-      gap: 16px;
-    }
-    .tos-section {
-      background: rgba(255, 245, 248, 0.95);
-      border-radius: 40px;
-      padding: 32px 28px;
-      margin: 30px 0 50px;
-      border: 1px solid #ffd9e5;
-      text-align: center;
-    }
-    .tos-section h3 {
-      font-size: 1.5rem;
-      color: #c93a6b;
-      margin-bottom: 20px;
-    }
-    .tos-section p {
-      max-width: 800px;
-      margin: 10px auto;
-      font-size: 0.9rem;
-      color: #6d4158;
-    }
-    .trust-badge {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .trust-badge span {
-      background: white;
-      padding: 6px 20px;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      box-shadow: 0 4px 8px #ffc0d0;
-    }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin: 20px 0 20px;
-    }
-    .social-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      padding: 10px 24px;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.15);
-      color: #5e2a3e;
-    }
-    .social-link.instagram:hover {
-      background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
-      color: white;
-    }
-    .social-link.wachannel:hover {
-      background: #25D366;
-      color: white;
-    }
-    footer {
-      text-align: center;
-      padding: 30px 0 30px;
-      border-top: 2px dashed #ffbfd0;
-      color: #bc7b95;
-      font-size: 0.85rem;
-    }
-    @media (max-width: 760px) {
-      .hero-text h1 { font-size: 2rem; }
-      .products-grid { grid-template-columns: 1fr; }
-      .container { padding: 0 18px; }
-      .product-header { flex-direction: column; text-align: center; }
-      .product-icon { margin: 0 auto; }
-      .product-title { text-align: center; }
-      .nav-links { justify-content: center; width: 100%; }
-      .social-link { padding: 6px 16px; font-size: 0.8rem; }
-    }
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.6s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .swal2-popup {
-      border-radius: 32px !important;
-      font-family: 'Poppins', sans-serif !important;
-    }
-    .no-icon .swal2-icon {
-      display: none;
-    }
-  </style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10,10,15,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0 24px;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            display: none;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+            padding: 120px 24px 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge .pulse {
+            width: 8px; height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-dim);
+            max-width: 560px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-item .icon { font-size: 1rem; }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(124,58,237,0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+        }
+
+        /* Section Styles */
+        section { padding: 100px 24px; }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Products Section */
+        .products { background: var(--bg); }
+
+        .category {
+            margin-bottom: 80px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .category-icon {
+            width: 48px; height: 48px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .category-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(124,58,237,0.3);
+            box-shadow: var(--shadow-md);
+        }
+        .product-card:hover::before { opacity: 1; }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .product-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .product-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            padding: 8px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .product-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Package Cards (Premium) */
+        .package-card {
+            background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));
+            border: 1px solid rgba(124,58,237,0.3);
+            position: relative;
+        }
+
+        .package-card .package-badge {
+            position: absolute;
+            top: -1px; right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .package-card .product-price {
+            font-size: 1.5rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-top: 12px;
+        }
+        .package-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .package-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* Payment Section */
+        .payment {
+            background: linear-gradient(180deg, var(--bg) 0%, #0f0f1a 100%);
+        }
+
+        .payment-card {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .qris-placeholder {
+            width: 100%;
+            max-width: 300px;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px dashed var(--glass-border);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+
+        .qris-placeholder .icon { font-size: 3rem; }
+
+        .payment-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .payment-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-top: 24px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--glass);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+        .step-num {
+            width: 28px; height: 28px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-text { color: var(--text-muted); }
+
+        /* Testimonials */
+        .testimonials { background: var(--bg); }
+
+        .testimonial-carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 20px;
+            animation: scroll 60s linear infinite;
+            width: max-content;
+        }
+
+        .testimonial-track:hover { animation-play-state: paused; }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .testimonial-card {
+            width: 320px;
+            flex-shrink: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+        }
+        .testimonial-card:hover {
+            border-color: rgba(124,58,237,0.3);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px; height: 44px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .testimonial-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .testimonial-info .stars {
+            color: var(--warning);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-disclaimer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1033 50%, #0a0a0f 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .cta p {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        .cta .btn-primary {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #050508;
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 24px 30px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+
+        .footer-links h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--accent-light); }
+
+        .footer-bottom {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-cta { display: inline-flex; }
+
+            .hero { padding: 100px 20px 60px; }
+            .hero h1 { letter-spacing: -1px; }
+
+            section { padding: 60px 20px; }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .testimonial-card { width: 280px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-buttons { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .payment-card { padding: 24px; }
+        }
+    </style>
+<base target="_blank">
 </head>
 <body>
-<div class="floating-hearts" id="heartsContainer"></div>
-<div class="container">
-  <div class="navbar">
-    <div class="logo">Cici Store</div>
-    <div class="nav-links">
-      <a href="#home">Beranda</a>
-      <a href="#products">Produk</a>
-      <a href="#tos">Trusted</a>
-      <a href="#" id="contactNav"><i class="fab fa-whatsapp"></i> Kontak</a>
-      <a href="https://www.instagram.com/cicimeisya22" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
-      <a href="https://whatsapp.com/channel/0029Vb2fG8HE50UeiT9jDN26" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Channel</a>
-    </div>
-  </div>
 
-  <section id="home">
-    <div class="hero">
-      <div class="hero-text fade-up">
-        <h1>Cici Store - Akun Digital Murah & Terpercaya</h1>
-        <p>Michat, WhatsApp, Gmail Fresh & YouTube Premium Ready</p>
-        <div class="hero-buttons">
-          <a href="#products" class="btn btn-primary" id="lihatProdukBtn"><i class="fas fa-shopping-bag"></i> Lihat Produk</a>
-          <a href="#" class="btn btn-outline" id="waDirectBtn"><i class="fab fa-whatsapp"></i> Chat Admin</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Sllowly Store</div>
+            <ul class="nav-links">
+                <li><a href="#produk">Produk</a></li>
+                <li><a href="#payment">Payment</a></li>
+                <li><a href="#testimoni">Testimoni</a></li>
+                <li><a href="#whatsapp">WhatsApp</a></li>
+            </ul>
+            <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order." class="nav-cta" target="_blank">Order Now</a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         </div>
-      </div>
-      <div class="hero-image fade-up">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 160'%3E%3Crect width='200' height='160' fill='%23FFD1DC'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23FF69B4' font-size='24' font-family='Poppins'%3ECICI STORE%3C/text%3E%3C/svg%3E" style="max-width:100%; border-radius: 60px; background:#fff0f5; box-shadow: 0 20px 30px rgba(255,105,180,0.2);" alt="Cici Store">
-      </div>
-    </div>
-  </section>
+    </nav>
 
-  <div class="section-title" id="products">Pilih Akun Digital Favorit</div>
-  <div class="products-grid" id="productsGrid"></div>
-
-  <div id="tos" class="tos-section fade-up">
-    <h3><i class="fas fa-shield-alt"></i> Kenapa Cici Store Terpercaya?</h3>
-    <p>Garansi & Refund – Produk kami memiliki garansi sesuai deskripsi. Jika ada kendala verifikasi, garansi 1x24 jam untuk produk tertentu.</p>
-    <p>Pelayanan Ramah & Cepat – Tim admin siap membantu proses pembelian dan after sales.</p>
-    <p>Akun Fresh & Aman – Semua akun dibuat baru, bukan recycle, sehingga privasi tetap terjaga.</p>
-    <p>Metode Pembayaran Mudah – Informasi pembayaran akan diberikan oleh WhatsApp Bot setelah order.</p>
-    <div class="trust-badge">
-      <span><i class="fas fa-check-circle"></i> 100% Garansi</span>
-      <span><i class="fas fa-clock"></i> Fast Response</span>
-      <span><i class="fas fa-user-check"></i> Verifikasi Aman</span>
-    </div>
-    <p style="margin-top: 20px; font-size:0.85rem;">Syarat & Ketentuan: Pembayaran wajib sesuai total + kode unik. Produk digital tidak dapat ditukar setelah akun diaktivasi. Garansi hanya berlaku untuk kendala teknis dari pihak kami.</p>
-  </div>
-
-  <div class="social-links">
-    <a href="https://www.instagram.com/cicimeisya22" target="_blank" rel="noopener noreferrer" class="social-link instagram">
-      <i class="fab fa-instagram"></i> Instagram
-    </a>
-    <a href="https://whatsapp.com/channel/0029Vb2fG8HE50UeiT9jDN26" target="_blank" rel="noopener noreferrer" class="social-link wachannel">
-      <i class="fab fa-whatsapp"></i> WhatsApp Channel
-    </a>
-  </div>
-
-  <footer>Cici Store – Akun Digital Premium & Aman<br>24/7 Online • Terpercaya Sejak 2025</footer>
-</div>
-
-<script>
-  
-  const products = [
-    { 
-      name: "Michat Fresh 1 Hari", 
-      price: 5000, 
-      priceStr: "5.000", 
-      status: "Ready", 
-      iconClass: "fab fa-weixin",
-      iconColor: "#FF69B4",
-      brand: "michat",
-      desc: ["akun sudah jadi tinggal pakai", "gmail aktif 1 hari setelah itu dihapus otomatis sistem", "garansi verifikasi login michat"]
-    },
-    { 
-      name: "Michat Fresh Permanen", 
-      price: 10000, 
-      priceStr: "10.000", 
-      status: "Ready", 
-      iconClass: "fab fa-weixin",
-      iconColor: "#FF69B4",
-      brand: "michat",
-      desc: ["akun sudah jadi tinggal pakai", "gmail aktif permanen dengan garansi verifikasi 1x24 jam", "garansi verifikasi login michat"]
-    },
-    { 
-      name: "Gmail Fresh 1 Hari", 
-      price: 3000, 
-      priceStr: "3.000", 
-      status: "Ready", 
-      iconClass: "fas fa-envelope",
-      iconColor: "#EA4335",
-      brand: "gmail",
-      desc: ["akun belum jadi michat", "gmail aktif 1 hari setelah itu dihapus otomatis sistem", "tidak ada garansi verifikasi michat"]
-    },
-    { 
-      name: "Gmail Fresh Permanen", 
-      price: 7000, 
-      priceStr: "7.000", 
-      status: "Ready", 
-      iconClass: "fas fa-envelope-open-text",
-      iconColor: "#EA4335",
-      brand: "gmail",
-      desc: ["gmail polos pembuatan manual (team)", "email aktif permanen dengan garansi verifikasi 1x24 jam", "tidak ada garansi verifikasi michat"]
-    },
-    { 
-      name: "WhatsApp Fresh Indonesia", 
-      price: 10000, 
-      priceStr: "10.000", 
-      status: "Ready", 
-      iconClass: "fab fa-whatsapp",
-      iconColor: "#25D366",
-      brand: "wa",
-      desc: ["WhatsApp biasa/business tanpa kartu", "WhatsApp aktif permanen", "nomor random tidak bisa dipilih", "terima nomor - masukkan nomor - terima otp - selesai"]
-    },
-    { 
-      name: "WhatsApp Fresh Luar Negeri", 
-      price: 20000, 
-      priceStr: "20.000", 
-      status: "Ready", 
-      iconClass: "fab fa-whatsapp",
-      iconColor: "#25D366",
-      brand: "wa",
-      desc: ["WhatsApp biasa/business tanpa kartu", "WhatsApp aktif permanen", "nomor random tidak bisa dipilih (LN)", "terima nomor - masukkan nomor - terima otp - selesai"]
-    },
-    { 
-      name: "YouTube Premium 1 Bulan", 
-      price: 15000, 
-      priceStr: "15.000", 
-      status: "Ready", 
-      iconClass: "fab fa-youtube",
-      iconColor: "#FF0000",
-      brand: "yt",
-      desc: ["YouTube premium aktif setelah terima undangan melalui email gmail", "masa aktif 30 hari", "tidak perlu login Gmail"]
-    }
-  ];
-  
-
-  const BOT_NUMBER = "6288809659640"; 
-  
-  let productQuantities = {};
-  
-  function formatRupiah(angka) {
-    return new Intl.NumberFormat('id-ID').format(angka);
-  }
-  
-  function hexToRgb(hex) {
-    let h = hex.replace('#', '');
-    if (h.length === 3) h = h.split('').map(c => c+c).join('');
-    return {
-      r: parseInt(h.substring(0,2), 16),
-      g: parseInt(h.substring(2,4), 16),
-      b: parseInt(h.substring(4,6), 16)
-    };
-  }
-  
-  function renderProducts() {
-    const grid = document.getElementById('productsGrid');
-    grid.innerHTML = '';
-    products.forEach((prod) => {
-      if (productQuantities[prod.name] === undefined) productQuantities[prod.name] = 1;
-      const qty = productQuantities[prod.name];
-      const subtotal = prod.price * qty;
-      const rgb = hexToRgb(prod.iconColor);
-      
-      let descHtml = `<ul>`;
-      prod.desc.forEach(line => {
-        descHtml += `<li>${line}</li>`;
-      });
-      descHtml += `</ul>`;
-      
-      const card = document.createElement('div');
-      card.className = 'product-card fade-up';
-      card.innerHTML = `
-        <div class="product-header">
-          <div class="product-icon" style="background: rgba(${rgb.r},${rgb.g},${rgb.b},0.12); border-radius: 20px;">
-            <i class="${prod.iconClass}" style="color: ${prod.iconColor}; font-size: 2rem;"></i>
-          </div>
-          <div class="product-title">
-            <div class="product-name">${prod.name}</div>
-            <div class="price">Rp ${prod.priceStr}</div>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content fade-in">
+            <div class="hero-badge">
+                <span class="pulse"></span>
+                Store Online Aktif
+            </div>
+            <h1>
+                <span class="gradient-text">Sllowly Store</span>
+            </h1>
+            <p class="hero-tagline">Digital Service & AI Editing • Trusted Seller • Fast Response</p>
+            <p class="hero-desc">
+                Solusi digital profesional untuk kebutuhan editing foto AI, boost media sosial, 
+                design logo, dan layanan kreator. Hasil rapi, proses cepat, harga bersahabat.
+            </p>
+            <div class="hero-badges">
+                <div class="badge-item"><span class="icon">✅</span> Trusted Seller</div>
+                <div class="badge-item"><span class="icon">⚡</span> Fast Response</div>
+                <div class="badge-item"><span class="icon">💰</span> Harga Bersahabat</div>
+                <div class="badge-item"><span class="icon">🎯</span> Digital Service</div>
+            </div>
+            <div class="hero-buttons">
+                <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order." class="btn btn-primary" target="_blank">
+                    📱 Order WhatsApp
+                </a>
+                <a href="#produk" class="btn btn-secondary">
+                    👁️ Lihat Produk
+                </a>
+            </div>
         </div>
-        <div class="status"><i class="fas fa-check-circle"></i> ${prod.status}</div>
-        <div class="description">${descHtml}</div>
-        <div class="quantity-control">
-          <span class="qty-label">Jumlah</span>
-          <div class="qty-actions">
-            <button class="qty-btn minus-btn" data-name="${prod.name}">-</button>
-            <span class="qty-number" id="qty-${prod.name.replace(/\s/g, '')}">${qty}</span>
-            <button class="qty-btn plus-btn" data-name="${prod.name}">+</button>
-          </div>
-        </div>
-        <div class="subtotal-row">
-          <span>Total harga</span>
-          <strong id="subtotal-${prod.name.replace(/\s/g, '')}">Rp ${formatRupiah(subtotal)}</strong>
-        </div>
-        <button class="btn-beli-modern order-now" 
-          data-name="${prod.name}" 
-          data-price="${prod.price}" 
-          data-price-str="${prod.priceStr}" 
-          data-brand="${prod.brand}" 
-          data-icon-class="${prod.iconClass}" 
-          data-icon-color="${prod.iconColor}">
-          <i class="fab fa-whatsapp"></i> Pesan Sekarang
-        </button>
-      `;
-      grid.appendChild(card);
-    });
-    
+    </section>
 
-    document.querySelectorAll('.minus-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const productName = btn.getAttribute('data-name');
-        if (productQuantities[productName] > 1) {
-          productQuantities[productName]--;
-          updateQuantityUI(productName);
-        } else {
-          Swal.fire({ icon: 'info', title: 'Minimal 1 item', text: 'Jumlah tidak boleh kurang dari 1', confirmButtonColor: '#FF69B4' });
+    <!-- Products Section -->
+    <section class="products" id="produk">
+        <div class="section-header fade-in">
+            <span class="section-label">Katalog Lengkap</span>
+            <h2 class="section-title">Etalase Produk</h2>
+            <p class="section-subtitle">Pilih layanan sesuai kebutuhan Anda. Semua produk dengan harga transparan dan garansi kepuasan.</p>
+        </div>
+
+        <!-- DIGITAL SERVICE & AI EDITING -->
+        <div class="category fade-in">
+            <div class="category-header">
+                <div class="category-icon">🤖</div>
+                <div>
+                    <div class="category-title">Digital Service & AI Editing</div>
+                    <div class="category-meta">Trusted Seller • Fast Response • Harga Bersahabat</div>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Jasa Prompt AI -->
+                <div class="product-card">
+                    <div class="product-name">🤖 Jasa Prompt AI</div>
+                    <div class="product-price">Mulai Rp3.000</div>
+                    <div class="product-desc">
+                        • Prompt Simple — Rp3.000<br>
+                        • Prompt Detail — Rp7.000<br>
+                        • Prompt Landing Page / Website — Rp15.000<br>
+                        • Prompt AI Gambar / Foto — Rp10.000<br>
+                        • Prompt Custom Sesuai Request — Mulai Rp5.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Jasa%20Prompt%20AI." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+
+                <!-- Edit Foto AI -->
+                <div class="product-card">
+                    <div class="product-name">🎨 Edit Foto AI</div>
+                    <div class="product-price">Mulai Rp5.000 / foto</div>
+                    <div class="product-desc">
+                        • Edit AI Basic — Rp5.000<br>
+                        • HD / Enhance Foto — Rp8.000<br>
+                        • Ubah Background — Rp8.000<br>
+                        • Face Swap Natural — Rp10.000<br>
+                        • AI Beauty / Soft / Estetik — Rp10.000<br>
+                        • Edit Premium Detail — Rp15.000+
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Edit%20Foto%20AI." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+
+                <!-- Edit Foto Wisuda -->
+                <div class="product-card">
+                    <div class="product-name">🎓 Edit Foto Wisuda</div>
+                    <div class="product-price">Mulai Rp10.000</div>
+                    <div class="product-desc">
+                        • Jas / Toga Wisuda AI — Rp10.000<br>
+                        • Background Wisuda Premium — Rp10.000<br>
+                        • Full Edit Wisuda HD — Rp20.000<br>
+                        • Couple / Keluarga Wisuda — Mulai Rp25.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Edit%20Foto%20Wisuda." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+
+                <!-- Edit Foto Lainnya -->
+                <div class="product-card">
+                    <div class="product-name">👨‍👩‍👧 Edit Foto Lainnya</div>
+                    <div class="product-price">Mulai Rp10.000</div>
+                    <div class="product-desc">
+                        • Foto Keluarga — Rp10.000<br>
+                        • Foto Santai / Estetik — Rp10.000<br>
+                        • Foto Couple — Rp12.000<br>
+                        • Perbaikan Foto Blur — Rp15.000<br>
+                        • Old Photo Restore — Rp20.000+
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Edit%20Foto%20Lainnya." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+
+                <!-- Jasa Konten & Creator -->
+                <div class="product-card">
+                    <div class="product-name">📱 Jasa Konten & Creator</div>
+                    <div class="product-price">Mulai Rp5.000</div>
+                    <div class="product-desc">
+                        • Caption / Copywriting Simple — Rp5.000<br>
+                        • Ide Konten TikTok — Rp10.000<br>
+                        • Script Video Affiliate — Rp15.000<br>
+                        • Landing Page / HTML Simple — Mulai Rp25.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Jasa%20Konten%20%26%20Creator." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+            </div>
+
+            <!-- Paket Hemat Digital -->
+            <div class="category-header" style="margin-top: 48px;">
+                <div class="category-icon">✨</div>
+                <div>
+                    <div class="category-title">Paket Hemat Digital</div>
+                    <div class="category-meta">Lebih hemat, lebih lengkap</div>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card package-card">
+                    <div class="package-badge">Best Value</div>
+                    <div class="product-name">✨ Paket AI Basic</div>
+                    <div class="product-price">Rp15.000</div>
+                    <ul class="package-features">
+                        <li>2 Edit Foto AI + HD</li>
+                        <li>Fast respon</li>
+                        <li>Hasil rapi & sesuai request</li>
+                        <li>Revisi sewajarnya</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20AI%20Basic." class="product-btn" target="_blank">Order Paket →</a>
+                </div>
+                <div class="product-card package-card">
+                    <div class="package-badge">Premium</div>
+                    <div class="product-name">✨ Paket Wisuda Premium</div>
+                    <div class="product-price">Rp25.000</div>
+                    <ul class="package-features">
+                        <li>Edit Wisuda + HD + Background</li>
+                        <li>Fast respon</li>
+                        <li>Hasil rapi & sesuai request</li>
+                        <li>Revisi sewajarnya</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Wisuda%20Premium." class="product-btn" target="_blank">Order Paket →</a>
+                </div>
+                <div class="product-card package-card">
+                    <div class="package-badge">Creator</div>
+                    <div class="product-name">✨ Paket Creator</div>
+                    <div class="product-price">Rp25.000</div>
+                    <ul class="package-features">
+                        <li>Prompt + Caption + Ide Konten</li>
+                        <li>Fast respon</li>
+                        <li>Cocok untuk sosial media & personal</li>
+                        <li>Revisi sewajarnya</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Creator." class="product-btn" target="_blank">Order Paket →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIKTOK BOOST SERVICE -->
+        <div class="category fade-in">
+            <div class="category-header">
+                <div class="category-icon">🔥</div>
+                <div>
+                    <div class="category-title">TikTok Boost Service</div>
+                    <div class="category-meta">Trusted • Fast Process • Harga Murah</div>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-name">👀 TikTok Views</div>
+                    <div class="product-price">Mulai Rp1.000</div>
+                    <div class="product-desc">
+                        • 100 Views — Rp1.000<br>
+                        • 500 Views — Rp3.000<br>
+                        • 1.000 Views — Rp5.000<br>
+                        • 2.000 Views — Rp9.000<br>
+                        • 5.000 Views — Rp18.000<br>
+                        • 10.000 Views — Rp35.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Views." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-name">❤️ TikTok Likes</div>
+                    <div class="product-price">Mulai Rp2.000</div>
+                    <div class="product-desc">
+                        • 50 Likes — Rp2.000<br>
+                        • 100 Likes — Rp3.500<br>
+                        • 250 Likes — Rp7.000<br>
+                        • 500 Likes — Rp12.000<br>
+                        • 1.000 Likes — Rp22.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Likes." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-name">🔄 TikTok Share</div>
+                    <div class="product-price">Mulai Rp2.500</div>
+                    <div class="product-desc">
+                        • 50 Share — Rp2.500<br>
+                        • 100 Share — Rp4.000<br>
+                        • 250 Share — Rp8.000<br>
+                        • 500 Share — Rp15.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Share." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-name">👥 TikTok Followers</div>
+                    <div class="product-price">Mulai Rp7.000</div>
+                    <div class="product-desc">
+                        • 50 Followers — Rp7.000<br>
+                        • 100 Followers — Rp12.000<br>
+                        • 250 Followers — Rp28.000<br>
+                        • 500 Followers — Rp50.000<br>
+                        • 1.000 Followers — Rp95.000
+                    </div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Followers." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+            </div>
+
+            <div class="category-header" style="margin-top: 48px;">
+                <div class="category-icon">⭐</div>
+                <div>
+                    <div class="category-title">Paket Hemat TikTok</div>
+                    <div class="category-meta">Paling menarik dan standout</div>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card package-card">
+                    <div class="package-badge">Starter</div>
+                    <div class="product-name">🔥 Paket Starter</div>
+                    <div class="product-price">Rp8.000</div>
+                    <ul class="package-features">
+                        <li>1.000 Views + 100 Likes</li>
+                        <li>Proses cepat</li>
+                        <li>Cocok untuk konten promosi</li>
+                        <li>Order mudah — kirim link video</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Starter%20TikTok." class="product-btn" target="_blank">Order Paket →</a>
+                </div>
+                <div class="product-card package-card">
+                    <div class="package-badge">Viral</div>
+                    <div class="product-name">🔥 Paket Viral</div>
+                    <div class="product-price">Rp30.000</div>
+                    <ul class="package-features">
+                        <li>5.000 Views + 500 Likes + 100 Share</li>
+                        <li>Proses cepat</li>
+                        <li>Cocok untuk branding</li>
+                        <li>Order mudah — kirim link video</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Viral%20TikTok." class="product-btn" target="_blank">Order Paket →</a>
+                </div>
+                <div class="product-card package-card">
+                    <div class="package-badge">Creator</div>
+                    <div class="product-name">🔥 Paket Creator</div>
+                    <div class="product-price">Rp75.000</div>
+                    <ul class="package-features">
+                        <li>10.000 Views + 1.000 Likes + 250 Followers</li>
+                        <li>Proses cepat</li>
+                        <li>Cocok untuk konten promosi & branding</li>
+                        <li>Order mudah — kirim link video / username</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Creator%20TikTok." class="product-btn" target="_blank">Order Paket →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- YOUTUBE PREMIUM -->
+        <div class="category fade-in">
+            <div class="category-header">
+                <div class="category-icon">🚀</div>
+                <div>
+                    <div class="category-title">YouTube Premium Invite</div>
+                    <div class="category-meta">Premium elegan • Garansi aktif</div>
+                </div>
+            </div>
+            <div class="products-grid" style="max-width: 400px; margin: 0 auto;">
+                <div class="product-card package-card">
+                    <div class="package-badge">Premium</div>
+                    <div class="product-name">📺 YouTube Premium Invite</div>
+                    <div class="product-price">Rp10.000</div>
+                    <div class="product-desc" style="margin-bottom: 16px;">
+                        <strong>⏳ Durasi:</strong> 1 Bulan<br><br>
+                        <strong>Benefit:</strong><br>
+                        • Bebas iklan<br>
+                        • Background play<br>
+                        • Download offline<br>
+                        • Pengalaman menonton nyaman<br><br>
+                        <strong>Keterangan:</strong><br>
+                        • Sistem invite / family<br>
+                        • Proses cepat<br>
+                        • Garansi masa aktif<br>
+                        • Wajib akun pribadi
+                    </div>
+                    <ul class="package-features">
+                        <li>Fast respon</li>
+                        <li>Trusted service</li>
+                        <li>Minat langsung chat</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20YouTube%20Premium%20Invite." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- JASA DESIGN LOGO -->
+        <div class="category fade-in">
+            <div class="category-header">
+                <div class="category-icon">🎨</div>
+                <div>
+                    <div class="category-title">Jasa Design Logo</div>
+                    <div class="category-meta">Profesional • Custom • Revisi</div>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-name">✨ Logo Simple</div>
+                    <div class="product-price">Rp10.000</div>
+                    <div class="product-desc">Design logo minimalis dan clean untuk kebutuhan dasar brand Anda.</div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Logo%20Simple." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-name">✨ Logo Standard</div>
+                    <div class="product-price">Rp25.000</div>
+                    <div class="product-desc">Logo lebih detail dengan konsep yang matang dan variasi format.</div>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Logo%20Standard." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+                <div class="product-card package-card">
+                    <div class="package-badge">Best</div>
+                    <div class="product-name">✨ Logo Premium</div>
+                    <div class="product-price">Rp50.000+</div>
+                    <div class="product-desc">Logo premium full custom dengan mockup dan brand guidelines.</div>
+                    <ul class="package-features">
+                        <li>Gaming Logo</li>
+                        <li>Olshop / Brand Logo</li>
+                        <li>Esport Logo</li>
+                        <li>Minimalist Logo</li>
+                        <li>Mascot / Character Logo</li>
+                        <li>Custom Request</li>
+                    </ul>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Logo%20Premium." class="product-btn" target="_blank">Order Sekarang →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment" id="payment">
+        <div class="section-header fade-in">
+            <span class="section-label">Pembayaran</span>
+            <h2 class="section-title">Pembayaran QRIS</h2>
+            <p class="section-subtitle">Scan dan bayar dengan mudah menggunakan aplikasi e-wallet atau mobile banking Anda.</p>
+        </div>
+        <div class="payment-card fade-in">
+            <div class="qris-placeholder">
+                <div class="icon">📱</div>
+                <div>qris.png</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim);">Ganti dengan file QRIS Anda</div>
+            </div>
+            <p class="payment-note">Scan QRIS untuk pembayaran</p>
+            <div class="payment-steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-text">Scan QRIS menggunakan aplikasi e-wallet atau mobile banking</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-text">Masukkan nominal sesuai total order</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-text">Setelah transfer, hubungi WhatsApp admin dengan kirim bukti pembayaran</div>
+                </div>
+            </div>
+            <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20sudah%20transfer%20via%20QRIS." class="btn btn-primary" style="margin-top: 24px;" target="_blank">
+                💬 Konfirmasi ke WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimoni">
+        <div class="section-header fade-in">
+            <span class="section-label">Testimoni</span>
+            <h2 class="section-title">Apa Kata Pelanggan?</h2>
+            <p class="section-subtitle">Ulasan dari pelanggan yang telah menggunakan layanan kami.</p>
+        </div>
+        <div class="testimonial-carousel fade-in">
+            <div class="testimonial-track" id="testimonialTrack">
+                <!-- Testimonials will be injected by JS -->
+            </div>
+        </div>
+        <p class="testimonial-disclaimer">* Testimoni di atas merupakan sample/demo untuk keperluan tampilan website.</p>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="whatsapp">
+        <div class="cta-content fade-in">
+            <h2>Siap Order? <span class="gradient-text">Chat Admin Sekarang</span></h2>
+            <p>Admin siap membantu kebutuhan digital Anda. Fast response, hasil rapi, dan harga bersahabat.</p>
+            <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order." class="btn btn-primary" target="_blank">
+                📱 Chat WhatsApp — 0899-8915-333
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="logo">Sllowly Store</div>
+                    <p>Digital Service & AI Editing<br>Trusted Seller • Fast Response<br>Solusi digital profesional untuk kebutuhan Anda.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="#produk">Produk</a></li>
+                        <li><a href="#payment">Payment</a></li>
+                        <li><a href="#testimoni">Testimoni</a></li>
+                        <li><a href="#whatsapp">WhatsApp</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#produk">AI Editing</a></li>
+                        <li><a href="#produk">TikTok Boost</a></li>
+                        <li><a href="#produk">YouTube Premium</a></li>
+                        <li><a href="#produk">Design Logo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Kontak</h4>
+                    <ul>
+                        <li><a href="https://wa.me/628998915333" target="_blank">WhatsApp</a></li>
+                        <li><a href="#payment">QRIS Payment</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Sllowly Store. All rights reserved.</p>
+                <p>Digital Service & AI Editing</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Testimonials Data (50+ dummy testimonials)
+        const testimonialData = [
+            { name: "Ahmad Rizky", text: "Edit cepat dan hasil bagus banget! Adminnya juga ramah." },
+            { name: "Dewi Lestari", text: "Admin fast respon, pesanan saya dikerjain dalam hitungan jam." },
+            { name: "Budi Santoso", text: "Logo sesuai request, revisinya juga cepat. Recommended!" },
+            { name: "Siti Aminah", text: "Foto wisuda saya jadi HD dan backgroundnya premium. Mantap!" },
+            { name: "Rian Pratama", text: "Prompt AI untuk landing page saya keren abis. Worth it!" },
+            { name: "Nadia Putri", text: "TikTok views saya naik signifikan setelah pakai jasa ini." },
+            { name: "Fajar Hidayat", text: "YouTube Premium invite berhasil aktif, garansi juga aman." },
+            { name: "Maya Sari", text: "Edit foto couple kita jadi estetik banget. Suka!" },
+            { name: "Andi Wijaya", text: "Caption untuk konten TikTok saya kreatif dan engaging." },
+            { name: "Lina Kusuma", text: "Old photo restore hasilnya bagus, foto lama jadi jernih lagi." },
+            { name: "Eko Prasetyo", text: "Face swap natural, nggak kelihatan editan sama sekali." },
+            { name: "Rina Amelia", text: "Paket AI Basic hemat banget, 2 foto + HD cuma 15rb." },
+            { name: "Dedi Kurniawan", text: "Script video affiliate saya jadi lebih profesional." },
+            { name: "Fitri Handayani", text: "Background wisuda premium beneran keliatan mewah." },
+            { name: "Yusuf Maulana", text: "Design logo gaming saya keren, temen-temen pada nanya." },
+            { name: "Anisa Rahma", text: "Perbaikan foto blur hasilnya jelas, nggak nyangka sebagus ini." },
+            { name: "Hendra Gunawan", text: "TikTok likes saya naik drastis, konten jadi lebih viral." },
+            { name: "Putri Anggraini", text: "AI beauty edit natural, nggak over dan tetap kelihatan asli." },
+            { name: "Bayu Aji", text: "Landing page HTML simple tapi rapi dan responsive." },
+            { name: "Intan Permata", text: "Paket Creator lengkap, prompt + caption + ide konten semua ada." },
+            { name: "Agus Salim", text: "Foto keluarga kita jadi lebih harmonis setelah di-edit AI." },
+            { name: "Sari Melati", text: "TikTok share service berfungsi dengan baik, proses cepat." },
+            { name: "Doni Saputra", text: "Prompt custom sesuai request saya, detail dan lengkap." },
+            { name: "Wulan Sari", text: "Jas wisuda AI kelihatan realistis, nggak ada yang nyangka editan." },
+            { name: "Reza Fahmi", text: "Followers TikTok saya naik stabil, nggak drop." },
+            { name: "Dina Oktaviani", text: "Logo minimalist untuk brand saya simple tapi elegan." },
+            { name: "Teguh Prasetyo", text: "Enhance foto hasilnya HD banget, detailnya keluar semua." },
+            { name: "Rani Indah", text: "Foto santai saya jadi estetik, cocok buat feed Instagram." },
+            { name: "Irfan Hakim", text: "Paket Viral TikTok worth it, views dan likes naik bersamaan." },
+            { name: "Nurul Hidayah", text: "Copywriting simple tapi powerful, engagement naik." },
+            { name: "Adi Nugroho", text: "Mascot logo untuk tim esport kita keren abis!" },
+            { name: "Vina Mariana", text: "Ubah background foto jadi seamless, nggak kelihatan edit." },
+            { name: "Fahmi Ardiansyah", text: "Ide konten TikTok saya jadi lebih terstruktur dan kreatif." },
+            { name: "Lestari Dewi", text: "Full edit wisuda HD hasilnya benar-benar premium." },
+            { name: "Rudi Hartono", text: "YouTube Premium bebas iklan, nonton jadi lebih nyaman." },
+            { name: "Citra Lestari", text: "Couple wisuda edit jadi romantis, keluarga pada suka." },
+            { name: "Dwiki Ramadhan", text: "TikTok views 10K real dan cepat masuk." },
+            { name: "Siska Amelia", text: "AI soft edit untuk foto profile jadi lebih glowing." },
+            { name: "Bima Sakti", text: "Logo premium dengan brand guidelines, profesional banget." },
+            { name: "Yuni Rahayu", text: "Foto blur jadi jernih, wajah jelas kelihatan detailnya." },
+            { name: "Arief Wicaksono", text: "Paket Starter TikTok murah meriah untuk pemula." },
+            { name: "Diana Puspita", text: "Prompt landing page saya convert jadi website beneran." },
+            { name: "Hadi Sucipto", text: "Background play YouTube Premium ngebantu banget multitask." },
+            { name: "Meli Susanti", text: "Edit foto keluarga jadi lebih warm dan harmonis." },
+            { name: "Joko Widodo", text: "TikTok likes 1K prosesnya cepat dan aman." },
+            { name: "Rina Marlina", text: "Logo olshop saya jadi lebih eye-catching." },
+            { name: "Samsul Arifin", text: "Old photo restore warnanya jadi lebih hidup." },
+            { name: "Indah Permatasari", text: "Paket Wisuda Premium complete package, nggak perlu pusing." },
+            { name: "Feri Setiawan", text: "Download offline YouTube Premium ngebantu pas jaringan jelek." },
+            { name: "Novi Andriani", text: "Face swap jadi natural, nggak ada yang nyangka editan." },
+            { name: "Yoga Pratama", text: "Script affiliate saya jadi lebih persuasif dan convert." },
+            { name: "Desi Ratnasari", text: "Foto couple estetik jadi favorit di media sosial." },
+            { name: "Anton Budiman", text: "TikTok followers real dan nggak drop setelah beberapa hari." },
+            { name: "Mira Anggraini", text: "Caption simple tapi impactful, followers saya naik." },
+            { name: "Gilang Ramadhan", text: "Prompt AI gambar hasilnya sesuai imajinasi saya." },
+            { name: "Tika Wulandari", text: "Perbaikan foto lama jadi kenangan yang lebih berharga." },
+            { name: "Dani Kurnia", text: "Paket Creator hemat, satu paket semua kebutuhan konten terpenuhi." }
+        ];
+
+        // Generate Testimonial Cards
+        function generateTestimonials() {
+            const track = document.getElementById('testimonialTrack');
+            const cards = testimonialData.map(t => `
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">${t.name.charAt(0)}</div>
+                        <div class="testimonial-info">
+                            <h4>${t.name}</h4>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"${t.text}"</p>
+                </div>
+            `).join('');
+            // Duplicate for seamless loop
+            track.innerHTML = cards + cards;
         }
-      });
-    });
-    
-    document.querySelectorAll('.plus-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const productName = btn.getAttribute('data-name');
-        productQuantities[productName]++;
-        updateQuantityUI(productName);
-      });
-    });
-    
-    document.querySelectorAll('.order-now').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const name = btn.getAttribute('data-name');
-        const price = parseInt(btn.getAttribute('data-price'));
-        const priceStr = btn.getAttribute('data-price-str');
-        const iconClass = btn.getAttribute('data-icon-class');
-        const iconColor = btn.getAttribute('data-icon-color');
-        const qty = productQuantities[name];
-        openOrderConfirmation(name, price, priceStr, qty, iconClass, iconColor);
-      });
-    });
-  }
-  
-  function updateQuantityUI(productName) {
-    const qty = productQuantities[productName];
-    const product = products.find(p => p.name === productName);
-    if (!product) return;
-    const subtotal = product.price * qty;
-    const qtySpan = document.getElementById(`qty-${productName.replace(/\s/g, '')}`);
-    const subtotalSpan = document.getElementById(`subtotal-${productName.replace(/\s/g, '')}`);
-    if (qtySpan) qtySpan.innerText = qty;
-    if (subtotalSpan) subtotalSpan.innerText = `Rp ${formatRupiah(subtotal)}`;
-  }
-  
-  
-  function buildOrderMessageForBot(productName, priceStr, qty, subtotal, uniqueCode, total) {
-    return `ORDER#${productName}#${qty}
 
-*INVOICE PESANAN CICI STORE*
-━━━━━━━━━━━━━━━━━━━━━
-*Produk:* ${productName}
-*Harga Satuan:* Rp ${priceStr}
-*Jumlah:* ${qty}
-*Subtotal:* Rp ${formatRupiah(subtotal)}
-*Kode Unik:* ${uniqueCode}
-━━━━━━━━━━━━━━━━━━━━━
-*Total Pembayaran:* Rp ${formatRupiah(total)}
-━━━━━━━━━━━━━━━━━━━━━
+        // Intersection Observer for fade-in animations
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
 
-Silakan kirim *!payment* untuk melihat nomor pembayaran (DANA, QRIS, SEABANK, BCA)
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
 
-Setelah transfer, kirim bukti screenshot ke nomor ini.
+        // Mobile menu toggle
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-links');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            nav.style.position = 'absolute';
+            nav.style.top = '64px';
+            nav.style.left = '0';
+            nav.style.right = '0';
+            nav.style.flexDirection = 'column';
+            nav.style.background = 'rgba(10,10,15,0.95)';
+            nav.style.padding = '20px';
+            nav.style.backdropFilter = 'blur(20px)';
+            nav.style.borderBottom = '1px solid var(--glass-border)';
+        }
 
-Terima kasih Cici Store`;
-  }
-  
-  async function openOrderConfirmation(productName, productPrice, priceStr, qty, iconClass, iconColor) {
-    const subtotal = productPrice * qty;
-    const uniqueCode = Math.floor(Math.random() * 900) + 100;
-    const totalBayar = subtotal + uniqueCode;
-    const product = products.find(p => p.name === productName);
-    
-    let descText = "";
-    if (product && product.desc) {
-      descText = product.desc.map(d => `• ${d}`).join("<br>");
-    }
-    
-    // Logo besar produk di tengah (bukan icon info)
-    const rgb = hexToRgb(iconColor);
-    const logoHtml = `
-      <div style="display: flex; justify-content: center; margin-bottom: 15px;">
-        <div style="width: 80px; height: 80px; background: rgba(${rgb.r},${rgb.g},${rgb.b},0.12); border-radius: 28px; display: flex; align-items: center; justify-content: center;">
-          <i class="${iconClass}" style="color: ${iconColor}; font-size: 3rem;"></i>
-        </div>
-      </div>
-    `;
-    
-    // SweetAlert dengan custom HTML (tanpa icon default)
-    Swal.fire({
-      title: productName,
-      html: `
-        ${logoHtml}
-        <div style="background:#FFF0F5; border-radius: 24px; padding: 12px; margin: 10px 0; font-size:0.85rem; text-align:left;">
-          ${descText}
-        </div>
-        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-          <span><strong>Harga:</strong> Rp ${priceStr}</span>
-          <span><strong>Jumlah:</strong> ${qty}</span>
-        </div>
-        <div style="background:#FFE4EE; border-radius: 60px; padding: 8px; margin: 12px 0;">
-          <strong>Kode Unik:</strong> <span style="color:#FF1493; font-size:1.2rem;">${uniqueCode}</span>
-        </div>
-        <div style="font-size:1.4rem; font-weight:800; color:#d64078; margin: 10px 0;">
-          Total Bayar: Rp ${formatRupiah(totalBayar)}
-        </div>
-        <hr style="margin:12px 0;">
-        <div style="font-size:0.8rem; background:#E8F5E9; padding:10px; border-radius:20px;">
-          <i class="fab fa-whatsapp" style="color:#25D366;"></i> 
-          <strong>Informasi Pembayaran akan diberikan oleh WhatsApp Bot</strong><br>
-          Klik tombol di bawah untuk melanjutkan ke WhatsApp Bot
-        </div>
-      `,
-      showCancelButton: true,
-      confirmButtonColor: '#25D366',
-      cancelButtonColor: '#FF69B4',
-      confirmButtonText: '<i class="fab fa-whatsapp"></i> Konfirmasi & Dapatkan Nomor Bayar',
-      cancelButtonText: 'Batal',
-      background: '#ffffff',
-      showClass: {
-        popup: 'animate__animated animate__fadeInUp'
-      },
-      customClass: {
-        popup: 'no-icon'
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const orderMessage = buildOrderMessageForBot(productName, priceStr, qty, subtotal, uniqueCode, totalBayar);
-        const encodedMsg = encodeURIComponent(orderMessage);
-        const waUrl = `https://wa.me/${BOT_NUMBER}?text=${encodedMsg}`;
-        window.open(waUrl, '_blank');
-        
-        Swal.fire({
-          icon: 'success',
-          title: 'Pesanan Terkirim!',
-          text: 'Silakan chat WhatsApp Bot untuk mendapatkan nomor pembayaran (DANA, QRIS, SEABANK, BCA). Kirim !payment untuk melihat semua metode.',
-          confirmButtonColor: '#FF69B4',
-          timer: 3500,
-          showConfirmButton: true
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            generateTestimonials();
+            initAnimations();
         });
-      }
-    });
-  }
-  
-  function directChatAdmin() {
-    Swal.fire({
-      title: 'Hubungi Admin',
-      text: 'Kamu akan diarahkan ke WhatsApp Cici Store untuk bertanya atau order langsung.',
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonColor: '#25D366',
-      cancelButtonColor: '#FF69B4',
-      confirmButtonText: '<i class="fab fa-whatsapp"></i> Chat Sekarang',
-      cancelButtonText: 'Nanti'
-    }).then((res) => {
-      if (res.isConfirmed) {
-        const msg = encodeURIComponent("Halo Cici Store, saya mau order akun digital. Mohon infonya.");
-        window.open(`https://wa.me/${BOT_NUMBER}?text=${msg}`, '_blank');
-      }
-    });
-  }
-  
-  function createFloatingHearts() {
-    const container = document.getElementById('heartsContainer');
-    if (!container) return;
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerHTML = '❤';
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.fontSize = 12 + Math.random() * 18 + 'px';
-      heart.style.animationDuration = 6 + Math.random() * 8 + 's';
-      container.appendChild(heart);
-      setTimeout(() => heart.remove(), 10000);
-    }, 900);
-  }
-  
-  function initFadeOnScroll() {
-    const fadeElements = document.querySelectorAll('.fade-up');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeElements.forEach(el => observer.observe(el));
-  }
-  
-  document.getElementById('lihatProdukBtn')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-  });
-  document.getElementById('waDirectBtn')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    directChatAdmin();
-  });
-  document.getElementById('contactNav')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    directChatAdmin();
-  });
-  
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (targetId && targetId !== "#" && targetId !== "#home") {
-        const target = document.querySelector(targetId);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    });
-  });
-  
-  renderProducts();
-  createFloatingHearts();
-  initFadeOnScroll();
-  setTimeout(() => {
-    document.querySelectorAll('.product-card').forEach(card => card.classList.add('visible'));
-  }, 200);
-</script>
+    </script>
 </body>
 </html>
