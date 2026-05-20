@@ -3,1369 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sllowly Store — Digital Service & AI Editing</title>
-    <meta name="description" content="Sllowly Store — Jasa Digital Service, AI Editing, TikTok Boost, YouTube Premium, dan Design Logo. Trusted Seller, Fast Response, Harga Bersahabat.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0a0a0f;
-            --bg-card: #12121a;
-            --bg-card-hover: #1a1a25;
-            --glass: rgba(255,255,255,0.03);
-            --glass-border: rgba(255,255,255,0.06);
-            --text: #f0f0f5;
-            --text-muted: #8888a0;
-            --text-dim: #555570;
-            --accent: #7c3aed;
-            --accent-light: #a78bfa;
-            --accent-glow: rgba(124,58,237,0.3);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gradient-hero: linear-gradient(135deg, #0a0a0f 0%, #1a1033 50%, #0a0a0f 100%);
-            --gradient-accent: linear-gradient(135deg, #7c3aed, #a78bfa);
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
-            --shadow-glow: 0 0 40px rgba(124,58,237,0.15);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            background: rgba(10,10,15,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 0 24px;
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
-
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 800;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0;
-            width: 0; height: 2px;
-            background: var(--gradient-accent);
-            transition: width 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-
-        .nav-cta {
-            display: none;
-            background: var(--gradient-accent);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gradient-hero);
-            position: relative;
-            overflow: hidden;
-            padding: 120px 24px 80px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 20%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: var(--accent-light);
-            margin-bottom: 32px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-badge .pulse {
-            width: 8px; height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-
-        .hero h1 .gradient-text {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-tagline {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-
-        .hero-desc {
-            font-size: 1rem;
-            color: var(--text-dim);
-            max-width: 560px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
-        }
-
-        .hero-badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            backdrop-filter: blur(10px);
-        }
-
-        .badge-item .icon { font-size: 1rem; }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--gradient-accent);
-            color: white;
-            box-shadow: 0 4px 20px rgba(124,58,237,0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(124,58,237,0.4);
-        }
-
-        .btn-secondary {
-            background: var(--glass);
-            color: var(--text);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--accent);
-        }
-
-        /* Section Styles */
-        section { padding: 100px 24px; }
-
-        .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
-        .section-label {
-            display: inline-block;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent-light);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* Products Section */
-        .products { background: var(--bg); }
-
-        .category {
-            margin-bottom: 80px;
-        }
-
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 32px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .category-icon {
-            width: 48px; height: 48px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .category-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .category-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--gradient-accent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(124,58,237,0.3);
-            box-shadow: var(--shadow-md);
-        }
-        .product-card:hover::before { opacity: 1; }
-
-        .product-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .product-price {
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
-        }
-
-        .product-desc {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-
-        .product-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 16px;
-            padding: 8px 16px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .product-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        /* Package Cards (Premium) */
-        .package-card {
-            background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(167,139,250,0.05));
-            border: 1px solid rgba(124,58,237,0.3);
-            position: relative;
-        }
-
-        .package-card .package-badge {
-            position: absolute;
-            top: -1px; right: 20px;
-            background: var(--gradient-accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 0 0 8px 8px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .package-card .product-price {
-            font-size: 1.5rem;
-        }
-
-        .package-features {
-            list-style: none;
-            margin-top: 12px;
-        }
-        .package-features li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-        .package-features li::before {
-            content: '✓';
-            color: var(--success);
-            font-weight: 700;
-        }
-
-        /* Payment Section */
-        .payment {
-            background: linear-gradient(180deg, var(--bg) 0%, #0f0f1a 100%);
-        }
-
-        .payment-card {
-            max-width: 480px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .payment-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .qris-placeholder {
-            width: 100%;
-            max-width: 300px;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border: 2px dashed var(--glass-border);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            gap: 8px;
-        }
-
-        .qris-placeholder .icon { font-size: 3rem; }
-
-        .payment-note {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .payment-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: left;
-            margin-top: 24px;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--glass);
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-        }
-        .step-num {
-            width: 28px; height: 28px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        .step-text { color: var(--text-muted); }
-
-        /* Testimonials */
-        .testimonials { background: var(--bg); }
-
-        .testimonial-carousel {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .testimonial-track {
-            display: flex;
-            gap: 20px;
-            animation: scroll 60s linear infinite;
-            width: max-content;
-        }
-
-        .testimonial-track:hover { animation-play-state: paused; }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .testimonial-card {
-            width: 320px;
-            flex-shrink: 0;
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s;
-        }
-        .testimonial-card:hover {
-            border-color: rgba(124,58,237,0.3);
-            transform: translateY(-4px);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .testimonial-avatar {
-            width: 44px; height: 44px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .testimonial-info h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .testimonial-info .stars {
-            color: var(--warning);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-        }
-
-        .testimonial-text {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        .testimonial-disclaimer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        /* CTA Section */
-        .cta {
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1033 50%, #0a0a0f 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .cta h2 {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-
-        .cta p {
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            font-size: 1.05rem;
-        }
-
-        .cta .btn-primary {
-            padding: 16px 40px;
-            font-size: 1.1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #050508;
-            border-top: 1px solid var(--glass-border);
-            padding: 60px 24px 30px;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-brand .logo {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-            display: inline-block;
-        }
-        .footer-brand p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.6;
-            max-width: 280px;
-        }
-
-        .footer-links h4 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-        .footer-links ul {
-            list-style: none;
-        }
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-        .footer-links a:hover { color: var(--accent-light); }
-
-        .footer-bottom {
-            border-top: 1px solid var(--glass-border);
-            padding-top: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .footer-bottom p {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .nav-cta { display: inline-flex; }
-
-            .hero { padding: 100px 20px 60px; }
-            .hero h1 { letter-spacing: -1px; }
-
-            section { padding: 60px 20px; }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .testimonial-card { width: 280px; }
-        }
-
-        @media (max-width: 480px) {
-            .hero-buttons { flex-direction: column; }
-            .btn { width: 100%; justify-content: center; }
-            .payment-card { padding: 24px; }
-        }
-    </style>
+    <meta name="description" content="Sllowly Store - Digital Service & AI Editing • Trusted Seller • Fast Response">
+    <title>Sllowly Store | Digital Service & AI Editing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236366f1'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white' font-weight='bold'%3ES%3C/text%3E%3C/svg%3E">
 <base target="_blank">
 </head>
 <body>
+    <div class="loading-overlay" id="loading"><div class="loading-spinner"></div></div>
+    <div class="toast" id="toast"><div class="toast-icon">✓</div><div class="toast-content"><h4>Berhasil</h4><p>Produk ditambahkan ke keranjang</p></div></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-inner">
-            <div class="logo">Sllowly Store</div>
-            <ul class="nav-links">
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo"><div class="logo-icon">S</div><span>Sllowly Store</span></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#produk">Produk</a></li>
                 <li><a href="#payment">Payment</a></li>
                 <li><a href="#testimoni">Testimoni</a></li>
-                <li><a href="#whatsapp">WhatsApp</a></li>
+                <li><a href="#order">Order</a></li>
             </ul>
-            <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order." class="nav-cta" target="_blank">Order Now</a>
-            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="nav-actions">
+                <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order%20produk." class="btn btn-whatsapp btn-sm" target="_blank">Chat WA</a>
+                <div class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></div>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content fade-in">
-            <div class="hero-badge">
-                <span class="pulse"></span>
-                Store Online Aktif
-            </div>
-            <h1>
-                <span class="gradient-text">Sllowly Store</span>
-            </h1>
-            <p class="hero-tagline">Digital Service & AI Editing • Trusted Seller • Fast Response</p>
-            <p class="hero-desc">
-                Solusi digital profesional untuk kebutuhan editing foto AI, boost media sosial, 
-                design logo, dan layanan kreator. Hasil rapi, proses cepat, harga bersahabat.
-            </p>
-            <div class="hero-badges">
-                <div class="badge-item"><span class="icon">✅</span> Trusted Seller</div>
-                <div class="badge-item"><span class="icon">⚡</span> Fast Response</div>
-                <div class="badge-item"><span class="icon">💰</span> Harga Bersahabat</div>
-                <div class="badge-item"><span class="icon">🎯</span> Digital Service</div>
-            </div>
-            <div class="hero-buttons">
-                <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order." class="btn btn-primary" target="_blank">
-                    📱 Order WhatsApp
-                </a>
-                <a href="#produk" class="btn btn-secondary">
-                    👁️ Lihat Produk
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="products" id="produk">
-        <div class="section-header fade-in">
-            <span class="section-label">Katalog Lengkap</span>
-            <h2 class="section-title">Etalase Produk</h2>
-            <p class="section-subtitle">Pilih layanan sesuai kebutuhan Anda. Semua produk dengan harga transparan dan garansi kepuasan.</p>
-        </div>
-
-        <!-- DIGITAL SERVICE & AI EDITING -->
-        <div class="category fade-in">
-            <div class="category-header">
-                <div class="category-icon">🤖</div>
-                <div>
-                    <div class="category-title">Digital Service & AI Editing</div>
-                    <div class="category-meta">Trusted Seller • Fast Response • Harga Bersahabat</div>
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tagline"><span class="dot"></span>Digital Service & AI Editing • Trusted Seller</div>
+                <h1 class="hero-title">Sllowly<br><span class="text-gradient">Store</span></h1>
+                <p class="hero-subtitle">Menyediakan jasa digital, AI editing, TikTok boost, design logo, hingga kebutuhan creator dengan harga terjangkau dan proses cepat.</p>
+                <div class="hero-badges">
+                    <span class="badge badge-success">Trusted Seller</span>
+                    <span class="badge badge-success">Fast Response</span>
+                    <span class="badge badge-success">Harga Bersahabat</span>
+                    <span class="badge badge-primary">Digital Service</span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#produk" class="btn btn-primary btn-lg">Lihat Produk</a>
+                    <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order%20produk." class="btn btn-whatsapp btn-lg" target="_blank">Order Sekarang</a>
                 </div>
             </div>
-
-            <div class="products-grid">
-                <!-- Jasa Prompt AI -->
-                <div class="product-card">
-                    <div class="product-name">🤖 Jasa Prompt AI</div>
-                    <div class="product-price">Mulai Rp3.000</div>
-                    <div class="product-desc">
-                        • Prompt Simple — Rp3.000<br>
-                        • Prompt Detail — Rp7.000<br>
-                        • Prompt Landing Page / Website — Rp15.000<br>
-                        • Prompt AI Gambar / Foto — Rp10.000<br>
-                        • Prompt Custom Sesuai Request — Mulai Rp5.000
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-content">
+                        <h3>Statistik Toko</h3>
+                        <div class="hero-card-stats">
+                            <div class="stat-item"><div class="stat-value">500+</div><div class="stat-label">Order Selesai</div></div>
+                            <div class="stat-item"><div class="stat-value">50+</div><div class="stat-label">Produk Digital</div></div>
+                            <div class="stat-item"><div class="stat-value">4.9</div><div class="stat-label">Rating</div></div>
+                            <div class="stat-item"><div class="stat-value">&lt;5m</div><div class="stat-label">Response Time</div></div>
+                        </div>
                     </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Jasa%20Prompt%20AI." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-
-                <!-- Edit Foto AI -->
-                <div class="product-card">
-                    <div class="product-name">🎨 Edit Foto AI</div>
-                    <div class="product-price">Mulai Rp5.000 / foto</div>
-                    <div class="product-desc">
-                        • Edit AI Basic — Rp5.000<br>
-                        • HD / Enhance Foto — Rp8.000<br>
-                        • Ubah Background — Rp8.000<br>
-                        • Face Swap Natural — Rp10.000<br>
-                        • AI Beauty / Soft / Estetik — Rp10.000<br>
-                        • Edit Premium Detail — Rp15.000+
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Edit%20Foto%20AI." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-
-                <!-- Edit Foto Wisuda -->
-                <div class="product-card">
-                    <div class="product-name">🎓 Edit Foto Wisuda</div>
-                    <div class="product-price">Mulai Rp10.000</div>
-                    <div class="product-desc">
-                        • Jas / Toga Wisuda AI — Rp10.000<br>
-                        • Background Wisuda Premium — Rp10.000<br>
-                        • Full Edit Wisuda HD — Rp20.000<br>
-                        • Couple / Keluarga Wisuda — Mulai Rp25.000
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Edit%20Foto%20Wisuda." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-
-                <!-- Edit Foto Lainnya -->
-                <div class="product-card">
-                    <div class="product-name">👨‍👩‍👧 Edit Foto Lainnya</div>
-                    <div class="product-price">Mulai Rp10.000</div>
-                    <div class="product-desc">
-                        • Foto Keluarga — Rp10.000<br>
-                        • Foto Santai / Estetik — Rp10.000<br>
-                        • Foto Couple — Rp12.000<br>
-                        • Perbaikan Foto Blur — Rp15.000<br>
-                        • Old Photo Restore — Rp20.000+
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Edit%20Foto%20Lainnya." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-
-                <!-- Jasa Konten & Creator -->
-                <div class="product-card">
-                    <div class="product-name">📱 Jasa Konten & Creator</div>
-                    <div class="product-price">Mulai Rp5.000</div>
-                    <div class="product-desc">
-                        • Caption / Copywriting Simple — Rp5.000<br>
-                        • Ide Konten TikTok — Rp10.000<br>
-                        • Script Video Affiliate — Rp15.000<br>
-                        • Landing Page / HTML Simple — Mulai Rp25.000
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Jasa%20Konten%20%26%20Creator." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-            </div>
-
-            <!-- Paket Hemat Digital -->
-            <div class="category-header" style="margin-top: 48px;">
-                <div class="category-icon">✨</div>
-                <div>
-                    <div class="category-title">Paket Hemat Digital</div>
-                    <div class="category-meta">Lebih hemat, lebih lengkap</div>
-                </div>
-            </div>
-            <div class="products-grid">
-                <div class="product-card package-card">
-                    <div class="package-badge">Best Value</div>
-                    <div class="product-name">✨ Paket AI Basic</div>
-                    <div class="product-price">Rp15.000</div>
-                    <ul class="package-features">
-                        <li>2 Edit Foto AI + HD</li>
-                        <li>Fast respon</li>
-                        <li>Hasil rapi & sesuai request</li>
-                        <li>Revisi sewajarnya</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20AI%20Basic." class="product-btn" target="_blank">Order Paket →</a>
-                </div>
-                <div class="product-card package-card">
-                    <div class="package-badge">Premium</div>
-                    <div class="product-name">✨ Paket Wisuda Premium</div>
-                    <div class="product-price">Rp25.000</div>
-                    <ul class="package-features">
-                        <li>Edit Wisuda + HD + Background</li>
-                        <li>Fast respon</li>
-                        <li>Hasil rapi & sesuai request</li>
-                        <li>Revisi sewajarnya</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Wisuda%20Premium." class="product-btn" target="_blank">Order Paket →</a>
-                </div>
-                <div class="product-card package-card">
-                    <div class="package-badge">Creator</div>
-                    <div class="product-name">✨ Paket Creator</div>
-                    <div class="product-price">Rp25.000</div>
-                    <ul class="package-features">
-                        <li>Prompt + Caption + Ide Konten</li>
-                        <li>Fast respon</li>
-                        <li>Cocok untuk sosial media & personal</li>
-                        <li>Revisi sewajarnya</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Creator." class="product-btn" target="_blank">Order Paket →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- TIKTOK BOOST SERVICE -->
-        <div class="category fade-in">
-            <div class="category-header">
-                <div class="category-icon">🔥</div>
-                <div>
-                    <div class="category-title">TikTok Boost Service</div>
-                    <div class="category-meta">Trusted • Fast Process • Harga Murah</div>
-                </div>
-            </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-name">👀 TikTok Views</div>
-                    <div class="product-price">Mulai Rp1.000</div>
-                    <div class="product-desc">
-                        • 100 Views — Rp1.000<br>
-                        • 500 Views — Rp3.000<br>
-                        • 1.000 Views — Rp5.000<br>
-                        • 2.000 Views — Rp9.000<br>
-                        • 5.000 Views — Rp18.000<br>
-                        • 10.000 Views — Rp35.000
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Views." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-name">❤️ TikTok Likes</div>
-                    <div class="product-price">Mulai Rp2.000</div>
-                    <div class="product-desc">
-                        • 50 Likes — Rp2.000<br>
-                        • 100 Likes — Rp3.500<br>
-                        • 250 Likes — Rp7.000<br>
-                        • 500 Likes — Rp12.000<br>
-                        • 1.000 Likes — Rp22.000
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Likes." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-name">🔄 TikTok Share</div>
-                    <div class="product-price">Mulai Rp2.500</div>
-                    <div class="product-desc">
-                        • 50 Share — Rp2.500<br>
-                        • 100 Share — Rp4.000<br>
-                        • 250 Share — Rp8.000<br>
-                        • 500 Share — Rp15.000
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Share." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-name">👥 TikTok Followers</div>
-                    <div class="product-price">Mulai Rp7.000</div>
-                    <div class="product-desc">
-                        • 50 Followers — Rp7.000<br>
-                        • 100 Followers — Rp12.000<br>
-                        • 250 Followers — Rp28.000<br>
-                        • 500 Followers — Rp50.000<br>
-                        • 1.000 Followers — Rp95.000
-                    </div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20TikTok%20Followers." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-            </div>
-
-            <div class="category-header" style="margin-top: 48px;">
-                <div class="category-icon">⭐</div>
-                <div>
-                    <div class="category-title">Paket Hemat TikTok</div>
-                    <div class="category-meta">Paling menarik dan standout</div>
-                </div>
-            </div>
-            <div class="products-grid">
-                <div class="product-card package-card">
-                    <div class="package-badge">Starter</div>
-                    <div class="product-name">🔥 Paket Starter</div>
-                    <div class="product-price">Rp8.000</div>
-                    <ul class="package-features">
-                        <li>1.000 Views + 100 Likes</li>
-                        <li>Proses cepat</li>
-                        <li>Cocok untuk konten promosi</li>
-                        <li>Order mudah — kirim link video</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Starter%20TikTok." class="product-btn" target="_blank">Order Paket →</a>
-                </div>
-                <div class="product-card package-card">
-                    <div class="package-badge">Viral</div>
-                    <div class="product-name">🔥 Paket Viral</div>
-                    <div class="product-price">Rp30.000</div>
-                    <ul class="package-features">
-                        <li>5.000 Views + 500 Likes + 100 Share</li>
-                        <li>Proses cepat</li>
-                        <li>Cocok untuk branding</li>
-                        <li>Order mudah — kirim link video</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Viral%20TikTok." class="product-btn" target="_blank">Order Paket →</a>
-                </div>
-                <div class="product-card package-card">
-                    <div class="package-badge">Creator</div>
-                    <div class="product-name">🔥 Paket Creator</div>
-                    <div class="product-price">Rp75.000</div>
-                    <ul class="package-features">
-                        <li>10.000 Views + 1.000 Likes + 250 Followers</li>
-                        <li>Proses cepat</li>
-                        <li>Cocok untuk konten promosi & branding</li>
-                        <li>Order mudah — kirim link video / username</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Paket%20Creator%20TikTok." class="product-btn" target="_blank">Order Paket →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- YOUTUBE PREMIUM -->
-        <div class="category fade-in">
-            <div class="category-header">
-                <div class="category-icon">🚀</div>
-                <div>
-                    <div class="category-title">YouTube Premium Invite</div>
-                    <div class="category-meta">Premium elegan • Garansi aktif</div>
-                </div>
-            </div>
-            <div class="products-grid" style="max-width: 400px; margin: 0 auto;">
-                <div class="product-card package-card">
-                    <div class="package-badge">Premium</div>
-                    <div class="product-name">📺 YouTube Premium Invite</div>
-                    <div class="product-price">Rp10.000</div>
-                    <div class="product-desc" style="margin-bottom: 16px;">
-                        <strong>⏳ Durasi:</strong> 1 Bulan<br><br>
-                        <strong>Benefit:</strong><br>
-                        • Bebas iklan<br>
-                        • Background play<br>
-                        • Download offline<br>
-                        • Pengalaman menonton nyaman<br><br>
-                        <strong>Keterangan:</strong><br>
-                        • Sistem invite / family<br>
-                        • Proses cepat<br>
-                        • Garansi masa aktif<br>
-                        • Wajib akun pribadi
-                    </div>
-                    <ul class="package-features">
-                        <li>Fast respon</li>
-                        <li>Trusted service</li>
-                        <li>Minat langsung chat</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20YouTube%20Premium%20Invite." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- JASA DESIGN LOGO -->
-        <div class="category fade-in">
-            <div class="category-header">
-                <div class="category-icon">🎨</div>
-                <div>
-                    <div class="category-title">Jasa Design Logo</div>
-                    <div class="category-meta">Profesional • Custom • Revisi</div>
-                </div>
-            </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-name">✨ Logo Simple</div>
-                    <div class="product-price">Rp10.000</div>
-                    <div class="product-desc">Design logo minimalis dan clean untuk kebutuhan dasar brand Anda.</div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Logo%20Simple." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-name">✨ Logo Standard</div>
-                    <div class="product-price">Rp25.000</div>
-                    <div class="product-desc">Logo lebih detail dengan konsep yang matang dan variasi format.</div>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Logo%20Standard." class="product-btn" target="_blank">Order Sekarang →</a>
-                </div>
-                <div class="product-card package-card">
-                    <div class="package-badge">Best</div>
-                    <div class="product-name">✨ Logo Premium</div>
-                    <div class="product-price">Rp50.000+</div>
-                    <div class="product-desc">Logo premium full custom dengan mockup dan brand guidelines.</div>
-                    <ul class="package-features">
-                        <li>Gaming Logo</li>
-                        <li>Olshop / Brand Logo</li>
-                        <li>Esport Logo</li>
-                        <li>Minimalist Logo</li>
-                        <li>Mascot / Character Logo</li>
-                        <li>Custom Request</li>
-                    </ul>
-                    <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20ingin%20order%20Logo%20Premium." class="product-btn" target="_blank">Order Sekarang →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Payment Section -->
-    <section class="payment" id="payment">
-        <div class="section-header fade-in">
-            <span class="section-label">Pembayaran</span>
-            <h2 class="section-title">Pembayaran QRIS</h2>
-            <p class="section-subtitle">Scan dan bayar dengan mudah menggunakan aplikasi e-wallet atau mobile banking Anda.</p>
-        </div>
-        <div class="payment-card fade-in">
-            <div class="qris-placeholder">
-                <div class="icon">📱</div>
-                <div>qris.png</div>
-                <div style="font-size: 0.75rem; color: var(--text-dim);">Ganti dengan file QRIS Anda</div>
+    <section class="section-padding" id="produk">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <div class="section-label">Katalog Produk</div>
+                <h2 class="section-title">Produk & Layanan</h2>
+                <p class="section-desc">Pilih layanan digital sesuai kebutuhan Anda</p>
             </div>
-            <p class="payment-note">Scan QRIS untuk pembayaran</p>
-            <div class="payment-steps">
-                <div class="step">
-                    <div class="step-num">1</div>
-                    <div class="step-text">Scan QRIS menggunakan aplikasi e-wallet atau mobile banking</div>
-                </div>
-                <div class="step">
-                    <div class="step-num">2</div>
-                    <div class="step-text">Masukkan nominal sesuai total order</div>
-                </div>
-                <div class="step">
-                    <div class="step-num">3</div>
-                    <div class="step-text">Setelah transfer, hubungi WhatsApp admin dengan kirim bukti pembayaran</div>
+
+            <!-- AI Prompt -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">🤖</div><div><div class="category-title">Jasa Prompt AI</div><div class="category-subtitle">Prompt optimal untuk berbagai kebutuhan AI</div></div></div>
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-name">Prompt Simple</div><div class="product-desc">Prompt dasar untuk kebutuhan sederhana</div><div class="product-footer"><div class="product-price">Rp3.000</div><button class="btn-order" onclick="orderProduct('Prompt Simple', 3000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Prompt Detail</div><div class="product-desc">Prompt lengkap dengan instruksi detail</div><div class="product-footer"><div class="product-price">Rp7.000</div><button class="btn-order" onclick="orderProduct('Prompt Detail', 7000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Prompt Landing Page</div><div class="product-desc">Prompt khusus untuk generate landing page</div><div class="product-footer"><div class="product-price">Rp15.000</div><button class="btn-order" onclick="orderProduct('Prompt Landing Page / Website', 15000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Prompt AI Gambar</div><div class="product-desc">Prompt untuk generate gambar AI</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Prompt AI Gambar / Foto', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Prompt Custom</div><div class="product-desc">Prompt custom sesuai kebutuhan</div><div class="product-footer"><div class="product-price">Mulai Rp5.000</div><button class="btn-order" onclick="orderProduct('Prompt Custom Sesuai Request', 5000)">Order</button></div></div>
                 </div>
             </div>
-            <a href="https://wa.me/628998915333?text=Halo%20admin%2C%20saya%20sudah%20transfer%20via%20QRIS." class="btn btn-primary" style="margin-top: 24px;" target="_blank">
-                💬 Konfirmasi ke WhatsApp
-            </a>
+
+            <!-- Edit Foto AI -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">🎨</div><div><div class="category-title">Edit Foto AI</div><div class="category-subtitle">Edit foto profesional dengan teknologi AI</div></div></div>
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-name">Edit AI Basic</div><div class="product-desc">Edit foto dasar dengan AI</div><div class="product-footer"><div class="product-price">Rp5.000<span>/foto</span></div><button class="btn-order" onclick="orderProduct('Edit AI Basic', 5000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">HD / Enhance Foto</div><div class="product-desc">Tingkatkan resolusi menjadi HD</div><div class="product-footer"><div class="product-price">Rp8.000<span>/foto</span></div><button class="btn-order" onclick="orderProduct('HD / Enhance Foto', 8000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Ubah Background</div><div class="product-desc">Ganti background secara natural</div><div class="product-footer"><div class="product-price">Rp8.000<span>/foto</span></div><button class="btn-order" onclick="orderProduct('Ubah Background', 8000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Face Swap Natural</div><div class="product-desc">Tukar wajah dengan hasil natural</div><div class="product-footer"><div class="product-price">Rp10.000<span>/foto</span></div><button class="btn-order" onclick="orderProduct('Face Swap Natural', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">AI Beauty / Estetik</div><div class="product-desc">Edit foto dengan sentuhan beauty</div><div class="product-footer"><div class="product-price">Rp10.000<span>/foto</span></div><button class="btn-order" onclick="orderProduct('AI Beauty / Soft / Estetik', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Edit Premium Detail</div><div class="product-desc">Edit foto premium detail maksimal</div><div class="product-footer"><div class="product-price">Rp15.000+<span>/foto</span></div><button class="btn-order" onclick="orderProduct('Edit Premium Detail', 15000)">Order</button></div></div>
+                </div>
+            </div>
+
+            <!-- Edit Foto Wisuda -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">🎓</div><div><div class="category-title">Edit Foto Wisuda</div><div class="category-subtitle">Momen wisuda Anda lebih berkesan</div></div></div>
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-name">Jas / Toga Wisuda AI</div><div class="product-desc">Tambahkan jas atau toga wisuda</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Jas / Toga Wisuda AI', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Background Wisuda Premium</div><div class="product-desc">Background wisuda berbagai pilihan</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Background Wisuda Premium', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Full Edit Wisuda HD</div><div class="product-desc">Paket lengkap edit wisuda HD</div><div class="product-footer"><div class="product-price">Rp20.000</div><button class="btn-order" onclick="orderProduct('Full Edit Wisuda HD', 20000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Couple / Keluarga Wisuda</div><div class="product-desc">Edit foto wisuda couple/keluarga</div><div class="product-footer"><div class="product-price">Mulai Rp25.000</div><button class="btn-order" onclick="orderProduct('Couple / Keluarga Wisuda', 25000)">Order</button></div></div>
+                </div>
+            </div>
+
+            <!-- Edit Foto Lainnya -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">👨‍👩‍👧</div><div><div class="category-title">Edit Foto Lainnya</div><div class="category-subtitle">Berbagai kebutuhan edit foto lainnya</div></div></div>
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-name">Foto Keluarga</div><div class="product-desc">Edit foto keluarga profesional</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Foto Keluarga', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Foto Santai / Estetik</div><div class="product-desc">Edit foto gaya santai estetik</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Foto Santai / Estetik', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Foto Couple</div><div class="product-desc">Edit foto couple romantis</div><div class="product-footer"><div class="product-price">Rp12.000</div><button class="btn-order" onclick="orderProduct('Foto Couple', 12000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Perbaikan Foto Blur</div><div class="product-desc">Perbaiki foto blur jadi tajam</div><div class="product-footer"><div class="product-price">Rp15.000</div><button class="btn-order" onclick="orderProduct('Perbaikan Foto Blur / Kurang Jelas', 15000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Old Photo Restore</div><div class="product-desc">Restorasi foto lama jadi HD</div><div class="product-footer"><div class="product-price">Rp20.000+</div><button class="btn-order" onclick="orderProduct('Old Photo Restore', 20000)">Order</button></div></div>
+                </div>
+            </div>
+
+            <!-- Jasa Konten -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">📱</div><div><div class="category-title">Jasa Konten & Creator</div><div class="category-subtitle">Dukung konten Anda dengan layanan profesional</div></div></div>
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-name">Caption / Copywriting</div><div class="product-desc">Caption menarik untuk sosial media</div><div class="product-footer"><div class="product-price">Rp5.000</div><button class="btn-order" onclick="orderProduct('Caption / Copywriting Simple', 5000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Ide Konten TikTok</div><div class="product-desc">Ide konten TikTok viral</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Ide Konten TikTok', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Script Video Affiliate</div><div class="product-desc">Script video promosi affiliate</div><div class="product-footer"><div class="product-price">Rp15.000</div><button class="btn-order" onclick="orderProduct('Script Video Affiliate', 15000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Landing Page HTML</div><div class="product-desc">Landing page simple HTML CSS</div><div class="product-footer"><div class="product-price">Mulai Rp25.000</div><button class="btn-order" onclick="orderProduct('Landing Page / HTML Simple', 25000)">Order</button></div></div>
+                </div>
+            </div>
+
+            <!-- Paket Hemat -->
+            <div class="category-section scroll-reveal" id="order">
+                <div class="category-header"><div class="category-icon">🔥</div><div><div class="category-title">Paket Hemat</div><div class="category-subtitle">Pilihan terbaik dengan harga spesial</div></div></div>
+                <div class="packages-grid">
+                    <div class="package-card">
+                        <div class="package-name">Paket AI Basic</div>
+                        <div class="package-price">Rp15.000</div>
+                        <ul class="package-features"><li>2 Edit Foto AI</li><li>HD Quality</li><li>Fast Response</li><li>Revisi 1x</li></ul>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Fast respon</span><span class="badge badge-success">Hasil rapi</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('Paket AI Basic', 15000)">Pilih Paket</button>
+                    </div>
+                    <div class="package-card popular">
+                        <div class="package-name">Paket Wisuda Premium</div>
+                        <div class="package-price">Rp25.000</div>
+                        <ul class="package-features"><li>Edit Wisuda Lengkap</li><li>HD Quality</li><li>Background Premium</li><li>Revisi 2x</li></ul>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Fast respon</span><span class="badge badge-success">Hasil rapi</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('Paket Wisuda Premium', 25000)">Pilih Paket</button>
+                    </div>
+                    <div class="package-card">
+                        <div class="package-name">Paket Creator</div>
+                        <div class="package-price">Rp25.000</div>
+                        <ul class="package-features"><li>Prompt AI</li><li>Caption Menarik</li><li>Ide Konten</li><li>Fast Response</li></ul>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Fast respon</span><span class="badge badge-success">Cocok sosmed</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('Paket Creator', 25000)">Pilih Paket</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TikTok Boost -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">📈</div><div><div class="category-title">TikTok Boost Service</div><div class="category-subtitle">Trusted • Fast Process • Harga Murah</div></div></div>
+
+                <h3 style="font-size:1.1rem;margin-bottom:16px;color:var(--primary);">👀 TikTok Views</h3>
+                <div class="products-grid" style="margin-bottom:40px;">
+                    <div class="product-card"><div class="product-name">100 Views</div><div class="product-desc">Boost 100 views TikTok</div><div class="product-footer"><div class="product-price">Rp1.000</div><button class="btn-order" onclick="orderProduct('TikTok Views 100', 1000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">500 Views</div><div class="product-desc">Boost 500 views TikTok</div><div class="product-footer"><div class="product-price">Rp3.000</div><button class="btn-order" onclick="orderProduct('TikTok Views 500', 3000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">1.000 Views</div><div class="product-desc">Boost 1.000 views TikTok</div><div class="product-footer"><div class="product-price">Rp5.000</div><button class="btn-order" onclick="orderProduct('TikTok Views 1000', 5000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">2.000 Views</div><div class="product-desc">Boost 2.000 views TikTok</div><div class="product-footer"><div class="product-price">Rp9.000</div><button class="btn-order" onclick="orderProduct('TikTok Views 2000', 9000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">5.000 Views</div><div class="product-desc">Boost 5.000 views TikTok</div><div class="product-footer"><div class="product-price">Rp18.000</div><button class="btn-order" onclick="orderProduct('TikTok Views 5000', 18000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">10.000 Views</div><div class="product-desc">Boost 10.000 views TikTok</div><div class="product-footer"><div class="product-price">Rp35.000</div><button class="btn-order" onclick="orderProduct('TikTok Views 10000', 35000)">Order</button></div></div>
+                </div>
+
+                <h3 style="font-size:1.1rem;margin-bottom:16px;color:var(--secondary);">❤️ TikTok Likes</h3>
+                <div class="products-grid" style="margin-bottom:40px;">
+                    <div class="product-card"><div class="product-name">50 Likes</div><div class="product-desc">Tambah 50 likes TikTok</div><div class="product-footer"><div class="product-price">Rp2.000</div><button class="btn-order" onclick="orderProduct('TikTok Likes 50', 2000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">100 Likes</div><div class="product-desc">Tambah 100 likes TikTok</div><div class="product-footer"><div class="product-price">Rp3.500</div><button class="btn-order" onclick="orderProduct('TikTok Likes 100', 3500)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">250 Likes</div><div class="product-desc">Tambah 250 likes TikTok</div><div class="product-footer"><div class="product-price">Rp7.000</div><button class="btn-order" onclick="orderProduct('TikTok Likes 250', 7000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">500 Likes</div><div class="product-desc">Tambah 500 likes TikTok</div><div class="product-footer"><div class="product-price">Rp12.000</div><button class="btn-order" onclick="orderProduct('TikTok Likes 500', 12000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">1.000 Likes</div><div class="product-desc">Tambah 1.000 likes TikTok</div><div class="product-footer"><div class="product-price">Rp22.000</div><button class="btn-order" onclick="orderProduct('TikTok Likes 1000', 22000)">Order</button></div></div>
+                </div>
+
+                <h3 style="font-size:1.1rem;margin-bottom:16px;color:var(--accent);">🔄 TikTok Share</h3>
+                <div class="products-grid" style="margin-bottom:40px;">
+                    <div class="product-card"><div class="product-name">50 Share</div><div class="product-desc">Tambah 50 share TikTok</div><div class="product-footer"><div class="product-price">Rp2.500</div><button class="btn-order" onclick="orderProduct('TikTok Share 50', 2500)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">100 Share</div><div class="product-desc">Tambah 100 share TikTok</div><div class="product-footer"><div class="product-price">Rp4.000</div><button class="btn-order" onclick="orderProduct('TikTok Share 100', 4000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">250 Share</div><div class="product-desc">Tambah 250 share TikTok</div><div class="product-footer"><div class="product-price">Rp8.000</div><button class="btn-order" onclick="orderProduct('TikTok Share 250', 8000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">500 Share</div><div class="product-desc">Tambah 500 share TikTok</div><div class="product-footer"><div class="product-price">Rp15.000</div><button class="btn-order" onclick="orderProduct('TikTok Share 500', 15000)">Order</button></div></div>
+                </div>
+
+                <h3 style="font-size:1.1rem;margin-bottom:16px;color:var(--success);">👥 TikTok Followers</h3>
+                <div class="products-grid" style="margin-bottom:40px;">
+                    <div class="product-card"><div class="product-name">50 Followers</div><div class="product-desc">Tambah 50 followers TikTok</div><div class="product-footer"><div class="product-price">Rp7.000</div><button class="btn-order" onclick="orderProduct('TikTok Followers 50', 7000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">100 Followers</div><div class="product-desc">Tambah 100 followers TikTok</div><div class="product-footer"><div class="product-price">Rp12.000</div><button class="btn-order" onclick="orderProduct('TikTok Followers 100', 12000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">250 Followers</div><div class="product-desc">Tambah 250 followers TikTok</div><div class="product-footer"><div class="product-price">Rp28.000</div><button class="btn-order" onclick="orderProduct('TikTok Followers 250', 28000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">500 Followers</div><div class="product-desc">Tambah 500 followers TikTok</div><div class="product-footer"><div class="product-price">Rp50.000</div><button class="btn-order" onclick="orderProduct('TikTok Followers 500', 50000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">1.000 Followers</div><div class="product-desc">Tambah 1.000 followers TikTok</div><div class="product-footer"><div class="product-price">Rp95.000</div><button class="btn-order" onclick="orderProduct('TikTok Followers 1000', 95000)">Order</button></div></div>
+                </div>
+
+                <h3 style="font-size:1.1rem;margin-bottom:16px;color:var(--warning);">⭐ Paket Hemat TikTok</h3>
+                <div class="packages-grid">
+                    <div class="package-card">
+                        <div class="package-name">Paket Starter</div>
+                        <div class="package-price">Rp8.000</div>
+                        <ul class="package-features"><li>1.000 Views</li><li>100 Likes</li><li>Proses Cepat</li><li>Kirim Link Video</li></ul>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Proses cepat</span><span class="badge badge-success">Cocok promosi</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('Paket Starter TikTok', 8000)">Pilih Paket</button>
+                    </div>
+                    <div class="package-card popular">
+                        <div class="package-name">Paket Viral</div>
+                        <div class="package-price">Rp30.000</div>
+                        <ul class="package-features"><li>5.000 Views</li><li>500 Likes</li><li>100 Share</li><li>Proses Cepat</li></ul>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Proses cepat</span><span class="badge badge-success">Cocok branding</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('Paket Viral TikTok', 30000)">Pilih Paket</button>
+                    </div>
+                    <div class="package-card">
+                        <div class="package-name">Paket Creator</div>
+                        <div class="package-price">Rp75.000</div>
+                        <ul class="package-features"><li>10.000 Views</li><li>1.000 Likes</li><li>250 Followers</li><li>Proses Cepat</li></ul>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Proses cepat</span><span class="badge badge-success">Cocok branding</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('Paket Creator TikTok', 75000)">Pilih Paket</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube Premium -->
+            <div class="category-section scroll-reveal" id="payment">
+                <div class="category-header"><div class="category-icon">📺</div><div><div class="category-title">YouTube Premium Invite</div><div class="category-subtitle">Nonton tanpa iklan dengan harga terjangkau</div></div></div>
+                <div class="packages-grid" style="max-width:500px;margin:0 auto;">
+                    <div class="package-card popular">
+                        <div class="package-name">YouTube Premium Invite</div>
+                        <div style="font-size:0.9rem;color:var(--text-muted);margin-bottom:8px;">⏳ 1 Bulan</div>
+                        <div class="package-price">Rp10.000</div>
+                        <ul class="package-features">
+                            <li>Bebas iklan</li>
+                            <li>Background play</li>
+                            <li>Download offline</li>
+                            <li>Menonton lebih nyaman</li>
+                        </ul>
+                        <div style="background:var(--darker);border-radius:var(--radius);padding:16px;margin-bottom:20px;">
+                            <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;">
+                                <strong style="color:var(--text);">Keterangan:</strong><br>
+                                Sistem invite family<br>
+                                Proses cepat<br>
+                                Garansi masa aktif<br>
+                                Wajib akun pribadi
+                            </p>
+                        </div>
+                        <div class="hero-badges" style="margin-bottom:20px;justify-content:center;"><span class="badge badge-success">Fast respon</span><span class="badge badge-success">Trusted service</span></div>
+                        <button class="btn btn-primary btn-full" onclick="orderProduct('YouTube Premium Invite 1 Bulan', 10000)">Order Sekarang</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jasa Design Logo -->
+            <div class="category-section scroll-reveal">
+                <div class="category-header"><div class="category-icon">🎨</div><div><div class="category-title">Jasa Design Logo</div><div class="category-subtitle">Logo profesional untuk brand Anda</div></div></div>
+                <div class="products-grid">
+                    <div class="product-card"><div class="product-name">Logo Simple</div><div class="product-desc">Logo simple minimalis</div><div class="product-footer"><div class="product-price">Rp10.000</div><button class="btn-order" onclick="orderProduct('Logo Simple', 10000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Logo Standard</div><div class="product-desc">Logo standard dengan konsep</div><div class="product-footer"><div class="product-price">Rp25.000</div><button class="btn-order" onclick="orderProduct('Logo Standard', 25000)">Order</button></div></div>
+                    <div class="product-card"><div class="product-name">Logo Premium</div><div class="product-desc">Logo premium full konsep</div><div class="product-footer"><div class="product-price">Rp50.000+</div><button class="btn-order" onclick="orderProduct('Logo Premium', 50000)">Order</button></div></div>
+                </div>
+                <div style="text-align:center;margin-top:24px;">
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:12px;">Pilihan: Gaming, Olshop, Brand, Esport, Minimalist, Mascot, Custom</p>
+                    <div class="hero-badges" style="justify-content:center;"><span class="badge badge-success">Fast respon</span><span class="badge badge-success">Design sesuai konsep</span><span class="badge badge-success">Revisi sewajarnya</span></div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimoni">
-        <div class="section-header fade-in">
-            <span class="section-label">Testimoni</span>
-            <h2 class="section-title">Apa Kata Pelanggan?</h2>
-            <p class="section-subtitle">Ulasan dari pelanggan yang telah menggunakan layanan kami.</p>
-        </div>
-        <div class="testimonial-carousel fade-in">
-            <div class="testimonial-track" id="testimonialTrack">
-                <!-- Testimonials will be injected by JS -->
+    <!-- Testimonials -->
+    <section class="section-padding" id="testimoni" style="background:var(--dark);">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <div class="section-label">Testimoni</div>
+                <h2 class="section-title">Apa Kata Pelanggan?</h2>
+                <p class="section-desc">Testimoni demo untuk tampilan website</p>
+            </div>
+            <div class="testimonials-slider scroll-reveal">
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <!-- Testimonials will be generated by JS -->
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" onclick="moveSlider(-1)">←</button>
+                    <button class="slider-btn" onclick="moveSlider(1)">→</button>
+                </div>
             </div>
         </div>
-        <p class="testimonial-disclaimer">* Testimoni di atas merupakan sample/demo untuk keperluan tampilan website.</p>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="whatsapp">
-        <div class="cta-content fade-in">
-            <h2>Siap Order? <span class="gradient-text">Chat Admin Sekarang</span></h2>
-            <p>Admin siap membantu kebutuhan digital Anda. Fast response, hasil rapi, dan harga bersahabat.</p>
-            <a href="https://wa.me/628998915333?text=Halo%20admin%20Sllowly%20Store%2C%20saya%20ingin%20order." class="btn btn-primary" target="_blank">
-                📱 Chat WhatsApp — 0899-8915-333
-            </a>
+    <!-- FAQ -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <div class="section-label">FAQ</div>
+                <h2 class="section-title">Pertanyaan Umum</h2>
+            </div>
+            <div class="faq-list scroll-reveal">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Bagaimana cara order?</button>
+                    <div class="faq-answer"><p>Klik tombol Order pada produk yang diinginkan, isi form checkout, lakukan pembayaran QRIS, dan konfirmasi ke admin WhatsApp.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Payment apa yang tersedia?</button>
+                    <div class="faq-answer"><p>Kami menerima pembayaran via QRIS yang mendukung semua e-wallet dan mobile banking di Indonesia.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Berapa lama proses pengerjaan?</button>
+                    <div class="faq-answer"><p>Proses pengerjaan bervariasi 10 menit - 24 jam tergantung jenis layanan. Untuk layanan urgent bisa chat admin.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">Bisa revisi?</button>
+                    <div class="faq-answer"><p>Ya, revisi sewajarnya tersedia untuk semua layanan. Detail revisi tergantung paket yang dipilih.</p></div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-top">
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
                 <div class="footer-brand">
-                    <div class="logo">Sllowly Store</div>
-                    <p>Digital Service & AI Editing<br>Trusted Seller • Fast Response<br>Solusi digital profesional untuk kebutuhan Anda.</p>
+                    <a href="index.html" class="logo"><div class="logo-icon">S</div><span>Sllowly Store</span></a>
+                    <p>Digital Service & AI Editing • Trusted Seller • Fast Response</p>
                 </div>
-                <div class="footer-links">
-                    <h4>Menu</h4>
-                    <ul>
+                <div>
+                    <h4 class="footer-title">Menu</h4>
+                    <ul class="footer-links">
                         <li><a href="#produk">Produk</a></li>
                         <li><a href="#payment">Payment</a></li>
                         <li><a href="#testimoni">Testimoni</a></li>
-                        <li><a href="#whatsapp">WhatsApp</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Layanan</h4>
-                    <ul>
-                        <li><a href="#produk">AI Editing</a></li>
-                        <li><a href="#produk">TikTok Boost</a></li>
-                        <li><a href="#produk">YouTube Premium</a></li>
-                        <li><a href="#produk">Design Logo</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Kontak</h4>
-                    <ul>
                         <li><a href="https://wa.me/628998915333" target="_blank">WhatsApp</a></li>
-                        <li><a href="#payment">QRIS Payment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Layanan</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">AI Editing</a></li>
+                        <li><a href="#">TikTok Boost</a></li>
+                        <li><a href="#">Design Logo</a></li>
+                        <li><a href="#">Jasa Konten</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Kontak</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://wa.me/628998915333" target="_blank">WA: 0899-8915-333</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 Sllowly Store. All rights reserved.</p>
-                <p>Digital Service & AI Editing</p>
+                <p>© 2026 Sllowly Store. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/628998915333" target="_blank" title="WhatsApp">💬</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Testimonials Data (50+ dummy testimonials)
-        const testimonialData = [
-            { name: "Ahmad Rizky", text: "Edit cepat dan hasil bagus banget! Adminnya juga ramah." },
-            { name: "Dewi Lestari", text: "Admin fast respon, pesanan saya dikerjain dalam hitungan jam." },
-            { name: "Budi Santoso", text: "Logo sesuai request, revisinya juga cepat. Recommended!" },
-            { name: "Siti Aminah", text: "Foto wisuda saya jadi HD dan backgroundnya premium. Mantap!" },
-            { name: "Rian Pratama", text: "Prompt AI untuk landing page saya keren abis. Worth it!" },
-            { name: "Nadia Putri", text: "TikTok views saya naik signifikan setelah pakai jasa ini." },
-            { name: "Fajar Hidayat", text: "YouTube Premium invite berhasil aktif, garansi juga aman." },
-            { name: "Maya Sari", text: "Edit foto couple kita jadi estetik banget. Suka!" },
-            { name: "Andi Wijaya", text: "Caption untuk konten TikTok saya kreatif dan engaging." },
-            { name: "Lina Kusuma", text: "Old photo restore hasilnya bagus, foto lama jadi jernih lagi." },
-            { name: "Eko Prasetyo", text: "Face swap natural, nggak kelihatan editan sama sekali." },
-            { name: "Rina Amelia", text: "Paket AI Basic hemat banget, 2 foto + HD cuma 15rb." },
-            { name: "Dedi Kurniawan", text: "Script video affiliate saya jadi lebih profesional." },
-            { name: "Fitri Handayani", text: "Background wisuda premium beneran keliatan mewah." },
-            { name: "Yusuf Maulana", text: "Design logo gaming saya keren, temen-temen pada nanya." },
-            { name: "Anisa Rahma", text: "Perbaikan foto blur hasilnya jelas, nggak nyangka sebagus ini." },
-            { name: "Hendra Gunawan", text: "TikTok likes saya naik drastis, konten jadi lebih viral." },
-            { name: "Putri Anggraini", text: "AI beauty edit natural, nggak over dan tetap kelihatan asli." },
-            { name: "Bayu Aji", text: "Landing page HTML simple tapi rapi dan responsive." },
-            { name: "Intan Permata", text: "Paket Creator lengkap, prompt + caption + ide konten semua ada." },
-            { name: "Agus Salim", text: "Foto keluarga kita jadi lebih harmonis setelah di-edit AI." },
-            { name: "Sari Melati", text: "TikTok share service berfungsi dengan baik, proses cepat." },
-            { name: "Doni Saputra", text: "Prompt custom sesuai request saya, detail dan lengkap." },
-            { name: "Wulan Sari", text: "Jas wisuda AI kelihatan realistis, nggak ada yang nyangka editan." },
-            { name: "Reza Fahmi", text: "Followers TikTok saya naik stabil, nggak drop." },
-            { name: "Dina Oktaviani", text: "Logo minimalist untuk brand saya simple tapi elegan." },
-            { name: "Teguh Prasetyo", text: "Enhance foto hasilnya HD banget, detailnya keluar semua." },
-            { name: "Rani Indah", text: "Foto santai saya jadi estetik, cocok buat feed Instagram." },
-            { name: "Irfan Hakim", text: "Paket Viral TikTok worth it, views dan likes naik bersamaan." },
-            { name: "Nurul Hidayah", text: "Copywriting simple tapi powerful, engagement naik." },
-            { name: "Adi Nugroho", text: "Mascot logo untuk tim esport kita keren abis!" },
-            { name: "Vina Mariana", text: "Ubah background foto jadi seamless, nggak kelihatan edit." },
-            { name: "Fahmi Ardiansyah", text: "Ide konten TikTok saya jadi lebih terstruktur dan kreatif." },
-            { name: "Lestari Dewi", text: "Full edit wisuda HD hasilnya benar-benar premium." },
-            { name: "Rudi Hartono", text: "YouTube Premium bebas iklan, nonton jadi lebih nyaman." },
-            { name: "Citra Lestari", text: "Couple wisuda edit jadi romantis, keluarga pada suka." },
-            { name: "Dwiki Ramadhan", text: "TikTok views 10K real dan cepat masuk." },
-            { name: "Siska Amelia", text: "AI soft edit untuk foto profile jadi lebih glowing." },
-            { name: "Bima Sakti", text: "Logo premium dengan brand guidelines, profesional banget." },
-            { name: "Yuni Rahayu", text: "Foto blur jadi jernih, wajah jelas kelihatan detailnya." },
-            { name: "Arief Wicaksono", text: "Paket Starter TikTok murah meriah untuk pemula." },
-            { name: "Diana Puspita", text: "Prompt landing page saya convert jadi website beneran." },
-            { name: "Hadi Sucipto", text: "Background play YouTube Premium ngebantu banget multitask." },
-            { name: "Meli Susanti", text: "Edit foto keluarga jadi lebih warm dan harmonis." },
-            { name: "Joko Widodo", text: "TikTok likes 1K prosesnya cepat dan aman." },
-            { name: "Rina Marlina", text: "Logo olshop saya jadi lebih eye-catching." },
-            { name: "Samsul Arifin", text: "Old photo restore warnanya jadi lebih hidup." },
-            { name: "Indah Permatasari", text: "Paket Wisuda Premium complete package, nggak perlu pusing." },
-            { name: "Feri Setiawan", text: "Download offline YouTube Premium ngebantu pas jaringan jelek." },
-            { name: "Novi Andriani", text: "Face swap jadi natural, nggak ada yang nyangka editan." },
-            { name: "Yoga Pratama", text: "Script affiliate saya jadi lebih persuasif dan convert." },
-            { name: "Desi Ratnasari", text: "Foto couple estetik jadi favorit di media sosial." },
-            { name: "Anton Budiman", text: "TikTok followers real dan nggak drop setelah beberapa hari." },
-            { name: "Mira Anggraini", text: "Caption simple tapi impactful, followers saya naik." },
-            { name: "Gilang Ramadhan", text: "Prompt AI gambar hasilnya sesuai imajinasi saya." },
-            { name: "Tika Wulandari", text: "Perbaikan foto lama jadi kenangan yang lebih berharga." },
-            { name: "Dani Kurnia", text: "Paket Creator hemat, satu paket semua kebutuhan konten terpenuhi." }
-        ];
-
-        // Generate Testimonial Cards
-        function generateTestimonials() {
-            const track = document.getElementById('testimonialTrack');
-            const cards = testimonialData.map(t => `
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">${t.name.charAt(0)}</div>
-                        <div class="testimonial-info">
-                            <h4>${t.name}</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="testimonial-text">"${t.text}"</p>
-                </div>
-            `).join('');
-            // Duplicate for seamless loop
-            track.innerHTML = cards + cards;
-        }
-
-        // Intersection Observer for fade-in animations
-        function initAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        }
-
-        // Mobile menu toggle
-        function toggleMenu() {
-            const nav = document.querySelector('.nav-links');
-            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-            nav.style.position = 'absolute';
-            nav.style.top = '64px';
-            nav.style.left = '0';
-            nav.style.right = '0';
-            nav.style.flexDirection = 'column';
-            nav.style.background = 'rgba(10,10,15,0.95)';
-            nav.style.padding = '20px';
-            nav.style.backdropFilter = 'blur(20px)';
-            nav.style.borderBottom = '1px solid var(--glass-border)';
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            generateTestimonials();
-            initAnimations();
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
