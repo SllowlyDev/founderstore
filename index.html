@@ -1455,9 +1455,21 @@ function rUserTierInfo() {
 /* Aktif/nonaktif tab setor berdasarkan setting admin */
 function applySetorEnabled() {
   var se = DS.get('setorEnabled', { fresh: true, bekas: true, job: true });
+  var icons = { fresh: '<i class="fas fa-sparkles"></i> Gmail Fresh', bekas: '<i class="fas fa-rotate"></i> Gmail Bekas', job: '<i class="fas fa-briefcase"></i> Setor via Job' };
   ['fresh','bekas','job'].forEach(function(t){
     var btn = document.querySelector('#st-tabs .stb[data-t="' + t + '"]');
-    if (btn) btn.style.display = (se[t] === false) ? 'none' : '';
+    if (btn) {
+      btn.style.display = '';
+      if (se[t] === false) {
+        btn.innerHTML = icons[t] + ' <span style="font-size:10px;background:rgba(248,113,113,.2);color:var(--er);padding:2px 6px;border-radius:6px;margin-left:4px;font-weight:700;letter-spacing:.5px;">MAINTENANCE</span>';
+        btn.style.opacity = '0.7';
+        btn.title = 'Fitur sedang maintenance';
+      } else {
+        btn.innerHTML = icons[t];
+        btn.style.opacity = '';
+        btn.title = '';
+      }
+    }
     var pane = document.getElementById('st-' + t);
     if (!pane) return;
     var notice = pane.querySelector('.disabled-notice');
@@ -1465,8 +1477,8 @@ function applySetorEnabled() {
       if (!notice) {
         notice = document.createElement('div');
         notice.className = 'disabled-notice';
-        notice.style.cssText = 'padding:18px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35);border-radius:var(--rs);color:var(--er);text-align:center;font-weight:600;margin-bottom:16px;';
-        notice.innerHTML = '<i class="fas fa-ban"></i> Setor ' + (t === 'fresh' ? 'Gmail Fresh' : t === 'bekas' ? 'Gmail Bekas' : 'via Job') + ' sedang dinonaktifkan oleh admin.';
+        notice.style.cssText = 'padding:24px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35);border-radius:var(--rs);color:var(--er);text-align:center;font-weight:600;margin-bottom:16px;';
+        notice.innerHTML = '<i class="fas fa-screwdriver-wrench" style="font-size:28px;display:block;margin-bottom:8px;"></i><div style="font-size:16px;margin-bottom:4px;">MAINTENANCE</div><div style="font-size:13px;font-weight:500;color:var(--t2);">Setor ' + (t === 'fresh' ? 'Gmail Fresh' : t === 'bekas' ? 'Gmail Bekas' : 'via Job') + ' sedang dinonaktifkan oleh admin. Silakan coba lagi nanti.</div>';
         pane.insertBefore(notice, pane.firstChild);
       }
       pane.querySelectorAll('form').forEach(function(f){ f.style.display = 'none'; });
@@ -1618,6 +1630,8 @@ function hStor(e, type) {
   var users = DS.get('users', []);
   var user = users.find(function(u) { return u.id === sess.id; });
   addNf('Setoran baru dari <strong>' + (user ? user.username : 'Unknown') + '</strong>: ' + count + ' akun ' + typeName + ' (' + fRp(earning) + ')', 'setor');
+  /* Notifikasi untuk user sendiri */
+  addNf('Setoran <strong>' + count + ' akun ' + typeName + '</strong> berhasil dikirim. Estimasi ' + fRp(earning) + '. Menunggu verifikasi admin.', 'user', sess.id);
 
   /* Kirim notifikasi Telegram jika dikonfigurasi */
   sendTg('Setoran Baru\nUser: ' + (user ? user.username : '?') + '\nTipe: ' + typeName + '\nJumlah: ' + count + ' akun\nEstimasi: ' + fRp(earning));
@@ -1711,6 +1725,33 @@ function rUJobs() {
    ============================================================ */
 function rUWd(user) {
   document.getElementById('wd-sd').textContent = fRp(user.saldo);
+
+  /* Auto-isi metode/nomor/nama dari rekening tersimpan */
+  var sel = document.getElementById('wd-mt');
+  var nmEl = document.getElementById('wd-nm');
+  var naEl = document.getElementById('wd-na');
+  var reks = (user.rekening || []);
+  if (reks.length) {
+    sel.innerHTML = '<option value="">Pilih rekening tersimpan</option>' + reks.map(function(r, i){
+      return '<option value="' + i + '">' + r.method + ' - ' + r.number + ' (' + r.name + ')</option>';
+    }).join('');
+    sel.onchange = function() {
+      var idx = sel.value;
+      if (idx === '') { nmEl.value = ''; naEl.value = ''; return; }
+      var r = reks[parseInt(idx)];
+      if (r) { nmEl.value = r.number; naEl.value = r.name; }
+    };
+    nmEl.readOnly = true; naEl.readOnly = true;
+    nmEl.placeholder = 'Otomatis dari rekening'; naEl.placeholder = 'Otomatis dari rekening';
+    /* Pre-select rekening pertama */
+    if (!sel.value) { sel.value = '0'; sel.onchange(); }
+  } else {
+    sel.innerHTML = '<option value="">Pilih metode</option><option value="DANA">DANA</option><option value="OVO">OVO</option><option value="GOPAY">GOPAY</option>';
+    sel.onchange = null;
+    nmEl.readOnly = false; naEl.readOnly = false;
+    nmEl.placeholder = 'Nomor'; naEl.placeholder = 'Nama';
+  }
+
   var wds = DS.get('withdraws', []).filter(function(w) { return w.userId === user.id; }).reverse();
   var hl = document.getElementById('wd-hl');
   var em = document.getElementById('wd-em');
@@ -1736,9 +1777,16 @@ function hWd(e) {
   var number = document.getElementById('wd-nm').value.trim();
   var name = document.getElementById('wd-na').value.trim();
 
+  /* Jika value berupa index rekening tersimpan, ambil method dari rekening */
+  var reks = user.rekening || [];
+  if (reks.length && /^\d+$/.test(method)) {
+    var r = reks[parseInt(method)];
+    if (r) { method = r.method; number = r.number; name = r.name; }
+  }
+
   if (amount < 10000) { toast('Minimal withdraw Rp10.000!', 'er'); return; }
   if (amount > user.saldo) { toast('Saldo tidak mencukupi!', 'er'); return; }
-  if (!method || !number || !name) { toast('Lengkapi semua field!', 'er'); return; }
+  if (!method || !number || !name) { toast('Lengkapi semua field! Atur rekening dulu jika belum.', 'er'); return; }
 
   /* Kurangi saldo */
   user.saldo -= amount;
@@ -1751,6 +1799,7 @@ function hWd(e) {
 
   /* Notifikasi admin */
   addNf('Withdraw baru dari <strong>' + user.username + '</strong>: ' + fRp(amount) + ' via ' + method, 'withdraw');
+  addNf('Pengajuan withdraw <strong>' + fRp(amount) + '</strong> via ' + method + ' ke ' + number + ' (' + name + ') berhasil. Menunggu konfirmasi admin.', 'user', sess.id);
   sendTg('Withdraw Baru\nUser: ' + user.username + '\nJumlah: ' + fRp(amount) + '\nMetode: ' + method + '\nNomor: ' + number);
 
   toast('Withdraw ' + fRp(amount) + ' via ' + method + ' berhasil diajukan!', 'ok');
